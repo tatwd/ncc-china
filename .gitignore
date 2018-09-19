@@ -1,0 +1,16 @@
+# .NET project
+.vs
+bin
+obj
+*.user
+*.exe
+
+# node project
+node_modules
+dist
+
+# nuxt project
+.nuxt
+
+# template dir
+tmp
