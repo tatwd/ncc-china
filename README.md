@@ -13,7 +13,11 @@
 3. 本地添加一个 `remote` 账户并指向源仓库，以作为更新账户来同步源仓库的代码；
 
    ``` bash
+   # 添加上游账户 up 并指向源仓库
    git remote add up https://github.com/tatwd/ncc-china.git
+
+   # 同步源仓库 master 分支代码
+   git pull up master
    ```
 
 4. 创建并切换到开发分支上，编写你的代码；
