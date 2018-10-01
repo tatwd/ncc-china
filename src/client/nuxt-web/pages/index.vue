@@ -1,65 +1,74 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        ncc-china-client
-      </h1>
-      <h2 class="subtitle">
-        My fantastic Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
+  <section id="app">
+
+      <el-container class="content">
+        <el-main>
+          <el-card
+            class="card-box"
+            shadow="hover"
+          >
+            <div slot="header" class="clearfix">
+              <ul class="type-ul">
+                <li
+                  v-for="(type, index) in types"
+                  :key="index"
+                  index="index"
+                  class="type-li"
+                >
+                  {{type.title}}
+                </li>
+              </ul>
+            </div>
+            <div v-for="o in 4" :key="o" class="topic-item">
+              {{'话题 ' + o }}
+            </div>
+          </el-card>
+        </el-main>
+        <el-aside width="340px">
+          <dnc-slider />
+        </el-aside>
+      </el-container>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import DncSlider from '~/components/shared/DncSlider.vue'
 
 export default {
   components: {
-    Logo
+    DncSlider
+  },
+  computed: {
+    types() {
+      return [
+        {title: '全部', to: '/'},
+        {title: '精华', to: '/'},
+        {title: '分享', to: '/'},
+        {title: '问答', to: '/'},
+        {title: '招聘', to: '/'}
+      ]
+    }
   }
 }
 </script>
 
 <style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
+  .el-header,
+  .el-footer {
+    padding: 0;
+  }
+  .el-main {
+    padding: 0;
+  }
+  .type-ul {
+    padding: 0;
+  }
+  .type-li {
+    display: inline;
+    margin-right: 20px;
+  }
+  #app .el-main .el-card__body {
+    padding: 0 20px;
+  }
 </style>
+
