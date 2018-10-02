@@ -1,5 +1,8 @@
 <template>
-  <div id="dnc-header">
+  <div
+    id="ncc-header"
+    class="ncc-container"
+  >
     <el-row>
       <el-col
         :xs="24"
@@ -9,11 +12,11 @@
         :xl="4"
       >
         <!-- <img src="../../static/images/logo.png" /> -->
-        <div class="dnc-logo">
+        <div class="ncc-logo">
           <span class="logo1">.NET</span>
           <span class="logo2">C</span>
           <span class="logo1">re</span>
-          <div class="logo-cir"></div>
+          <div class="logo-cir" />
         </div>
       </el-col>
       <el-col
@@ -24,10 +27,9 @@
         :xl="6"
       >
         <el-input
+          :clearable="true"
           placeholder="Search"
-          :clearable=true
-          prefix-icon="el-icon-search"
-        ></el-input>
+        />
       </el-col>
       <el-col
         :xs="24"
@@ -37,19 +39,19 @@
         :xl="14"
       >
         <el-menu
+          :router="true"
           mode="horizontal"
           background-color="#ede8f8"
           text-color="#682079"
-          :router="true"
           active-text-color="#682079"
         >
           <el-menu-item
             v-for="(nav, index) in navs"
             :key="index"
-            index="index"
             :route="nav.to"
+            index="index"
           >
-            {{nav.title}}
+            {{ nav.title }}
           </el-menu-item>
         </el-menu>
       </el-col>
@@ -58,87 +60,86 @@
 </template>
 
 <script>
-  export default {
-    computed: {
-      navs () {
-        return [
-          {title: '首页', to: '/'},
-          {title: '微信公众号', to: '/'},
-          {title: '参考资料', to: '/'},
-          {title: 'API', to: '/'},
-          {title: '关于', to: '/'},
-          {title: '注册', to: '/user/signup'},
-          {title: '登录', to: '/user/signin'}
-        ]
-      }
+export default {
+  computed: {
+    navs() {
+      return [
+        { title: '首页', to: '/' },
+        { title: '微信公众号', to: '/' },
+        { title: '参考资料', to: '/' },
+        { title: 'API', to: '/' },
+        { title: '关于', to: '/' },
+        { title: '注册', to: '/user/signup' },
+        { title: '登录', to: '/user/signin' }
+      ]
     }
   }
+}
 </script>
 
 <style>
-  #dnc-header {
-    /* background-color: #682079; */
-    background-color: #ede8f8;
-  }
-  #dnc-header .dnc-logo {
-    position: relative;
-    padding: 0 10px;
-    width: 156px;
-    height: 60px;
-    color: #682079;
-  }
-  #dnc-header .dnc-logo .logo1 {
-    font-size: 30px;
-    vertical-align: middle;
-  }
-  #dnc-header .dnc-logo .logo2 {
-    margin-left: 10px;
-    font-size: 44px;
-    vertical-align: middle;
-  }
-  #dnc-header .dnc-logo .logo-cir {
-    position: absolute;
-    top: 25px;
-    left: 90px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #34d0ff;
-  }
-  #dnc-header .el-row img {
-    height: 56px;
-  }
-  #dnc-header .el-menu--horizontal {
-    border-bottom: none;
-  }
-  #dnc-header .el-menu--horizontal li {
-    border-bottom: none;
-  }
-  #dnc-header .el-menu {
-    float: right;
-  }
-  #dnc-header .el-input {
-    margin-top: 10px;
-    border: 0;
-  }
-  #dnc-header .el-input__inner {
-    border: 0;
-    border-radius: 20px;
-    border: 1px solid #e1e1e1;
+#ncc-header {
+  /* background-color: #682079; */
+  background-color: #ede8f8;
+}
+#ncc-header .ncc-logo {
+  position: relative;
+  padding: 0 10px;
+  width: 156px;
+  height: 60px;
+  color: #682079;
+}
+#ncc-header .ncc-logo .logo1 {
+  font-size: 30px;
+  vertical-align: middle;
+}
+#ncc-header .ncc-logo .logo2 {
+  margin-left: 10px;
+  font-size: 44px;
+  vertical-align: middle;
+}
+#ncc-header .ncc-logo .logo-cir {
+  position: absolute;
+  top: 25px;
+  left: 90px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #34d0ff;
+}
+#ncc-header .el-row img {
+  height: 56px;
+}
+#ncc-header .el-menu--horizontal {
+  border-bottom: none;
+}
+#ncc-header .el-menu--horizontal li {
+  border-bottom: none;
+}
+#dnc-header .el-menu {
+  float: right;
+}
+#ncc-header .el-input {
+  margin-top: 10px;
+  border: 0;
+}
+#ncc-header .el-input__inner {
+  border: 0;
+  border-radius: 20px;
+  border: 1px solid #e1e1e1;
+  background-color: #efe8e8;
+}
+#ncc-header .el-input__inner:hover {
+  animation: change-color;
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
+@keyframes change-color {
+  0% {
     background-color: #efe8e8;
   }
-  #dnc-header .el-input__inner:hover {
-    animation: change-color;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
+  100% {
+    background-color: #fff;
   }
-  @keyframes change-color {
-    0% {
-      background-color: #efe8e8;
-    }
-    100% {
-      background-color: #fff;
-    }
-  }
+}
 </style>
-

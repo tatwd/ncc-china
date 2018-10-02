@@ -1,11 +1,11 @@
 <template>
-  <div id="dnc-unlogin">
-    <el-card 
-      class="box-card" 
+  <div id="ncc-unlogin">
+    <el-card
+      class="box-card"
       shadow="hover"
     >
-      <div 
-        slot="header" 
+      <div
+        slot="header"
         class="clearfix"
       >
         <span>.NET Core 专业中文社区</span>
@@ -19,17 +19,13 @@
 </template>
 
 <script>
-export default {
-
-}
 </script>
 
 <style>
-  #dnc-unlogin p {
-    margin-bottom: 20px;
-  }
-  #dnc-unlogin span {
-    color: #682079;
-  }
+#ncc-unlogin p {
+  margin-bottom: 20px;
+}
+#ncc-unlogin span {
+  color: #682079;
+}
 </style>
-

@@ -1,7 +1,7 @@
 import Vue from 'vue'
-import Element from 'element-ui/lib/element-ui.common'
+import Element from 'element-ui' // lib/element-ui.common
 import locale from 'element-ui/lib/locale/lang/zh-CN'
-import '@/assets/scss/element-variables.scss'
+// import '@/assets/scss/element-variables.scss'
 
 export default () => {
   Vue.use(Element, { locale })

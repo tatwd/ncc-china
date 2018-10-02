@@ -1,10 +1,13 @@
 <template>
-  <div id="dnc-communication">
+  <div id="ncc-communication">
     <el-card
       class="card-box"
       shadow="hover"
     >
-      <div slot="header" class="clearfix">
+      <div
+        slot="header"
+        class="clearfix"
+      >
         <span>社区交流群</span>
       </div>
     </el-card>
@@ -12,11 +15,7 @@
 </template>
 
 <script>
-export default {
-
-}
 </script>
 
 <style>
-
 </style>

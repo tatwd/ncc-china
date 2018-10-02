@@ -1,5 +1,5 @@
 <template>
-  <div id="dnc-integral">
+  <div id="ncc-integral">
     <el-card
       class="card-box"
       shadow="hover"
@@ -12,17 +12,13 @@
 </template>
 
 <script>
-export default {
-  
-}
 </script>
 
 <style>
-  #dnc-integral p {
-    color: #682079;
-  }
-  #dnc-integral span {
-    color: #778087;
-  }
+#ncc-integral p {
+  color: #682079;
+}
+#ncc-integral span {
+  color: #778087;
+}
 </style>
-

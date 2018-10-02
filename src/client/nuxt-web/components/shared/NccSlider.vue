@@ -1,31 +1,30 @@
 <template>
-  <div id="dnc-slider">
-    <dnc-unlogin />
-    <dnc-ad />
-    <dnc-topicnoreply />
-    <dnc-integral />
-    <dnc-communication />
-    <dnc-friendship />
+  <div id="ncc-slider">
+    <ncc-unlogin />
+    <ncc-ad />
+    <ncc-topicnoreply />
+    <ncc-integral />
+    <ncc-communication />
+    <ncc-friendship />
   </div>
 </template>
 
 <script>
-import DncUnlogin from '~/components/shared/DncUnlogin.vue'
-import DncAd from '~/components/shared/DncAd.vue'
-import DncTopicnoreply from '~/components/shared/DncTopicnoreply.vue'
-import DncIntegral from '~/components/shared/DncIntegral.vue'
-import DncCommunication from '~/components/shared/DncCommunication.vue'
-import DncFriendship from '~/components/shared/DncFriendship.vue'
+import NccUnlogin from '~/components/shared/NccUnlogin.vue'
+import NccAd from '~/components/shared/NccAd.vue'
+import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
+import NccIntegral from '~/components/shared/NccIntegral.vue'
+import NccCommunication from '~/components/shared/NccCommunication.vue'
+import NccFriendship from '~/components/shared/NccFriendship.vue'
 
 export default {
   components: {
-    DncUnlogin,
-    DncAd,
-    DncTopicnoreply,
-    DncIntegral,
-    DncCommunication,
-    DncFriendship
+    NccUnlogin,
+    NccAd,
+    NccTopicnoreply,
+    NccIntegral,
+    NccCommunication,
+    NccFriendship
   }
 }
 </script>
-
