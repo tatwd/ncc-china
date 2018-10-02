@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\data\Ncc.China.Services.Identity.Data.csproj" />
+    <ProjectReference Include="..\..\..\http\Ncc.China.Http.csproj" />
+    <ProjectReference Include="..\..\..\common\Ncc.China.Common.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
