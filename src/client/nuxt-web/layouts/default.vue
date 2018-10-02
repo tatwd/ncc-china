@@ -16,6 +16,7 @@
         <ncc-footer />
       </el-footer>
     </el-container>
+    <ncc-backtop />
   </div>
 </template>
 
@@ -23,11 +24,14 @@
 import NccHeader from '~/components/shared/NccHeader.vue'
 import NccSlider from '~/components/shared/NccSlider.vue'
 import NccFooter from '~/components/shared/NccFooter.vue'
+import NccBacktop from '~/components/shared/NccBacktop.vue'
+
 export default {
   components: {
     NccHeader,
     NccSlider,
-    NccFooter
+    NccFooter,
+    NccBacktop
   }
 }
 </script>

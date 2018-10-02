@@ -1,27 +1,44 @@
 <template>
   <div id="signin">
     <el-form
-      ref="form"
+      ref="loginform"
+      :model="loginform"
+      :rules="rules"
       class="login-box"
     >
-      <el-form-item>
+      <el-form-item
+        prop="useremail"
+      >
         <el-input
-          placeholder="请输入用户名"
+          v-model="loginform.useremail"
+          placeholder="请输入用户邮箱"
         />
       </el-form-item>
-      <el-form-item>
+      <el-form-item
+        prop="userpwd"
+      >
         <el-input
-          placeholder="请输入密码"
+          v-model="loginform.userpwd"
+          type="password"
+          placeholder="请输入用户密码"
         />
       </el-form-item>
       <el-form-item>
         <el-button
           type="success"
           plain
-        >登录</el-button>
+          @click="submitForm('loginform')"
+        >
+          登录
+        </el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">通过 GitHub 账号登录</el-button>
+        <el-button
+          type="primary"
+          plain
+        >
+          通过 GitHub 账号登录
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -29,7 +46,58 @@
 
 <script>
 export default {
-  layout: 'account'
+  layout: 'account',
+
+  data() {
+    return {
+      loginform: {
+        useremail: '',
+        userpwd: ''
+      },
+      rules: {
+        useremail: [
+          {
+            required: true,
+            message: '请输入邮箱地址',
+            trigger: 'blur'
+          },
+          {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            trigger: ['blur', 'change']
+          }
+        ],
+        userpwd: [
+          {
+            required: true,
+            message: '请输入用户密码',
+            trigger: 'blur'
+          },
+          {
+            min: 6,
+            max: 18,
+            message: '长度在 6 到 18 个字符',
+            trigger: 'blur'
+          }
+        ]
+      }
+    }
+  },
+  methods: {
+    submitForm(loginform) {
+      this.$refs[loginform].validate(valid => {
+        if (valid) {
+          this.$axios.$get('https://api.github.com').then(res => {
+            console.log(res.json)
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+      this.$refs[loginform].resetFields()
+    }
+  }
 }
 </script>
 
@@ -40,13 +108,14 @@ export default {
   padding: 20px;
   top: 50%;
   left: 50%;
-  margin-top: -200px;
-  margin-left: -150px;
-  width: 300px;
-  height: 400px;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 10px;
+  margin-top: -150px;
+  margin-left: -120px;
+  width: 240px;
+  height: 300px;
   text-align: center;
+  z-index: 1;
+}
+#signin .el-button {
+  width: 100%;
 }
 </style>

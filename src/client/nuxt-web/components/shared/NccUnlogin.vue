@@ -1,6 +1,7 @@
 <template>
   <div id="ncc-unlogin">
     <el-card
+      v-show="unlogin"
       class="box-card"
       shadow="hover"
     >
@@ -11,7 +12,17 @@
         <span>.NET Core 专业中文社区</span>
       </div>
       <div>
-        <p>您可以 <span link-to:>登录</span> 或 <span link-to:>注册</span>，也可以</p>
+        <p>
+          您可以
+          <router-link to="/user/signin">
+            <span>登录</span>
+          </router-link>
+          或
+          <router-link to="/user/signup">
+            <span>注册</span>
+          </router-link>
+          ，也可以
+        </p>
         <el-button type="primary">通过 GitHub 登录</el-button>
       </div>
     </el-card>
@@ -19,6 +30,13 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      unlogin: true
+    }
+  }
+}
 </script>
 
 <style>

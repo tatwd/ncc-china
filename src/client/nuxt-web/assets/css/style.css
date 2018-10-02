@@ -18,9 +18,6 @@ a:hover {
 }
 
 /* public */
-.el-row {
-  margin: 0 -15px;
-}
 .ncc-container {
   width: 1400px;
   margin: 0 auto;
@@ -46,19 +43,3 @@ a:hover {
     width: 96%;
   }
 }
-.el-card {
-  background-color: #fff;
-  border-radius: 4px;
-  margin: 10px;
-}
-.el-card__header {
-  padding: 12px 20px;
-  color: #682079;
-  background-color: #f6f6f6;
-}
-#dnc-footer {
-  background-color: #ede8f8;
-  padding: 20px;
-}
-
-

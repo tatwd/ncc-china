@@ -41,7 +41,7 @@
         <el-menu
           :router="true"
           mode="horizontal"
-          background-color="#ede8f8"
+          background-color="#aca0c7"
           text-color="#682079"
           active-text-color="#682079"
         >
@@ -80,7 +80,8 @@ export default {
 <style>
 #ncc-header {
   /* background-color: #682079; */
-  background-color: #ede8f8;
+  /* background-color: #ede8f8; */
+  background-color: #aca0c7;
 }
 #ncc-header .ncc-logo {
   position: relative;
@@ -101,7 +102,7 @@ export default {
 #ncc-header .ncc-logo .logo-cir {
   position: absolute;
   top: 25px;
-  left: 90px;
+  left: 100px;
   width: 12px;
   height: 12px;
   border-radius: 50%;
