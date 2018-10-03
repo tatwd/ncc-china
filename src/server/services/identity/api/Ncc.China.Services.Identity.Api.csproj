@@ -16,7 +16,7 @@
   <ItemGroup>
     <!-- <ProjectReference Include="..\data\Ncc.China.Services.Identity.Data.csproj" /> -->
     <ProjectReference Include="..\..\..\http\Ncc.China.Http.csproj" />
-    <ProjectReference Include="..\logic\Ncc.China.Services.Identity.Loigc.csproj" />
+    <ProjectReference Include="..\logic\Ncc.China.Services.Identity.Logic.csproj" />
   </ItemGroup>
 
 </Project>

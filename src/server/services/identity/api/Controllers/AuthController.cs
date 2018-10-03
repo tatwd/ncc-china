@@ -6,10 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
-    using Http.Message;
-    using Loigc.Dto;
-    using Loigc;
     using Data;
+    using Logic;
+    using Logic.Dto;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -21,13 +20,6 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         {
             _context = context;
         }
-
-        // [HttpGet("id")]
-        // public IActionResult Get([FromQuery, FromRoute]string id)
-        // {
-        //     var service = new UserService(_context);
-        //     return Ok(service.GetUser(id));
-        // }
 
         [HttpPost("login")]
         public IActionResult Post([FromBody]LoginDto dto)

@@ -6,10 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
-    // using Http.Message;
-    // using Loigc.Dto;
-    using Loigc;
     using Data;
+    using Logic;
 
     [Route("api/[controller]")]
     [ApiController]

@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Ncc.China.Services.Identity.Loigc.Dto
+namespace Ncc.China.Services.Identity.Logic.Dto
 {
     public class LoginDto
     {

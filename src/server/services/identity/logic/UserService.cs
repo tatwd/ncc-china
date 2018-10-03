@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ncc.China.Services.Identity.Loigc
+namespace Ncc.China.Services.Identity.Logic
 {
     using Http.Message;
     using Data;
