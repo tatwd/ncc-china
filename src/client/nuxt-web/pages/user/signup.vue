@@ -1,7 +1,8 @@
 <template>
   <div id="signup">
     <el-form
-      ref="loginform"
+      ref="registerform"
+      :model="registerform"
       :rules="rules"
       class="register-box"
     >
@@ -26,6 +27,7 @@
       >
         <el-input
           v-model="form.userpwd"
+          type="password"
           placeholder="请输入用户密码"
         />
       </el-form-item>
@@ -88,7 +90,6 @@ export default {
             trigger: 'blur'
           },
           {
-            type: 'password',
             min: 6,
             max: 18,
             message: '长度在 6 到 18 个字符',
@@ -99,8 +100,8 @@ export default {
     }
   },
   methods: {
-    submitForm(loginform) {
-      this.$refs[loginform].validate(valid => {
+    submitForm(registerform) {
+      this.$refs[registerform].validate(valid => {
         if (valid) {
           alert('submit!')
         } else {
@@ -108,7 +109,7 @@ export default {
           return false
         }
       })
-      this.$refs[loginform].resetFields()
+      this.$refs[registerform].resetFields()
     }
   }
 }
