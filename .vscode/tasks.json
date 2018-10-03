@@ -10,6 +10,16 @@
                 "${workspaceFolder}/src/server/services/identity/api/Ncc.China.Services.Identity.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test identity.api.test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}/tests/identity_api/Ncc.China.Services.Identity.Api.Test.csproj"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
