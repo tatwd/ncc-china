@@ -1,0 +1,19 @@
+<template>
+  <div id="ncc-guide">
+    <el-card
+      class="card-box"
+      shadow="hover"
+    >
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <span>话题发布指南</span>
+      </div>
+      <div>
+        <p>尽量把话题要点浓缩到标题里</p>
+        <p>给话题选择合适的标签能增加浏览</p>
+      </div>
+    </el-card>
+  </div>
+</template>
