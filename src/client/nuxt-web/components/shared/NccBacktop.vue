@@ -2,8 +2,8 @@
   <div id="goTop">
     <div
       v-show="goTopShow"
-      :click="goTop"
       class="goTop"
+      @click="goTop"
     >
       <i class="el-icon-arrow-up" />
     </div>
@@ -14,8 +14,14 @@ export default {
   data() {
     return {
       scrollTop: '',
-      goTopShow: true
+      goTopShow: false
     }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     handleScroll() {
@@ -23,7 +29,7 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop
-      this.scrollTop > 0 ? (this.goTopShow = true) : (this.goTopShow = false)
+      this.scrollTop > 500 ? (this.goTopShow = true) : (this.goTopShow = false)
     },
     goTop() {
       let timer = null,
@@ -40,12 +46,6 @@ export default {
           _that.goTopShow = false
         }
       })
-    },
-    mounted() {
-      window.addEventListener('scroll', this.handleScroll)
-    },
-    destroyed() {
-      window.removeEventListener('scroll', this.handleScroll)
     }
   }
 }

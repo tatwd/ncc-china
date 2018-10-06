@@ -28,6 +28,7 @@
       >
         <el-input
           :clearable="true"
+          prefix-icon="el-icon-search"
           placeholder="Search"
         />
       </el-col>

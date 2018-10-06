@@ -4,14 +4,7 @@
       <el-header height="auto">
         <ncc-header />
       </el-header>
-      <el-container class="ncc-container">
-        <el-main>
-          <nuxt/>
-        </el-main>
-        <el-aside width="340px">
-          <ncc-slider />
-        </el-aside>
-      </el-container>
+      <nuxt/>
       <el-footer height="auto">
         <ncc-footer />
       </el-footer>
@@ -22,14 +15,12 @@
 
 <script>
 import NccHeader from '~/components/shared/NccHeader.vue'
-import NccSlider from '~/components/shared/NccSlider.vue'
 import NccFooter from '~/components/shared/NccFooter.vue'
 import NccBacktop from '~/components/shared/NccBacktop.vue'
 
 export default {
   components: {
     NccHeader,
-    NccSlider,
     NccFooter,
     NccBacktop
   }
