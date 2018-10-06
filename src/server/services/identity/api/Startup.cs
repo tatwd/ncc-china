@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Ncc.China.Services.Identity.Data;
 using Pomelo.EntityFrameworkCore.MySql;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Microsoft.AspNetCore.Cors;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -39,6 +40,18 @@ namespace Ncc.China.Services.Identity.Api
                         mysqlOptions.ServerVersion(new Version(8, 0, 12), ServerType.MySql);
                     })
             );
+
+            services.AddCors(options => {
+                // add default policy to allow all
+                options.AddPolicy(options.DefaultPolicyName,
+                    builder => {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                    });
+
+                // others here
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -51,6 +64,9 @@ namespace Ncc.China.Services.Identity.Api
             {
                 app.UseHsts();
             }
+
+            // use default policy
+            app.UseCors();
 
             using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
