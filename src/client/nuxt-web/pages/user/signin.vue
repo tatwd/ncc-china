@@ -10,8 +10,8 @@
         prop="useremail"
       >
         <el-input
-          v-model="loginform.useremail"
-          placeholder="请输入用户邮箱"
+          v-model="loginform.username"
+          placeholder="请输入用户名或用户邮箱"
         />
       </el-form-item>
       <el-form-item
@@ -51,20 +51,15 @@ export default {
   data() {
     return {
       loginform: {
-        useremail: '',
+        username: '',
         userpwd: ''
       },
       rules: {
-        useremail: [
+        username: [
           {
             required: true,
-            message: '请输入邮箱地址',
+            message: '请输入用户名或用户邮箱',
             trigger: 'blur'
-          },
-          {
-            type: 'email',
-            message: '请输入正确的邮箱地址',
-            trigger: ['blur', 'change']
           }
         ],
         userpwd: [
@@ -87,9 +82,15 @@ export default {
     submitForm(loginform) {
       this.$refs[loginform].validate(valid => {
         if (valid) {
-          this.$axios.$get('https://api.github.com').then(res => {
-            console.log(res.json)
-          })
+          this.$axios
+            .$post('http://192.168.1.103:5000/api/auth/login', {
+              login: this.loginform.username,
+              password: this.loginform.userpwd
+            })
+            .then(res => {
+              console.log(res)
+            })
+            .catch(console.log)
         } else {
           console.log('error submit!!')
           return false

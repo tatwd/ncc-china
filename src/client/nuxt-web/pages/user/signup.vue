@@ -10,7 +10,7 @@
         prop="username"
       >
         <el-input
-          v-model="form.username"
+          v-model="registerform.username"
           placeholder="请输入用户名"
         />
       </el-form-item>
@@ -18,7 +18,7 @@
         prop="useremail"
       >
         <el-input
-          v-model="form.useremail"
+          v-model="registerform.useremail"
           placeholder="请输入用户邮箱"
         />
       </el-form-item>
@@ -26,7 +26,7 @@
         prop="userpwd"
       >
         <el-input
-          v-model="form.userpwd"
+          v-model="registerform.userpwd"
           type="password"
           placeholder="请输入用户密码"
         />
@@ -35,7 +35,7 @@
         <el-button
           type="success"
           plain
-          @click="submitForm('loginForm')"
+          @click="submitForm('registerform')"
         >
           注册账号
         </el-button>
@@ -58,7 +58,7 @@ export default {
 
   data() {
     return {
-      form: {
+      registerform: {
         username: '',
         useremail: '',
         userpwd: ''
@@ -67,7 +67,7 @@ export default {
         username: [
           {
             required: true,
-            message: '请输入用户密码',
+            message: '请输入用户名',
             trigger: 'blur'
           }
         ],
@@ -80,7 +80,7 @@ export default {
           {
             type: 'email',
             message: '请输入正确的邮箱地址',
-            trigger: ['blur', 'change']
+            trigger: 'blur'
           }
         ],
         userpwd: [
@@ -103,7 +103,16 @@ export default {
     submitForm(registerform) {
       this.$refs[registerform].validate(valid => {
         if (valid) {
-          alert('submit!')
+          this.$axios
+            .$post('http://192.168.1.103:5000/api/auth/register', {
+              username: this.registerform.username,
+              email: this.registerform.useremail,
+              password: this.registerform.userpwd
+            })
+            .then(res => {
+              console.log(res)
+            })
+            .catch(console.log)
         } else {
           console.log('error submit!!')
           return false
