@@ -7,6 +7,7 @@
       <router-link to="/topic/create">
         <el-button
           type="success"
+          plain
         >
           发布话题
         </el-button>

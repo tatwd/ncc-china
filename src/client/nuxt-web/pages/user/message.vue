@@ -2,9 +2,8 @@
   <div id="usercenter">
     <el-container class="content ncc-container">
       <el-main>
-        <ncc-userinfo />
-        <ncc-mycreate />
-        <ncc-myjoin />
+        <ncc-unread />
+        <ncc-allmessage />
       </el-main>
       <el-aside>
         <ncc-logined />
@@ -20,9 +19,8 @@
 </template>
 
 <script>
-import NccUserinfo from '~/components/user/NccUserinfo.vue'
-import NccMycreate from '~/components/user/NccMycreate.vue'
-import NccMyjoin from '~/components/user/NccMyjoin.vue'
+import NccUnread from '~/components/user/NccUnread.vue'
+import NccAllmessage from '~/components/user/NccAllmessage.vue'
 import NccLogined from '~/components/user/NccLogined.vue'
 import NccCreatebtn from '~/components/topic/NccCreatebtn.vue'
 import NccAd from '~/components/shared/NccAd.vue'
@@ -33,9 +31,8 @@ import NccFriendship from '~/components/shared/NccFriendship.vue'
 
 export default {
   components: {
-    NccUserinfo,
-    NccMycreate,
-    NccMyjoin,
+    NccUnread,
+    NccAllmessage,
     NccLogined,
     NccCreatebtn,
     NccAd,

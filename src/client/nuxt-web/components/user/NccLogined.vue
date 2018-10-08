@@ -24,6 +24,22 @@
         <span>积分：</span>
         <label>0</label>
         <p>123</p>
+        <router-link to="/user/message">
+          <el-button
+            type="primary"
+            plain
+          >
+            全部消息
+          </el-button>
+        </router-link>
+        <router-link to="/user/message">
+          <el-button
+            type="warning"
+            plain
+          >
+            未读消息
+          </el-button>
+        </router-link>
       </div>
     </el-card>
   </div>
@@ -50,8 +66,5 @@ export default {
 #ncc-logined .ava-name label {
   margin-left: 10px;
   vertical-align: middle;
-}
-#ncc-logined p {
-  margin: 0;
 }
 </style>
