@@ -1,6 +1,12 @@
 .el-header,
 .el-footer {
-  background-color: #aca0c7;
+  background-color: #682079;
+}
+.el-main {
+  padding: 0;
+}
+.el-aside {
+  width: 340px;
 }
 .el-card {
   background-color: #fff;

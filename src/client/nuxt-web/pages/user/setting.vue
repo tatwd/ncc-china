@@ -1,18 +1,26 @@
 <template>
-  <div id="ncc-slider">
-    <ncc-unlogin />
-    <ncc-logined />
-    <ncc-createbtn />
-    <ncc-ad />
-    <ncc-topicnoreply />
-    <ncc-integral />
-    <ncc-communication />
-    <ncc-friendship />
+  <div id="setting">
+    <el-container class="content ncc-container">
+      <el-main>
+        <ncc-updateinfo />
+        <ncc-updatepwd />
+      </el-main>
+      <el-aside>
+        <ncc-logined />
+        <ncc-createbtn />
+        <ncc-ad />
+        <ncc-topicnoreply />
+        <ncc-integral />
+        <ncc-communication />
+        <ncc-friendship />
+      </el-aside>
+    </el-container>
   </div>
 </template>
 
 <script>
-import NccUnlogin from '~/components/shared/NccUnlogin.vue'
+import NccUpdateinfo from '~/components/user/NccUpdateinfo.vue'
+import NccUpdatepwd from '~/components/user/NccUpdatepwd.vue'
 import NccLogined from '~/components/user/NccLogined.vue'
 import NccCreatebtn from '~/components/topic/NccCreatebtn.vue'
 import NccAd from '~/components/shared/NccAd.vue'
@@ -23,7 +31,8 @@ import NccFriendship from '~/components/shared/NccFriendship.vue'
 
 export default {
   components: {
-    NccUnlogin,
+    NccUpdateinfo,
+    NccUpdatepwd,
     NccLogined,
     NccCreatebtn,
     NccAd,

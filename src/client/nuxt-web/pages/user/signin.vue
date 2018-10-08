@@ -6,17 +6,13 @@
       :rules="rules"
       class="login-box"
     >
-      <el-form-item
-        prop="useremail"
-      >
+      <el-form-item prop="username">
         <el-input
           v-model="loginform.username"
           placeholder="请输入用户名或用户邮箱"
         />
       </el-form-item>
-      <el-form-item
-        prop="userpwd"
-      >
+      <el-form-item prop="userpwd">
         <el-input
           v-model="loginform.userpwd"
           type="password"
@@ -32,14 +28,8 @@
           登录
         </el-button>
       </el-form-item>
-      <el-form-item>
-        <el-button
-          type="primary"
-          plain
-        >
-          通过 GitHub 账号登录
-        </el-button>
-      </el-form-item>
+      <p>还没有账号？马上去<router-link to="/user/signup">注册</router-link></p>
+      <p><router-link to="/">回到首页</router-link></p>
     </el-form>
   </div>
 </template>
@@ -58,6 +48,10 @@ export default {
         username: [
           {
             required: true,
+            message: '请输入用户名或用户邮箱',
+            trigger: 'blur'
+          },
+          {
             message: '请输入用户名或用户邮箱',
             trigger: 'blur'
           }

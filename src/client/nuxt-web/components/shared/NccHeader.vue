@@ -42,9 +42,9 @@
         <el-menu
           :router="true"
           mode="horizontal"
-          background-color="#aca0c7"
-          text-color="#682079"
-          active-text-color="#682079"
+          background-color="#682079"
+          text-color="#fff"
+          active-text-color="#fff"
         >
           <el-menu-item
             v-for="(nav, index) in navs"
@@ -68,8 +68,8 @@ export default {
         { title: '首页', to: '/' },
         { title: '微信公众号', to: '/' },
         { title: '参考资料', to: '/' },
-        { title: 'API', to: '/' },
-        { title: '关于', to: '/' },
+        { title: '.NET Core', to: '/' },
+        { title: '关于', to: '/about' },
         { title: '注册', to: '/user/signup' },
         { title: '登录', to: '/user/signin' }
       ]
@@ -80,16 +80,14 @@ export default {
 
 <style>
 #ncc-header {
-  /* background-color: #682079; */
-  /* background-color: #ede8f8; */
-  background-color: #aca0c7;
+  background-color: #682079;
 }
 #ncc-header .ncc-logo {
   position: relative;
   padding: 0 10px;
   width: 156px;
   height: 60px;
-  color: #682079;
+  color: #fff;
 }
 #ncc-header .ncc-logo .logo1 {
   font-size: 30px;
@@ -109,17 +107,12 @@ export default {
   border-radius: 50%;
   background-color: #34d0ff;
 }
-#ncc-header .el-row img {
-  height: 56px;
-}
 #ncc-header .el-menu--horizontal {
+  float: right;
   border-bottom: none;
 }
 #ncc-header .el-menu--horizontal li {
   border-bottom: none;
-}
-#dnc-header .el-menu {
-  float: right;
 }
 #ncc-header .el-input {
   margin-top: 10px;
@@ -128,8 +121,7 @@ export default {
 #ncc-header .el-input__inner {
   border: 0;
   border-radius: 20px;
-  border: 1px solid #e1e1e1;
-  background-color: #efe8e8;
+  background-color: #aca0c7;
 }
 #ncc-header .el-input__inner:hover {
   animation: change-color;
@@ -138,7 +130,7 @@ export default {
 }
 @keyframes change-color {
   0% {
-    background-color: #efe8e8;
+    background-color: #aca0c7;
   }
   100% {
     background-color: #fff;

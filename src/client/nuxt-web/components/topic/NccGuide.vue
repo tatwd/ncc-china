@@ -17,3 +17,9 @@
     </el-card>
   </div>
 </template>
+
+<style scoped>
+#ncc-guide p {
+  margin-top: 0;
+}
+</style>

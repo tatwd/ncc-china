@@ -1,7 +1,7 @@
 <template>
   <div id="ncc-unlogin">
     <el-card
-      v-show="unlogin"
+      v-if="unlogin"
       class="box-card"
       shadow="hover"
     >
@@ -15,15 +15,20 @@
         <p>
           您可以
           <router-link to="/user/signin">
-            <span>登录</span>
+            登录
           </router-link>
           或
           <router-link to="/user/signup">
-            <span>注册</span>
+            注册
           </router-link>
           ，也可以
         </p>
-        <el-button type="primary">通过 GitHub 登录</el-button>
+        <el-button
+          type="primary"
+          plain
+        >
+          通过 GitHub 登录
+        </el-button>
       </div>
     </el-card>
   </div>
@@ -38,12 +43,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#ncc-unlogin p {
-  margin-bottom: 20px;
-}
-#ncc-unlogin span {
-  color: #682079;
-}
-</style>

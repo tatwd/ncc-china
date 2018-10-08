@@ -30,9 +30,18 @@ export default {
   computed: {
     friends() {
       return [
-        { title: 'Vue.js 中文社区', to: 'https://www.vue-js.com/' },
-        { title: 'Node.js 中文社区', to: 'https://cnodejs.org/' },
-        { title: '掘金-帮助开发者成长的社区', to: 'https://juejin.im/' }
+        {
+          title: 'Vue.js 中文社区',
+          to: 'https://www.vue-js.com/'
+        },
+        {
+          title: 'Node.js 中文社区',
+          to: 'https://cnodejs.org/'
+        },
+        {
+          title: '掘金-帮助开发者成长的社区',
+          to: 'https://juejin.im/'
+        }
       ]
     }
   }
