@@ -4,13 +4,13 @@
       class="card-box"
       shadow="hover"
     >
-      <a href="/user/create">
+      <router-link to="/topic/create">
         <el-button
           type="success"
         >
           发布话题
         </el-button>
-      </a>
+      </router-link>
     </el-card>
   </div>
 </template>

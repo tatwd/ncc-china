@@ -17,7 +17,7 @@
 <style>
 #ncc-footer {
   padding: 20px;
-  /* background-color: #ede8f8; */
+  color: #fff;
 }
 #ncc-footer p {
   margin: 10px 0;

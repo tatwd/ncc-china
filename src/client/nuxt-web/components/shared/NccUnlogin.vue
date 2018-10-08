@@ -1,7 +1,7 @@
 <template>
   <div id="ncc-unlogin">
     <el-card
-      v-show="unlogin"
+      v-if="unlogin"
       class="box-card"
       shadow="hover"
     >

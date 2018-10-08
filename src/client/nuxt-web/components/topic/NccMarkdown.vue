@@ -1,11 +1,11 @@
 <template>
   <div id="ncc-markdown">
     <el-card
-      class="card-box"
+      class="box-card"
       shadow="hover"
     >
       <div
-        solt="header"
+        slot="header"
         class="clearfix"
       >
         <span>Markdown 语法参考</span>
@@ -17,8 +17,14 @@
         <p>```js\n code \n``` 标记代码块</p>
         <p>[内容](链接)</p>
         <p>![文字说明](图片链接)</p>
-        <a href="www.ituring.com.cn/article/775">Markdown文档</a>
+        <a href="https://www.ituring.com.cn/article/775">Markdown文档</a>
       </div>
     </el-card>
   </div>
 </template>
+
+<style scoped>
+#ncc-markdown p {
+  margin-top: 0;
+}
+</style>

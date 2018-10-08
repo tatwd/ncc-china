@@ -15,7 +15,9 @@
         :key="o"
         class="text item"
       >
-        {{ '话题 ' + o }}
+        <router-link to="/">
+          {{ '话题 ' + o }}
+        </router-link>
       </div>
     </el-card>
   </div>
