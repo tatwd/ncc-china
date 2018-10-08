@@ -4,10 +4,7 @@
       class="card-box"
       shadow="hover"
     >
-      <div
-        slot="header"
-        class="clearfix"
-      >
+      <div>
         <span>人气积分榜 <router-link to="/">Top 100 >></router-link></span>
       </div>
     </el-card>

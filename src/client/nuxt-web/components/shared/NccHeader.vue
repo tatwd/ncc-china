@@ -68,8 +68,8 @@ export default {
         { title: '首页', to: '/' },
         { title: '微信公众号', to: '/' },
         { title: '参考资料', to: '/' },
-        { title: 'API', to: '/' },
-        { title: '关于', to: '/' },
+        { title: '.NET Core', to: '/' },
+        { title: '关于', to: '/about' },
         { title: '注册', to: '/user/signup' },
         { title: '登录', to: '/user/signin' }
       ]
@@ -107,18 +107,12 @@ export default {
   border-radius: 50%;
   background-color: #34d0ff;
 }
-#ncc-header .el-row img {
-  height: 56px;
-}
 #ncc-header .el-menu--horizontal {
   float: right;
   border-bottom: none;
 }
 #ncc-header .el-menu--horizontal li {
   border-bottom: none;
-}
-#dnc-header .el-menu {
-  float: right;
 }
 #ncc-header .el-input {
   margin-top: 10px;

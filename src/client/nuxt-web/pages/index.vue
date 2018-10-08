@@ -123,7 +123,7 @@ export default {
 }
 .type-li {
   display: inline;
-  margin-right: 20px;
+  margin: 0 10px;
 }
 #app .el-main .el-card__body {
   padding: 0;

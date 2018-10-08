@@ -12,7 +12,7 @@
         <span>个人信息</span>
       </div>
       <div>
-        <router-link to="/user/usercenter">
+        <router-link to="/user">
           <div class="ava-name">
             <img
               src="~/static/test.jpg"
@@ -32,14 +32,13 @@
             全部消息
           </el-button>
         </router-link>
-        <router-link to="/user/message">
-          <el-button
-            type="warning"
-            plain
-          >
-            未读消息
-          </el-button>
-        </router-link>
+        <el-button
+          type="warning"
+          plain
+          @click="signout"
+        >
+          注销登录
+        </el-button>
       </div>
     </el-card>
   </div>
@@ -50,6 +49,11 @@ export default {
   data() {
     return {
       logined: true
+    }
+  },
+  methods: {
+    signout() {
+      console.log('signout')
     }
   }
 }
