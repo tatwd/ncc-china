@@ -146,7 +146,7 @@ export default {
   margin-left: 10px;
   vertical-align: middle;
 }
-.topic-list > span {
+.topic-list .commentnum {
   margin-left: 40px;
 }
 .topic-list .topic-type {
