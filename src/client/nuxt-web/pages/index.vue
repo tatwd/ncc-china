@@ -27,25 +27,31 @@
             index="index"
             class="topic-item"
           >
-            <router-link :to="topic.to">
-              <div class="topic-list">
+            <div class="topic-list">
+              <router-link :to="topic.to">
                 <img
                   :src="topic.avatar"
                   alt=""
                 >
-                <span class="num">{{ topic.commentnum }}/{{ topic.browsenum }}</span>
                 <span class="topic-type">{{ topic.type }}</span>
-                <span>{{ topic.title }}</span>
-                <span class="topic-time">{{ topic.time }}</span>
-              </div>
-            </router-link>
+                <span class="topic-title">{{ topic.title }}</span>
+                <div class="topic-abstract">
+                  {{ topic.abstract }}
+                </div>
+              </router-link>
+              <span class="browsenum">
+                <i class="el-icon-view"> {{ topic.browsenum }} 次阅读</i>
+              </span>
+              <span class="commentnum">
+                <i class="el-icon-edit-outline"> {{ topic.commentnum }} 条评论</i>
+              </span>
+              <span class="topic-time">{{ topic.time }}</span>
+            </div>
           </div>
         </el-card>
       </el-main>
       <el-aside>
-        <ncc-unlogin />
-        <ncc-logined />
-        <ncc-createbtn />
+        <ncc-hottopic />
         <ncc-ad />
         <ncc-topicnoreply />
         <ncc-integral />
@@ -57,9 +63,7 @@
 </template>
 
 <script>
-import NccUnlogin from '~/components/shared/NccUnlogin.vue'
-import NccLogined from '~/components/user/NccLogined.vue'
-import NccCreatebtn from '~/components/topic/NccCreatebtn.vue'
+import NccHottopic from '~/components/topic/NccHottopic.vue'
 import NccAd from '~/components/shared/NccAd.vue'
 import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
 import NccIntegral from '~/components/shared/NccIntegral.vue'
@@ -68,9 +72,7 @@ import NccFriendship from '~/components/shared/NccFriendship.vue'
 
 export default {
   components: {
-    NccUnlogin,
-    NccLogined,
-    NccCreatebtn,
+    NccHottopic,
     NccAd,
     NccTopicnoreply,
     NccIntegral,
@@ -81,10 +83,8 @@ export default {
     types() {
       return [
         { title: '全部', to: '/' },
-        { title: '精华', to: '/' },
-        { title: '分享', to: '/' },
-        { title: '问答', to: '/' },
-        { title: '招聘', to: '/' }
+        { title: '关注', to: '/' },
+        { title: '热榜', to: '/' }
       ]
     },
     topics() {
@@ -96,7 +96,9 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/user/signin'
+          to: '/user/signin',
+          abstract:
+            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         },
         {
           avatar: require('../static/test.jpg'),
@@ -105,7 +107,9 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/user/signin'
+          to: '/user/signin',
+          abstract:
+            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         }
       ]
     }
@@ -129,17 +133,32 @@ export default {
   padding: 0;
 }
 .topic-item {
-  padding: 10px;
-  height: 30px;
-  border-bottom: 1px solid #aca0c7;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
 }
 .topic-item img {
   width: 30px;
+  height: 30px;
+  border-radius: 50%;
   vertical-align: middle;
 }
 .topic-item span {
   margin-left: 10px;
   vertical-align: middle;
+}
+.topic-list > span {
+  margin-left: 40px;
+}
+.topic-list .topic-type {
+  color: orange;
+}
+.topic-list .topic-title {
+  color: #222;
+  font-size: 20px;
+  font-weight: 700;
+}
+.topic-list .topic-abstract {
+  margin: 20px 0;
 }
 .topic-item .topic-time {
   float: right;

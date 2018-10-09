@@ -55,7 +55,7 @@ export default {
 .goTop {
   position: fixed;
   right: 50px;
-  bottom: 100px;
+  bottom: 150px;
   width: 50px;
   height: 50px;
   background: rgba(0, 0, 0, 0.65);
@@ -69,5 +69,6 @@ i {
   position: absolute;
   top: 17px;
   left: 17px;
+  color: #fff;
 }
 </style>

@@ -6,6 +6,10 @@
       :rules="rules"
       class="register-box"
     >
+      <router-link to="/">
+        <h1>.NET Core</h1>
+        <h2>专业中文社区</h2>
+      </router-link>
       <el-form-item prop="username">
         <el-input
           v-model="registerform.username"
@@ -42,7 +46,6 @@
         </el-button>
       </el-form-item>
       <p>已有账号？马上去<router-link to="/user/signin">登录</router-link></p>
-      <p><router-link to="/">回到首页</router-link></p>
     </el-form>
   </div>
 </template>
@@ -165,12 +168,16 @@ export default {
   padding: 20px;
   top: 50%;
   left: 50%;
-  margin-top: -150px;
+  margin-top: -230px;
   margin-left: -120px;
   width: 240px;
-  height: 300px;
+  height: 460px;
   text-align: center;
   z-index: 1;
+}
+#signup .register-box h1,
+#signup .register-box h2 {
+  margin-top: 0;
 }
 #signup .el-button {
   width: 100%;
