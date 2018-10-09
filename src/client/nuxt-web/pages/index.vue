@@ -27,21 +27,26 @@
             index="index"
             class="topic-item"
           >
-            <router-link :to="topic.to">
-              <div class="topic-list">
+            <div class="topic-list">
+              <router-link :to="topic.to">
                 <img
                   :src="topic.avatar"
                   alt=""
                 >
                 <span class="topic-type">{{ topic.type }}</span>
-                <span>{{ topic.title }}</span>
+                <span class="topic-title">{{ topic.title }}</span>
                 <div class="topic-abstract">
                   {{ topic.abstract }}
                 </div>
-                <span class="num">{{ topic.commentnum }}/{{ topic.browsenum }}</span>
-                <span class="topic-time">{{ topic.time }}</span>
-              </div>
-            </router-link>
+              </router-link>
+              <span class="browsenum">
+                <i class="el-icon-view"> {{ topic.browsenum }} 次阅读</i>
+              </span>
+              <span class="commentnum">
+                <i class="el-icon-edit-outline"> {{ topic.commentnum }} 条评论</i>
+              </span>
+              <span class="topic-time">{{ topic.time }}</span>
+            </div>
           </div>
         </el-card>
       </el-main>
@@ -128,7 +133,7 @@ export default {
   padding: 0;
 }
 .topic-item {
-  padding: 10px;
+  padding: 20px;
   border-bottom: 1px solid #ccc;
 }
 .topic-item img {
@@ -140,6 +145,20 @@ export default {
 .topic-item span {
   margin-left: 10px;
   vertical-align: middle;
+}
+.topic-list > span {
+  margin-left: 40px;
+}
+.topic-list .topic-type {
+  color: orange;
+}
+.topic-list .topic-title {
+  color: #222;
+  font-size: 20px;
+  font-weight: 700;
+}
+.topic-list .topic-abstract {
+  margin: 20px 0;
 }
 .topic-item .topic-time {
   float: right;
