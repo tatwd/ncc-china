@@ -66,9 +66,6 @@ export default {
     navs() {
       return [
         { title: '首页', to: '/' },
-        { title: '微信公众号', to: '/' },
-        { title: '参考资料', to: '/' },
-        { title: '.NET Core', to: '/' },
         { title: '关于', to: '/about' },
         { title: '注册', to: '/user/signup' },
         { title: '登录', to: '/user/signin' }

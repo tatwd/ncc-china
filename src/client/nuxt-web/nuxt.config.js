@@ -44,7 +44,8 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     '~/assets/css/style.css',
-    '~/assets/css/ele.css'
+    '~/assets/css/ele.css',
+    'mavon-editor/dist/css/index.css'
     // {
     //   src: '~/assets/scss/element-variables.scss',
     //   lang: 'scss'
@@ -54,7 +55,13 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui'],
+  plugins: [
+    '@/plugins/element-ui',
+    {
+      src: '@/plugins/mavon-editor',
+      ssr: false
+    }
+  ],
 
   /*
    ** Nuxt.js modules
