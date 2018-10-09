@@ -69,5 +69,6 @@ i {
   position: absolute;
   top: 17px;
   left: 17px;
+  color: #fff;
 }
 </style>
