@@ -5,7 +5,7 @@
         <ncc-updateinfo />
         <ncc-updatepwd />
       </el-main>
-      <el-aside>
+      <el-aside width="340px">
         <ncc-logined />
         <ncc-createbtn />
         <ncc-ad />

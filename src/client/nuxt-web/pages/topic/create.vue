@@ -38,26 +38,29 @@
           >
             <div>
               <el-form>
-                <label>请选择一种文章标签方便检索：</label>
-                <el-select
-                  v-model="topicType"
-                  placeholder="请选择"
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.topicType"
-                    :label="item.label"
-                    :value="item.topicType"
-                  />
-                </el-select>
                 <el-input
                   v-model="topicTitle"
-                  placeholder="请输入话题标题，字数10字以上"
-                  class="topic-title"
-                />
+                  placeholder="请输入文章标题，字数10字以上"
+                  class="input-with-select"
+                >
+                  <el-select
+                    slot="prepend"
+                    v-model="select"
+                    placeholder="请选择"
+                  >
+                    <el-option
+                      v-for="item in options"
+                      :key="item.topicType"
+                      :label="item.label"
+                      :value="item.topicType"
+                    />
+                  </el-select>
+                </el-input>
                 <no-ssr>
                   <mavon-editor
+                    :subfield="false"
                     :toolbars="markdownOption"
+                    :box-shadow="false"
                     v-model="markdownhandbook"
                   />
                 </no-ssr>
@@ -74,47 +77,48 @@ export default {
   layout: 'publish',
   data() {
     return {
+      input5: '',
+      select: '',
       options: [
         {
-          topicType: '选项1',
+          topicType: '1',
           label: '分享'
         },
         {
-          topicType: '选项2',
+          topicType: '2',
           label: '问答'
         },
         {
-          topicType: '选项3',
+          topicType: '3',
           label: '招聘'
         }
       ],
-      topicType: '',
       topicTitle: '',
       markdownhandbook: '',
       markdownOption: {
-        bold: true, // 粗体
-        italic: true, // 斜体
+        bold: false, // 粗体
+        italic: false, // 斜体
         header: true, // 标题
-        underline: true, // 下划线
+        underline: false, // 下划线
         strikethrough: true, // 中划线
         mark: true, // 标记
-        superscript: true, // 上角标
-        subscript: true, // 下角标
+        superscript: false, // 上角标
+        subscript: false, // 下角标
         quote: true, // 引用
         ol: true, // 有序列表
         ul: true, // 无序列表
         link: true, // 链接
         imagelink: true, // 图片链接
         code: true, // code
-        table: true, // 表格
+        table: false, // 表格
         fullscreen: false, // 全屏编辑
         readmodel: false, // 沉浸式阅读
         htmlcode: true, // 展示html源码
-        help: true, // 帮助
-        undo: true, // 上一步
-        redo: true, // 下一步
+        help: false, // 帮助
+        undo: false, // 上一步
+        redo: false, // 下一步
         trash: true, // 清空
-        save: true, // 保存（触发events中的save事件）
+        save: false, // 保存（触发events中的save事件）
         navigation: true, // 导航目录
         alignleft: true, // 左对齐
         aligncenter: true, // 居中
@@ -127,7 +131,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #topic-create .el-header {
   position: fixed;
   padding: 0 15px;
@@ -154,7 +158,13 @@ export default {
 #topic-create .el-card {
   margin-top: 70px;
 }
-#topic-create .topic-title {
-  margin: 10px 0;
+#topic-create .el-select {
+  width: 130px;
+}
+#topic-create .input-with-select {
+  margin-bottom: 10px;
+}
+#topic-create .v-note-wrapper {
+  min-height: 460px;
 }
 </style>

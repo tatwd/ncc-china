@@ -4,7 +4,7 @@
       <el-main>
         <ncc-about />
       </el-main>
-      <el-aside>
+      <el-aside width="340px">
         <ncc-unlogin />
         <ncc-logined />
         <ncc-createbtn />
