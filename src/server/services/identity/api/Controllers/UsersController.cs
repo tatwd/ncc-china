@@ -8,6 +8,8 @@ namespace Ncc.China.Services.Identity.Api.Controllers
 {
     using Data;
     using Logic;
+    using Http;
+    using Http.Message;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -23,15 +25,15 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpGet]
         public IActionResult GetFromQuery([FromQuery]string id)
         {
-            var service = new UserService(_context);
-            return Ok(service.GetUser(id));
+            return GetFromRoute(id);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetFromRoute([FromRoute]string id)
         {
-            var service = new UserService(_context);
-            return Ok(service.GetUser(id));
+            var res = new UserService(_context).GetUser(id);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            else return NotFound(res);
         }
     }
 }

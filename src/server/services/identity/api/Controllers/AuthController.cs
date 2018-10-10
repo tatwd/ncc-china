@@ -9,6 +9,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
     using Data;
     using Logic;
     using Logic.Dto;
+    using Http;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -24,15 +25,17 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpPost("login")]
         public IActionResult Post([FromBody]LoginDto dto)
         {
-            var service = new UserService(_context);
-            return Ok(service.Login(dto));
+            var res = new UserService(_context).Login(dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            else return BadRequest(res);
         }
 
         [HttpPost("register")]
         public IActionResult Post([FromBody]RegisterDto dto)
         {
-            var service = new UserService(_context);
-            return Ok(service.Register(dto));
+            var res = new UserService(_context).Register(dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            else return BadRequest(res);
         }
     }
 }
