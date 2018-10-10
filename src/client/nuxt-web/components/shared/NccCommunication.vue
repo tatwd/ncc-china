@@ -10,12 +10,22 @@
       >
         <span>社区交流群</span>
       </div>
+      <div>
+        <img
+          src="../../static/ewm.png"
+          alt=""
+        >
+        <img
+          src="../../static/ewm.png"
+          alt=""
+        >
+      </div>
     </el-card>
   </div>
 </template>
 
-<script>
-</script>
-
 <style>
+#ncc-communication img {
+  margin: 0 8px;
+}
 </style>

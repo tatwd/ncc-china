@@ -17,14 +17,16 @@
           <span>{{ comment.name }}</span>
           <span>{{ comment.time }}</span>
           <p>{{ comment.content }}</p>
-          <span>回复</span>
+          <span @click="showreplyInput">回复</span>
           <el-form
+            v-show="showreply"
             :model="replyform"
-            rel="commentform"
+            rel="replyform"
           >
             <el-input
               :autosize="{ minRows: 2, maxRows: 4}"
-              v-model="replytextarea"
+              v-model="replyform.replytextarea"
+              prop="replytextarea"
               type="textarea"
               placeholder="请输入回复内容"
             />
@@ -48,14 +50,16 @@
             <span>{{ reply.name }}</span>
             <span>{{ reply.time }}</span>
             <p>{{ reply.content }}</p>
-            <span>回复</span>
+            <span @click="showreply1Input">回复</span>
             <el-form
+              v-show="showreply1"
               :model="replyform"
               rel="reply1form"
             >
               <el-input
                 :autosize="{ minRows: 2, maxRows: 4}"
-                v-model="replytextarea"
+                v-model="reply1form.reply1textarea"
+                prop="reply1textarea"
                 type="textarea"
                 placeholder="请输入回复内容"
               />
@@ -78,7 +82,14 @@
 export default {
   data() {
     return {
-      replytextarea: ''
+      replyform: {
+        replytextarea: ''
+      },
+      reply1form: {
+        reply1textarea: ''
+      },
+      showreply: false,
+      showreply1: false
     }
   },
   computed: {
@@ -101,6 +112,14 @@ export default {
           content: '这是回复'
         }
       ]
+    }
+  },
+  methods: {
+    showreplyInput() {
+      this.showreply = !this.showreply
+    },
+    showreply1Input() {
+      this.showreply1 = !this.showreply1
     }
   }
 }

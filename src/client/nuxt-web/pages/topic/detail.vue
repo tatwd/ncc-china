@@ -25,7 +25,8 @@
         >
           <el-input
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="commenttextarea"
+            v-model="commentform.commenttextarea"
+            prop="commenttextarea"
             type="textarea"
             placeholder="请输入评论内容"
           />
