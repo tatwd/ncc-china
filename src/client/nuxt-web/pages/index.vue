@@ -96,7 +96,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/user/signin',
+          to: '/topic/detail',
           abstract:
             '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         },
@@ -107,7 +107,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/user/signin',
+          to: '/topic/detail',
           abstract:
             '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         }

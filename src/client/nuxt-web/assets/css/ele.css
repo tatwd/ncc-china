@@ -1,3 +1,11 @@
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
+}
 .el-header,
 .el-footer {
   background-color: #682079;
