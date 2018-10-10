@@ -27,7 +27,7 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
-        public object GetUser(string id)
+        public BaseResponseMessage GetUser(string id)
         {
             using (_context)
             {
@@ -47,7 +47,7 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
-        public object Login(LoginDto dto)
+        public BaseResponseMessage Login(LoginDto dto)
         {
             using (_context)
             {
@@ -67,7 +67,7 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
-        public object Register(RegisterDto dto)
+        public BaseResponseMessage Register(RegisterDto dto)
         {
             using (_context)
             {
