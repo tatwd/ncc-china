@@ -11,7 +11,7 @@ namespace Ncc.China.Http.Message
         public FailedResponseMessage(string message)
         {
             Code = MessageStatusCode.Failed;
-            Message = message;
+            Message = string.Format("failed:{0}", message);
         }
 
         public FailedResponseMessage(MessageStatusCode code, string message)
