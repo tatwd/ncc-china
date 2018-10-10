@@ -27,7 +27,7 @@
           </div>
         </el-card>
       </el-main>
-      <el-aside>
+      <el-aside width="340px">
         <ncc-hottopic />
         <ncc-ad />
         <ncc-topicnoreply />

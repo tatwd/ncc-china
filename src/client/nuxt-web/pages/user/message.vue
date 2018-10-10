@@ -5,7 +5,7 @@
         <ncc-unread />
         <ncc-allmessage />
       </el-main>
-      <el-aside>
+      <el-aside width="340px">
         <ncc-logined />
         <ncc-createbtn />
         <ncc-ad />
