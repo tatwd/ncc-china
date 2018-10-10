@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
@@ -22,6 +23,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetFromQuery([FromQuery]string id)
         {

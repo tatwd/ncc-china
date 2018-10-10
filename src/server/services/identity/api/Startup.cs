@@ -15,6 +15,9 @@ using Ncc.China.Services.Identity.Data;
 using Pomelo.EntityFrameworkCore.MySql;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using System.Text;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -52,6 +55,22 @@ namespace Ncc.China.Services.Identity.Api
 
                 // others here
             });
+
+            // TODO: should set JWT in issue token api
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    // TODO
+
+                    options.Events = new JwtBearerEvents{
+                        OnChallenge  = (context) => {
+                            var body = "{\"code\": \"1\", \"message\": \"Unauthorized\"}";
+                            context.HandleResponse();
+                            context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(body);
+                        }
+                    };
+                });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -81,6 +100,8 @@ namespace Ncc.China.Services.Identity.Api
                     // }
                 }
             }
+
+            app.UseAuthentication();
 
             // app.UseHttpsRedirection();
             app.UseMvc();
