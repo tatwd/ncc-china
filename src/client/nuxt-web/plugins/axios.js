@@ -1,30 +1,9 @@
-import axios from 'axios'
+import * as axios from 'axios'
 
-export function fetch(config) {
-  return new Promise((resolve,reject) => {
-    const instance = axios.create({
-      headers:{
-        'Content-Type': 'application/json',
-      },
-      timeout: 5000,
-      baseURL: 'http://192.168.1.103:5000/api/'
-    });
-    instance(config).then(res =>{
-      console.log(res);
-      resolve(res);
-    }).catch(err => {
-      console.log(err);
-      reject(err);
-    })
-  });
+let options = {} // The server-side needs a full url to works
+if (process.server) {
+  options.baseURL = 'https://jsonplaceholder.typicode.com/'
+  // options.baseURL = `http://${process.env.HOST || 'jsonplaceholder.typicode.com/'}:${process.env.PORT || 3000}`
 }
 
-export function getData(url,type,data) {
-  if(type==='')
-    type = 'post';
-  return fetch({
-    url: url,
-    method: type,
-    data: data,
-  })
-}
+export default axios.create(options)
