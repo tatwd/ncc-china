@@ -8,7 +8,7 @@
         slot="header"
         class="clearfix"
       >
-        <span><router-link to="/">主页</router-link> / 关于</span>
+        <span><nuxt-link to="/">主页</nuxt-link> / 关于</span>
       </div>
       <div>
         <h2>关于</h2>

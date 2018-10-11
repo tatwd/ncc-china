@@ -8,7 +8,7 @@
         slot="header"
         class="clearfix"
       >
-        <span><router-link to="/">主页</router-link> / 用户信息</span>
+        <span><nuxt-link to="/">主页</nuxt-link> / 用户信息</span>
       </div>
       <div>
         <div class="ava-name">
@@ -21,14 +21,14 @@
         <span>积分：</span>
         <label>0</label>
         <p>123</p>
-        <router-link to="/user/setting">
+        <nuxt-link to="/user/setting">
           <el-button
             type="warning"
             plain
           >
             更改信息
           </el-button>
-        </router-link>
+        </nuxt-link>
       </div>
     </el-card>
   </div>

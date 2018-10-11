@@ -10,7 +10,7 @@
             slot="header"
             class="clearfix"
           >
-            <span><router-link to="/">主页</router-link> / 热门用户</span>
+            <span><nuxt-link to="/">主页</nuxt-link> / 热门用户</span>
           </div>
           <div
             v-for="(hotuser, index) in hotusers"

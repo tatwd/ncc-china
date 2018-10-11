@@ -4,14 +4,14 @@
       class="card-box"
       shadow="hover"
     >
-      <router-link to="/topic/create">
+      <nuxt-link to="/topic/create">
         <el-button
           type="success"
           plain
         >
           发布话题
         </el-button>
-      </router-link>
+      </nuxt-link>
     </el-card>
   </div>
 </template>
