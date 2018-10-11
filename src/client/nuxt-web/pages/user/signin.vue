@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import axios from '~/plugins/axios'
+
 export default {
   layout: 'account',
 
@@ -79,18 +81,33 @@ export default {
     submitForm(loginform) {
       this.$refs[loginform].validate(valid => {
         if (valid) {
-          this.$axios
-            .$post('http://192.168.1.103:5000/api/auth/login', {
-              login: this.loginform.username,
-              password: this.loginform.userpwd
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.log)
-        } else {
-          console.log('error submit!!')
-          return false
+          // this.$axios
+          //   .$post('http://192.168.1.103:5000/api/auth/login', {
+          //     login: this.loginform.username,
+          //     password: this.loginform.userpwd
+          //   })
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(console.log)
+
+          // this.$store.dispatch('userLogin', {
+          //   login: this.loginform.username,
+          //   password: this.loginform.userpwd
+          // })
+          setTimeout(() => {
+            this.$axios
+              .$post('api/auth/login', {
+                login: this.loginform.username,
+                password: this.loginform.userpwd
+              })
+              .then(res => {
+                const auth = { accessToken: 'token' }
+                this.$store.commit('setAuth', auth)
+                localStorage.setItem('auth', auth)
+                this.$router.push('/')
+              })
+          }, 1000)
         }
       })
       this.$refs[loginform].resetFields()

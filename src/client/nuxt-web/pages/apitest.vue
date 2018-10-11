@@ -5,7 +5,9 @@
         v-for="(post, index) in posts"
         :key="index"
       >
-        <nuxt-link :to="{ name: 'posts-id', params: { id: post.id } }">{{ post.title }}</nuxt-link>
+        <h1>{{ post.userId }}</h1>
+        <h2>{{ post.id }}</h2>
+        <nuxt-link to="/">{{ post.title }}</nuxt-link>
       </li>
     </ul>
   </div>
@@ -18,7 +20,7 @@ export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
     return axios.get('posts').then(res => {
-      return { posts: res.data.slice(0, 5) }
+      return { posts: res.data.slice(0, 50) }
     })
   }
 }
