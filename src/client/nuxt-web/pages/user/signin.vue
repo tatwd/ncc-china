@@ -6,10 +6,10 @@
       :rules="rules"
       class="login-box"
     >
-      <router-link to="/">
+      <nuxt-link to="/">
         <h1>.NET Core</h1>
         <h2>专业中文社区</h2>
-      </router-link>
+      </nuxt-link>
       <el-form-item prop="username">
         <el-input
           v-model="loginform.username"
@@ -32,12 +32,14 @@
           登录
         </el-button>
       </el-form-item>
-      <p>还没有账号？马上去<router-link to="/user/signup">注册</router-link></p>
+      <p>还没有账号？马上去<nuxt-link to="/user/signup">注册</nuxt-link></p>
     </el-form>
   </div>
 </template>
 
 <script>
+import axios from '~/plugins/axios'
+
 export default {
   layout: 'account',
 
@@ -79,18 +81,33 @@ export default {
     submitForm(loginform) {
       this.$refs[loginform].validate(valid => {
         if (valid) {
-          this.$axios
-            .$post('http://192.168.1.103:5000/api/auth/login', {
-              login: this.loginform.username,
-              password: this.loginform.userpwd
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.log)
-        } else {
-          console.log('error submit!!')
-          return false
+          // this.$axios
+          //   .$post('http://192.168.1.103:5000/api/auth/login', {
+          //     login: this.loginform.username,
+          //     password: this.loginform.userpwd
+          //   })
+          //   .then(res => {
+          //     console.log(res)
+          //   })
+          //   .catch(console.log)
+
+          // this.$store.dispatch('userLogin', {
+          //   login: this.loginform.username,
+          //   password: this.loginform.userpwd
+          // })
+          setTimeout(() => {
+            this.$axios
+              .$post('api/auth/login', {
+                login: this.loginform.username,
+                password: this.loginform.userpwd
+              })
+              .then(res => {
+                const auth = { accessToken: 'token' }
+                this.$store.commit('setAuth', auth)
+                localStorage.setItem('auth', auth)
+                this.$router.push('/')
+              })
+          }, 1000)
         }
       })
       this.$refs[loginform].resetFields()

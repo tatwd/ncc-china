@@ -6,10 +6,10 @@
       :rules="rules"
       class="register-box"
     >
-      <router-link to="/">
+      <nuxt-link to="/">
         <h1>.NET Core</h1>
         <h2>专业中文社区</h2>
-      </router-link>
+      </nuxt-link>
       <el-form-item prop="username">
         <el-input
           v-model="registerform.username"
@@ -45,7 +45,7 @@
           注册账号
         </el-button>
       </el-form-item>
-      <p>已有账号？马上去<router-link to="/user/signin">登录</router-link></p>
+      <p>已有账号？马上去<nuxt-link to="/user/signin">登录</nuxt-link></p>
     </el-form>
   </div>
 </template>

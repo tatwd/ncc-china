@@ -28,7 +28,7 @@
             class="topic-item"
           >
             <div class="topic-list">
-              <router-link :to="topic.to">
+              <nuxt-link :to="topic.to">
                 <img
                   :src="topic.avatar"
                   alt=""
@@ -38,7 +38,7 @@
                 <div class="topic-abstract">
                   {{ topic.abstract }}
                 </div>
-              </router-link>
+              </nuxt-link>
               <span class="browsenum">
                 <i class="el-icon-view"> {{ topic.browsenum }} 次阅读</i>
               </span>
