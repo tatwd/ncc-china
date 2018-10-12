@@ -5,9 +5,7 @@
         v-for="(post, index) in posts"
         :key="index"
       >
-        <h1>{{ post.userId }}</h1>
-        <h2>{{ post.id }}</h2>
-        <nuxt-link to="/">{{ post.title }}</nuxt-link>
+        <nuxt-link to="/">{{ post.name }}</nuxt-link>
       </li>
     </ul>
   </div>
@@ -19,9 +17,14 @@ import axios from '~/plugins/axios'
 export default {
   asyncData({ req, params }) {
     // We can return a Promise instead of calling the callback
-    return axios.get('posts').then(res => {
-      return { posts: res.data.slice(0, 50) }
+    return axios.get('api/xiandu/categories').then(res => {
+      return { posts: res.data.results }
     })
   }
+  // async asyncData() {
+  //   let { data } = await axios.get('api/xiandu/categories')
+  //   console.log(data)
+  //   return { posts: data.results }
+  // }
 }
 </script>

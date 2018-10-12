@@ -96,10 +96,11 @@ export default {
           //   password: this.loginform.userpwd
           // })
           setTimeout(() => {
-            this.$axios
-              .$post('api/auth/login', {
-                login: this.loginform.username,
-                password: this.loginform.userpwd
+            axios
+              .post('https://www.apiopen.top/login', {
+                key: '00d91e8e0cca2b76f515926a36db68f5',
+                phone: this.loginform.username,
+                passwd: this.loginform.userpwd
               })
               .then(res => {
                 const auth = { accessToken: 'token' }
