@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using Newtonsoft.Json;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -56,16 +58,28 @@ namespace Ncc.China.Services.Identity.Api
                 // others here
             });
 
-            // TODO: should set JWT in issue token api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
-                    // TODO
-
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters{
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                            Configuration["Tokens:SecurityKey"])),
+                    };
                     options.Events = new JwtBearerEvents{
                         OnChallenge  = (context) => {
-                            var body = "{\"code\": \"1\", \"message\": \"Unauthorized\"}";
+                            var body = JsonConvert.SerializeObject(new {
+                                code = 1,
+                                message = "failed:unauthorized"
+                            });
                             context.HandleResponse();
-                            context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                             context.Response.ContentType = "application/json";
                             return context.Response.WriteAsync(body);
                         }

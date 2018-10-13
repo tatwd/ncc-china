@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
@@ -16,18 +22,39 @@ namespace Ncc.China.Services.Identity.Api.Controllers
     public class AuthController : ControllerBase
     {
         private IdentityDbContext  _context;
+        private IConfiguration _configuration;
 
-        public AuthController(IdentityDbContext context)
+        public AuthController(IdentityDbContext context,
+            IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         [HttpPost("login")]
         public IActionResult Post([FromBody]LoginDto dto)
         {
             var res = new UserService(_context).Login(dto);
-            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-            else return BadRequest(res);
+            if (res.Code == MessageStatusCode.Failed) return BadRequest(res);
+
+            var claims = new []{
+                new Claim(JwtRegisteredClaimNames.Sub, dto.Login),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                _configuration["Tokens:SecurityKey"]));
+
+            var jwt = new JwtSecurityToken(
+                issuer: _configuration["Tokens:Issuer"],
+                audience: _configuration["Tokens:Audience"],
+                expires: DateTime.UtcNow.AddMinutes(1), // expired after 1 min.
+                claims:claims,
+                signingCredentials: new SigningCredentials(signingKey,
+                    SecurityAlgorithms.HmacSha256)
+            );
+            var token = new JwtSecurityTokenHandler()
+                .WriteToken(jwt);
+            return Ok(new { token, type = "Bearer", expired = jwt.ValidTo });
         }
 
         [HttpPost("register")]
