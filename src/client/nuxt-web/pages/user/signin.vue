@@ -38,10 +38,11 @@
 </template>
 
 <script>
-import axios from '~/plugins/axios'
+const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   layout: 'account',
+  middleware: 'unauth',
 
   data() {
     return {
@@ -81,35 +82,33 @@ export default {
     submitForm(loginform) {
       this.$refs[loginform].validate(valid => {
         if (valid) {
-          // this.$axios
-          //   .$post('http://192.168.1.103:5000/api/auth/login', {
-          //     login: this.loginform.username,
-          //     password: this.loginform.userpwd
-          //   })
-          //   .then(res => {
-          //     console.log(res)
-          //   })
-          //   .catch(console.log)
-
-          // this.$store.dispatch('userLogin', {
-          //   login: this.loginform.username,
-          //   password: this.loginform.userpwd
-          // })
+          let { username, userpwd } = this.loginform
           setTimeout(() => {
-            console.log(axios)
-            axios
-              .post('login', {
-                key: '00d91e8e0cca2b76f515926a36db68f5',
-                phone: this.loginform.username,
-                passwd: this.loginform.userpwd
+            this.$axios
+              .$post('api/auth/login', {
+                login: username,
+                password: userpwd
               })
               .then(res => {
-                // const auth = { accessToken: 'token' }
-                // this.$store.commit('setAuth', auth)
-                // localStorage.setItem('auth', auth)
-                // this.$router.push('/')
-                console.log(res)
-                return res.data
+                if (res.code === 0) {
+                  // console.log(res)
+                  const { currentUser, tokenManager } = res.data
+                  const auth = {
+                    user: currentUser,
+                    token: tokenManager.token
+                  }
+                  var expires =
+                    (new Date(tokenManager.expireAt) - new Date()) /
+                    (1000 * 60 * 60 * 24)
+                  Cookie.set('auth', auth, { expires })
+                  this.$store.commit('setAuth', auth)
+                  this.$router.push('/')
+                } else {
+                  console.log(res.message)
+                }
+              })
+              .catch(err => {
+                console.log(err)
               })
           }, 1000)
         }

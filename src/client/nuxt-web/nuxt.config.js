@@ -24,6 +24,10 @@ module.exports = {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Open+Sans|Roboto'
       }
     ]
   },
@@ -49,7 +53,7 @@ module.exports = {
 
   modules: ['@nuxtjs/axios'],
   axios: {
-    baseURL: 'https://api.github.com/'
+    baseURL: 'http://192.168.1.104:5000/'
   },
 
   build: {

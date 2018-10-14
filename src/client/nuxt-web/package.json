@@ -17,6 +17,7 @@
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "express": "^4.16.3",
+    "js-cookie": "^2.2.0",
     "mavon-editor": "^2.6.17",
     "nuxt": "^2.0.0"
   },
