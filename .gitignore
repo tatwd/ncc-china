@@ -12,8 +12,9 @@ dist
 # nuxt project
 .nuxt
 
-# template dir
+# template and public dir
 tmp
+public
 
 # package lock file
 package-lock.json
