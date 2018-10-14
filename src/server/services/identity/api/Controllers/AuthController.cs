@@ -34,27 +34,29 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpPost("login")]
         public IActionResult Post([FromBody]LoginDto dto)
         {
-            var res = new UserService(_context).Login(dto);
-            if (res.Code == MessageStatusCode.Failed) return BadRequest(res);
+            var res = new UserService(_context).Login(dto, () =>
+            {
+                var claims = new []{
+                    new Claim(JwtRegisteredClaimNames.Sub, dto.Login),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                };
+                var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    _configuration["Tokens:SecurityKey"]));
 
-            var claims = new []{
-                new Claim(JwtRegisteredClaimNames.Sub, dto.Login),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration["Tokens:SecurityKey"]));
-
-            var jwt = new JwtSecurityToken(
-                issuer: _configuration["Tokens:Issuer"],
-                audience: _configuration["Tokens:Audience"],
-                expires: DateTime.UtcNow.AddMinutes(1), // expired after 1 min.
-                claims:claims,
-                signingCredentials: new SigningCredentials(signingKey,
-                    SecurityAlgorithms.HmacSha256)
-            );
-            var token = new JwtSecurityTokenHandler()
-                .WriteToken(jwt);
-            return Ok(new { token, type = "Bearer", expired = jwt.ValidTo });
+                var jwt = new JwtSecurityToken(
+                    issuer: _configuration["Tokens:Issuer"],
+                    audience: _configuration["Tokens:Audience"],
+                    expires: DateTime.UtcNow.AddMinutes(1), // expired after 1 min.
+                    claims:claims,
+                    signingCredentials: new SigningCredentials(signingKey,
+                        SecurityAlgorithms.HmacSha256)
+                );
+                var token = new JwtSecurityTokenHandler()
+                    .WriteToken(jwt);
+                return new { token, type = "Bearer", expireAt = jwt.ValidTo };
+            });
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return BadRequest(res);
         }
 
         [HttpPost("register")]

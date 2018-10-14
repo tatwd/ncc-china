@@ -47,7 +47,7 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
-        public BaseResponseMessage Login(LoginDto dto)
+        public BaseResponseMessage Login(LoginDto dto, Func<object> tokenCb = null)
         {
             using (_context)
             {
@@ -56,14 +56,30 @@ namespace Ncc.China.Services.Identity.Logic
                         u.Email.Equals(dto.Login));
                 if (user == null)
                 {
-                    return new FailedResponseMessage("登录名错误");
+                    return new FailedResponseMessage("该用户还未注册");
                 }
                 var encode = CryptoUtil.Encrypt(dto.Password, user.Salt);
                 if (!encode.Equals(user.Password))
                 {
                     return new FailedResponseMessage("密码错误");
                 }
-                return new SucceededResponseMessage(user.Id);
+                var userProfile = _context.UserProfiles
+                    .FirstOrDefault(u => u.UserId.Equals(user.Id));
+                var currentUser = new {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Nickname = userProfile?.Nickname,
+                    Gender = userProfile?.Gender,
+                    AvatarUrl = userProfile?.AvatarUrl,
+                    UtcCreated = user.UtcCreated
+                };
+                if (tokenCb == null) return new SucceededResponseMessage(currentUser);
+                var tokenManager = tokenCb();
+                return new SucceededResponseMessage(new {
+                    currentUser,
+                    tokenManager,
+                });
             }
         }
 
