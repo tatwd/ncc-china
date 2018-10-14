@@ -1,30 +1,43 @@
 <template>
   <div id="apitest">
-    <ul>
+    <!-- <ul>
       <li
         v-for="(post, index) in posts"
         :key="index"
       >
-        <nuxt-link to="/">{{ post.name }}</nuxt-link>
+        <nuxt-link to="/">{{ post.bookname }}</nuxt-link>
       </li>
-    </ul>
+    </ul> -->
+    <pre>{{ data }}</pre>
   </div>
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-
 export default {
-  asyncData({ req, params }) {
-    // We can return a Promise instead of calling the callback
-    return axios.get('api/xiandu/categories').then(res => {
-      return { posts: res.data.results }
-    })
+  async asyncData({ app }) {
+    let _data = 'hello world'
+    _data = await app.$axios.$get('/')
+    // .then(res => {
+    //   console.log(res)
+    //   _data = JSON.stringify(res)
+    // })
+    // .catch(err => {
+    //   console.log(res.config)
+    // })
+
+    return {
+      data: _data
+    }
+  },
+  created() {
+    this.$axios
+      .$get('/')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(res.config)
+      })
   }
-  // async asyncData() {
-  //   let { data } = await axios.get('api/xiandu/categories')
-  //   console.log(data)
-  //   return { posts: data.results }
-  // }
 }
 </script>

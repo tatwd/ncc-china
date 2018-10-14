@@ -21,7 +21,6 @@
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
-    "@nuxtjs/proxy": "^1.2.4",
     "babel-eslint": "^8.2.1",
     "eslint": "^5.0.1",
     "eslint-config-prettier": "^3.1.0",

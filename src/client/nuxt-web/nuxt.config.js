@@ -3,9 +3,6 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
 
-  /*
-   ** Headers of the page
-   */
   head: {
     title: pkg.name,
     meta: [
@@ -31,30 +28,17 @@ module.exports = {
     ]
   },
 
-  /*
-   ** Customize the progress-bar color
-   */
   loading: {
     color: '#fff'
   },
 
-  /*
-   ** Global CSS
-   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
+    'mavon-editor/dist/css/index.css',
     '~/assets/css/style.css',
-    '~/assets/css/ele.css',
-    'mavon-editor/dist/css/index.css'
-    // {
-    //   src: '~/assets/scss/element-variables.scss',
-    //   lang: 'scss'
-    // }
+    '~/assets/css/ele.css'
   ],
 
-  /*
-   ** Plugins to load before mounting the App
-   */
   plugins: [
     '@/plugins/element-ui',
     {
@@ -63,38 +47,12 @@ module.exports = {
     }
   ],
 
-  /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios',
-    '@nuxtjs/proxy'
-  ],
-  /*
-   ** Axios module configuration
-   */
+  modules: ['@nuxtjs/axios'],
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-    // prefix: '/api/',
-    // proxy: true // Can be also an object with default options
+    baseURL: 'https://api.github.com/'
   },
-  // proxy: {
-  //   '/api/': {
-  //     target: 'http://127.0.0.1:8080',
-  //     pathRewrite: {
-  //       '^/api/': '/'
-  //     }
-  //   }
-  // },
-  // baseUrl: 'news-at.zhihu.com',
-  /*
-   ** Build configuration
-   */
+
   build: {
-    /*
-     ** You can extend webpack config here
-     */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
