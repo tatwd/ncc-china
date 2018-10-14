@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ncc.China.Services.Identity.Data
 {
-    [Table("login_user")]
+    [Table("user")]
     public class LoginUser
     {
         [Column("id", TypeName = "char(32)"), Required]
@@ -16,7 +16,7 @@ namespace Ncc.China.Services.Identity.Data
         [Column("email", TypeName = "varchar(100)"), Required]
         public string Email { get; set; }
 
-        [Column("password", TypeName = "varchar(100)"), Required]
+        [Column("password", TypeName = "varchar(256)"), Required]
         public string Password { get; set; }
 
         [Column("salt", TypeName = "varchar(50)"), Required]
