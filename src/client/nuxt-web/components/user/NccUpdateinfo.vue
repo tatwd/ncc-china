@@ -8,7 +8,7 @@
         slot="header"
         class="clearfix"
       >
-        <span><router-link to="/">主页</router-link> / <router-link to="/user/usercenter">用户中心</router-link> / 修改信息</span>
+        <span><nuxt-link to="/">主页</nuxt-link> / <nuxt-link to="/user/usercenter">用户中心</nuxt-link> / 修改信息</span>
       </div>
       <div>
         <el-form

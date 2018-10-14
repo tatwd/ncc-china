@@ -14,13 +14,13 @@
       <div>
         <p>
           您可以
-          <router-link to="/user/signin">
+          <nuxt-link to="/user/signin">
             登录
-          </router-link>
+          </nuxt-link>
           或
-          <router-link to="/user/signup">
+          <nuxt-link to="/user/signup">
             注册
-          </router-link>
+          </nuxt-link>
           ，也可以
         </p>
         <el-button

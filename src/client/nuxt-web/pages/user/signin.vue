@@ -6,10 +6,10 @@
       :rules="rules"
       class="login-box"
     >
-      <router-link to="/">
+      <nuxt-link to="/">
         <h1>.NET Core</h1>
         <h2>专业中文社区</h2>
-      </router-link>
+      </nuxt-link>
       <el-form-item prop="username">
         <el-input
           v-model="loginform.username"
@@ -32,14 +32,17 @@
           登录
         </el-button>
       </el-form-item>
-      <p>还没有账号？马上去<router-link to="/user/signup">注册</router-link></p>
+      <p>还没有账号？马上去<nuxt-link to="/user/signup">注册</nuxt-link></p>
     </el-form>
   </div>
 </template>
 
 <script>
+const Cookie = process.client ? require('js-cookie') : undefined
+
 export default {
   layout: 'account',
+  middleware: 'unauth',
 
   data() {
     return {
@@ -79,18 +82,35 @@ export default {
     submitForm(loginform) {
       this.$refs[loginform].validate(valid => {
         if (valid) {
-          this.$axios
-            .$post('http://192.168.1.103:5000/api/auth/login', {
-              login: this.loginform.username,
-              password: this.loginform.userpwd
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.log)
-        } else {
-          console.log('error submit!!')
-          return false
+          let { username, userpwd } = this.loginform
+          setTimeout(() => {
+            this.$axios
+              .$post('api/auth/login', {
+                login: username,
+                password: userpwd
+              })
+              .then(res => {
+                if (res.code === 0) {
+                  // console.log(res)
+                  const { currentUser, tokenManager } = res.data
+                  const auth = {
+                    user: currentUser,
+                    token: tokenManager.token
+                  }
+                  var expires =
+                    (new Date(tokenManager.expireAt) - new Date()) /
+                    (1000 * 60 * 60 * 24)
+                  Cookie.set('auth', auth, { expires })
+                  this.$store.commit('setAuth', auth)
+                  this.$router.push('/')
+                } else {
+                  console.log(res.message)
+                }
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          }, 1000)
         }
       })
       this.$refs[loginform].resetFields()

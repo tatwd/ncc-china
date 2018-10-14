@@ -2,7 +2,7 @@
   <div class="layout-default">
     <el-container>
       <el-header height="auto">
-        <ncc-header />
+        <ncc-header/>
       </el-header>
       <nuxt/>
       <el-footer height="auto">
@@ -23,6 +23,15 @@ export default {
     NccHeader,
     NccFooter,
     NccBacktop
+  },
+  mounted() {
+    // if (!this.$store.state.auth) {
+    //   const auth = {
+    //     user_name: localStorage.getItem('currentUser_name'),
+    //     user_token: localStorage.getItem('currentUser_token')
+    //   }
+    //   this.$store.commit('setUser', auth)
+    // }
   }
 }
 </script>

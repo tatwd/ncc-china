@@ -10,7 +10,7 @@
             slot="header"
             class="clearfix"
           >
-            <span><router-link to="/">主页</router-link> / 热门用户</span>
+            <span><nuxt-link to="/">主页</nuxt-link> / 热门用户</span>
           </div>
           <div
             v-for="(hotuser, index) in hotusers"
@@ -28,33 +28,18 @@
         </el-card>
       </el-main>
       <el-aside width="340px">
-        <ncc-hottopic />
-        <ncc-ad />
-        <ncc-topicnoreply />
-        <ncc-integral />
-        <ncc-communication />
-        <ncc-friendship />
+        <ncc-slider />
       </el-aside>
     </el-container>
   </div>
 </template>
 
 <script>
-import NccHottopic from '~/components/topic/NccHottopic.vue'
-import NccAd from '~/components/shared/NccAd.vue'
-import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
-import NccIntegral from '~/components/shared/NccIntegral.vue'
-import NccCommunication from '~/components/shared/NccCommunication.vue'
-import NccFriendship from '~/components/shared/NccFriendship.vue'
+import NccSlider from '~/components/shared/NccSlider.vue'
 
 export default {
   components: {
-    NccHottopic,
-    NccAd,
-    NccTopicnoreply,
-    NccIntegral,
-    NccCommunication,
-    NccFriendship
+    NccSlider
   },
   computed: {
     hotusers() {

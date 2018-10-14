@@ -1,10 +1,9 @@
 <template>
   <div id="layout--error">
     <div class="error-message">
-      <h2>{{ errorMsg }}</h2>
-      <p>
-        <router-link to="/">{{ linkMsg }}</router-link>
-      </p>
+      <h1 v-if="error.statusCode === 404">Page not found</h1>
+      <h1 v-else>An error occurred</h1>
+      <nuxt-link to="/">回到首页</nuxt-link>
     </div>
   </div>
 </template>
@@ -12,10 +11,12 @@
 <script>
 export default {
   name: 'Error',
-  data: () => ({
-    errorMsg: '404',
-    linkMsg: '返回首页'
-  })
+  props: {
+    error: {
+      type: Object,
+      default: null
+    }
+  }
 }
 </script>
 
@@ -27,14 +28,5 @@ export default {
 .error-message {
   margin: auto;
   text-align: center;
-}
-a {
-  text-decoration: none;
-  color: #222;
-  border-bottom: 2px solid transparent;
-}
-a:hover {
-  color: #c66;
-  border-bottom: 2px solid #c66;
 }
 </style>

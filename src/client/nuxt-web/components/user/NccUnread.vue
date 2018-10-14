@@ -8,15 +8,15 @@
         slot="header"
         class="clearfix"
       >
-        <span><router-link to="/">主页</router-link> / 未读消息</span>
+        <span><nuxt-link to="/">主页</nuxt-link> / 未读消息</span>
       </div>
       <div
         v-for="o in 4"
         :key="o"
       >
-        <router-link to="/">
+        <nuxt-link to="/">
           {{ '消息 ' + o }}
-        </router-link>
+        </nuxt-link>
       </div>
     </el-card>
   </div>

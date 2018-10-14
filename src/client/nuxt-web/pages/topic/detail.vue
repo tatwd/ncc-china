@@ -41,34 +41,19 @@
         <ncc-interaction />
       </el-main>
       <el-aside width="340px">
-        <ncc-hottopic />
-        <ncc-ad />
-        <ncc-topicnoreply />
-        <ncc-integral />
-        <ncc-communication />
-        <ncc-friendship />
+        <ncc-slider />
       </el-aside>
     </el-container>
   </div>
 </template>
 <script>
 import NccInteraction from '~/components/topic/NccInteraction.vue'
-import NccHottopic from '~/components/topic/NccHottopic.vue'
-import NccAd from '~/components/shared/NccAd.vue'
-import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
-import NccIntegral from '~/components/shared/NccIntegral.vue'
-import NccCommunication from '~/components/shared/NccCommunication.vue'
-import NccFriendship from '~/components/shared/NccFriendship.vue'
+import NccSlider from '~/components/shared/NccSlider.vue'
 
 export default {
   components: {
     NccInteraction,
-    NccHottopic,
-    NccAd,
-    NccTopicnoreply,
-    NccIntegral,
-    NccCommunication,
-    NccFriendship
+    NccSlider
   },
   data() {
     return {

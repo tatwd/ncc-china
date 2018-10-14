@@ -14,9 +14,9 @@
         v-for="o in 4"
         :key="o"
       >
-        <router-link to="/">
+        <nuxt-link to="/">
           {{ '消息 ' + o }}
-        </router-link>
+        </nuxt-link>
       </div>
     </el-card>
   </div>

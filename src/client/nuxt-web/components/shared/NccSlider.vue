@@ -1,8 +1,6 @@
 <template>
   <div id="ncc-slider">
-    <ncc-unlogin />
-    <ncc-logined />
-    <ncc-createbtn />
+    <ncc-hottopic />
     <ncc-ad />
     <ncc-topicnoreply />
     <ncc-integral />
@@ -12,9 +10,7 @@
 </template>
 
 <script>
-import NccUnlogin from '~/components/shared/NccUnlogin.vue'
-import NccLogined from '~/components/user/NccLogined.vue'
-import NccCreatebtn from '~/components/topic/NccCreatebtn.vue'
+import NccHottopic from '~/components/topic/NccHottopic.vue'
 import NccAd from '~/components/shared/NccAd.vue'
 import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
 import NccIntegral from '~/components/shared/NccIntegral.vue'
@@ -23,9 +19,7 @@ import NccFriendship from '~/components/shared/NccFriendship.vue'
 
 export default {
   components: {
-    NccUnlogin,
-    NccLogined,
-    NccCreatebtn,
+    NccHottopic,
     NccAd,
     NccTopicnoreply,
     NccIntegral,

@@ -64,7 +64,7 @@
         :xl="10"
       >
         <el-menu
-          v-if="login"
+          v-if="isLogin"
           :router="true"
           mode="horizontal"
           background-color="#682079"
@@ -73,7 +73,7 @@
           class="menu-right"
         >
           <el-menu-item
-            route="topic/create"
+            route="/topic/create"
             index="1"
           >
             <i class="el-icon-edit" />
@@ -117,7 +117,7 @@
           </el-submenu>
         </el-menu>
         <el-menu
-          v-if="!login"
+          v-if="!isLogin"
           :router="true"
           mode="horizontal"
           background-color="#682079"
@@ -145,11 +145,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      login: false
-    }
-  },
   computed: {
     navs() {
       return [
@@ -162,6 +157,10 @@ export default {
           to: '/about'
         }
       ]
+    },
+    isLogin() {
+      let _isLogin = this.$store.state.auth.token
+      return _isLogin
     }
   }
 }

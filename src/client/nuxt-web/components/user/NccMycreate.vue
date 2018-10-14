@@ -15,9 +15,9 @@
         :key="o"
         class="text item"
       >
-        <router-link to="/user/usercenter">
+        <nuxt-link to="/user/usercenter">
           {{ '话题 ' + o }}
-        </router-link>
+        </nuxt-link>
       </div>
     </el-card>
   </div>

@@ -10,7 +10,7 @@
             slot="header"
             class="clearfix"
           >
-            <ul class="type-ul">
+            <!-- <ul class="type-ul">
               <li
                 v-for="(type, index) in types"
                 :key="index"
@@ -19,7 +19,14 @@
               >
                 {{ type.title }}
               </li>
-            </ul>
+            </ul> -->
+            <span
+              v-for="(type, index) in types"
+              :key="index"
+              class="px-1"
+            >
+              {{ type.title }}
+            </span>
           </div>
           <div
             v-for="(topic, index) in topics"
@@ -28,56 +35,45 @@
             class="topic-item"
           >
             <div class="topic-list">
-              <router-link :to="topic.to">
-                <img
-                  :src="topic.avatar"
-                  alt=""
-                >
-                <span class="topic-type">{{ topic.type }}</span>
-                <span class="topic-title">{{ topic.title }}</span>
-                <div class="topic-abstract">
-                  {{ topic.abstract }}
+              <nuxt-link :to="topic.to">
+                <div>
+                  <img
+                    :src="topic.avatar"
+                    alt=""
+                  >
+                  <span class="topic-type">{{ topic.type }}</span>
+                  <span class="topic-title">{{ topic.title }}</span>
                 </div>
-              </router-link>
-              <span class="browsenum">
-                <i class="el-icon-view"> {{ topic.browsenum }} 次阅读</i>
-              </span>
-              <span class="commentnum">
-                <i class="el-icon-edit-outline"> {{ topic.commentnum }} 条评论</i>
-              </span>
-              <span class="topic-time">{{ topic.time }}</span>
+                <!-- <div class="topic-abstract">
+                  {{ topic.abstract }}
+                </div> -->
+              </nuxt-link>
+              <div class="mt-1">
+                <span class="browsenum">
+                  <i class="el-icon-view"> {{ topic.browsenum }}</i>
+                </span>
+                <span class="commentnum">
+                  <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+                </span>
+                <span class="topic-time">{{ topic.time }}</span>
+              </div>
             </div>
           </div>
         </el-card>
       </el-main>
       <el-aside width="340px">
-        <ncc-hottopic />
-        <ncc-ad />
-        <ncc-topicnoreply />
-        <ncc-integral />
-        <ncc-communication />
-        <ncc-friendship />
+        <ncc-slider />
       </el-aside>
     </el-container>
   </section>
 </template>
 
 <script>
-import NccHottopic from '~/components/topic/NccHottopic.vue'
-import NccAd from '~/components/shared/NccAd.vue'
-import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
-import NccIntegral from '~/components/shared/NccIntegral.vue'
-import NccCommunication from '~/components/shared/NccCommunication.vue'
-import NccFriendship from '~/components/shared/NccFriendship.vue'
+import NccSlider from '~/components/shared/NccSlider.vue'
 
 export default {
   components: {
-    NccHottopic,
-    NccAd,
-    NccTopicnoreply,
-    NccIntegral,
-    NccCommunication,
-    NccFriendship
+    NccSlider
   },
   computed: {
     types() {
@@ -117,7 +113,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+:root {
+  --init-size: 5px;
+}
+
+.px-1 {
+  padding-left: calc(1 * var(--init-size));
+  padding-right: calc(1 * var(--init-size));
+}
+
+.px-2 {
+  padding-left: calc(2 * var(--init-size));
+  padding-right: calc(2 * var(--init-size));
+}
+
 .el-header,
 .el-footer {
   padding: 0;
@@ -134,7 +144,7 @@ export default {
 }
 .topic-item {
   padding: 20px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px dashed #eee;
 }
 .topic-item img {
   width: 30px;
@@ -142,12 +152,15 @@ export default {
   border-radius: 50%;
   vertical-align: middle;
 }
+.topic-item .mt-1 {
+  margin-top: 15px;
+}
 .topic-item span {
-  margin-left: 10px;
+  margin-top: 10px;
   vertical-align: middle;
 }
 .topic-list .commentnum {
-  margin-left: 40px;
+  margin-left: 10px;
 }
 .topic-list .topic-type {
   color: orange;

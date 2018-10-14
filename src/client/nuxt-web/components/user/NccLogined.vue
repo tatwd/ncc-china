@@ -12,7 +12,7 @@
         <span>个人信息</span>
       </div>
       <div>
-        <router-link to="/user">
+        <nuxt-link to="/user">
           <div class="ava-name">
             <img
               src="~/static/test.jpg"
@@ -20,18 +20,18 @@
             >
             <label>ncc</label>
           </div>
-        </router-link>
+        </nuxt-link>
         <span>积分：</span>
         <label>0</label>
         <p>123</p>
-        <router-link to="/user/message">
+        <nuxt-link to="/user/message">
           <el-button
             type="primary"
             plain
           >
             未读消息
           </el-button>
-        </router-link>
+        </nuxt-link>
         <el-button
           type="warning"
           plain
