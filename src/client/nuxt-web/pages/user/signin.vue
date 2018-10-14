@@ -96,17 +96,20 @@ export default {
           //   password: this.loginform.userpwd
           // })
           setTimeout(() => {
+            console.log(axios)
             axios
-              .post('https://www.apiopen.top/login', {
+              .post('login', {
                 key: '00d91e8e0cca2b76f515926a36db68f5',
                 phone: this.loginform.username,
                 passwd: this.loginform.userpwd
               })
               .then(res => {
-                const auth = { accessToken: 'token' }
-                this.$store.commit('setAuth', auth)
-                localStorage.setItem('auth', auth)
-                this.$router.push('/')
+                // const auth = { accessToken: 'token' }
+                // this.$store.commit('setAuth', auth)
+                // localStorage.setItem('auth', auth)
+                // this.$router.push('/')
+                console.log(res)
+                return res.data
               })
           }, 1000)
         }

@@ -13,10 +13,10 @@
       >
         <!-- <img src="../../static/images/logo.png" /> -->
         <div class="ncc-logo">
-          <!-- <span class="logo1">.NET</span>
+          <span class="logo1">.NET</span>
           <span class="logo2">C</span>
           <span class="logo1">re</span>
-          <div class="logo-cir" /> -->
+          <div class="logo-cir" />
         </div>
       </el-col>
       <el-col
@@ -73,7 +73,7 @@
           class="menu-right"
         >
           <el-menu-item
-            route="topic/create"
+            route="/topic/create"
             index="1"
           >
             <i class="el-icon-edit" />
@@ -147,7 +147,7 @@
 export default {
   data() {
     return {
-      login: false
+      login: true
     }
   },
   computed: {
