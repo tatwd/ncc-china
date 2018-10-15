@@ -140,18 +140,39 @@ export default {
     submitForm(registerform) {
       this.$refs[registerform].validate(valid => {
         if (valid) {
-          this.$axios
-            .$post('http://192.168.1.103:5000/api/auth/register', {
-              username: this.registerform.username,
-              email: this.registerform.useremail,
-              password: this.registerform.userpwd
-            })
-            .then(res => {
-              console.log(res)
-            })
-            .catch(console.log)
+          let { username, useremail, userpwd } = this.registerform
+          setTimeout(() => {
+            this.$axios
+              .$post('api/auth/register', {
+                username: username,
+                email: useremail,
+                password: userpwd
+              })
+              .then(res => {
+                if (res.code === 0) {
+                  console.log(res)
+                  this.$message({
+                    showClose: true,
+                    message: '注册成功！请登录！',
+                    type: 'success'
+                  })
+                  this.$router.push('/user/signup')
+                } else {
+                  this.$message({
+                    showClose: true,
+                    message: '注册失败，请重新尝试！',
+                    type: 'error'
+                  })
+                }
+              })
+              .catch(console.log)
+          }, 1000)
         } else {
-          console.log('error submit!!')
+          this.$message({
+            showClose: true,
+            message: '请输入正确的用户注册信息！',
+            type: 'error'
+          })
           return false
         }
       })
