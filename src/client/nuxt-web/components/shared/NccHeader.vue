@@ -110,7 +110,8 @@
               <i class="el-icon-setting"> 设置</i>
             </el-menu-item>
             <el-menu-item
-              index="/"
+              index="3-3"
+              @click="loginout"
             >
               <i class="el-icon-back"> 退出</i>
             </el-menu-item>
@@ -161,6 +162,11 @@ export default {
     isLogin() {
       let _isLogin = this.$store.state.auth.token
       return _isLogin
+    }
+  },
+  methods: {
+    loginout() {
+      this.$store.state.auth.token = null
     }
   }
 }

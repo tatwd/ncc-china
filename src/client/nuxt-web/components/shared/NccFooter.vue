@@ -11,9 +11,6 @@
   </div>
 </template>
 
-<script>
-</script>
-
 <style>
 #ncc-footer {
   padding: 20px;
