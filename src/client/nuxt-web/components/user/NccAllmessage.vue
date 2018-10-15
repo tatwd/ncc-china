@@ -21,3 +21,14 @@
     </el-card>
   </div>
 </template>
+
+<script>
+export default {
+  // mounted: {
+  //   async fetchUserinfo() {
+  //     const allmessage = await this.$axios.$get('')
+  //     this.allmessage = allmessage
+  //   }
+  // },
+}
+</script>

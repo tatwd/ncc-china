@@ -22,3 +22,14 @@
     </el-card>
   </div>
 </template>
+
+<script>
+export default {
+  // mounted: {
+  //   async fetchUserinfo() {
+  //     const myjoin = await this.$axios.$get('')
+  //     this.myjoin = myjoin
+  //   }
+  // },
+}
+</script>

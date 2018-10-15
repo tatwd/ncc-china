@@ -136,9 +136,50 @@ export default {
     submitForm(updatepwdform) {
       this.$refs[updatepwdform].validate(valid => {
         if (valid) {
-          console.log('update success')
+          setTimeout(() => {
+            this.$axios
+              .$post('', {
+                password: this.updatepwdform.useroldpwd
+              })
+              .then(res => {
+                if (res.code === 0) {
+                  this.$axios
+                    .post('', {
+                      password: this.updatepwdform.usernewpwd
+                    })
+                    .then(res => {
+                      if (res.code === 0) {
+                        this.$message({
+                          showClose: true,
+                          message: '密码修改成功，请重新登录！',
+                          type: 'success'
+                        })
+                        this.$store.state.auth.token = null
+                        this.router.push('/user/signin')
+                      } else {
+                        this.$message({
+                          showClose: true,
+                          message: '密码修改失败，请重试！',
+                          type: 'error'
+                        })
+                      }
+                    })
+                } else {
+                  this.$message({
+                    showClose: true,
+                    message: '原密码错误，请重试！',
+                    type: 'error'
+                  })
+                }
+              })
+          }, 500)
         } else {
-          console.log('update err')
+          this.$message({
+            showClose: true,
+            message: '请输入正确的密码格式！',
+            type: 'error'
+          })
+          return false
         }
       })
       this.$refs[updatepwdform].resetFields()

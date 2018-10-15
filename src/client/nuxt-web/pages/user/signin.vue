@@ -118,7 +118,7 @@ export default {
                 }
               })
               .catch(console.log)
-          }, 1000)
+          }, 500)
         } else {
           this.$message({
             showClose: true,

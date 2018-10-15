@@ -29,7 +29,7 @@
       >
         <div class="topic-list">
           <nuxt-link :to="topic.to">
-            <div>
+            <div class="topic-top">
               <img
                 :src="topic.avatar"
                 alt=""
@@ -37,10 +37,16 @@
               <span class="topic-type">{{ topic.type }}</span>
               <span class="topic-title">{{ topic.title }}</span>
             </div>
-            <!-- <div class="topic-abstract">
-              {{ topic.abstract }}
-            </div> -->
           </nuxt-link>
+          <div class="tags">
+            <span
+              v-for="(tag, index) in tags"
+              :key="index"
+              class="tag"
+            >
+              {{ tag.name }}
+            </span>
+          </div>
           <div class="mt-1">
             <span class="browsenum">
               <i class="el-icon-view"> {{ topic.browsenum }}</i>
@@ -91,6 +97,9 @@ export default {
             '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         }
       ]
+    },
+    tags() {
+      return [{ name: '问答' }, { name: '招聘' }]
     }
   }
 }
@@ -120,14 +129,20 @@ export default {
   margin-bottom: 0;
   padding: 15px;
 }
+.topic-item .tags {
+  margin: 10px 0;
+}
+.topic-item .tags span {
+  margin: 0 4px;
+  padding: 2px 10px;
+  background-color: #99d9ea;
+  border-radius: 13px;
+}
 .topic-item img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   vertical-align: middle;
-}
-.topic-item .mt-1 {
-  margin-top: 15px;
 }
 .topic-item span {
   margin-top: 10px;
@@ -137,7 +152,10 @@ export default {
   margin-left: 10px;
 }
 .topic-list .topic-type {
-  color: orange;
+  padding: 2px 10px;
+  background-color: orange;
+  color: #fff;
+  border-radius: 13px;
 }
 .topic-list .topic-title {
   color: #222;

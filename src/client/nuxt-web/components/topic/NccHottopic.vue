@@ -21,3 +21,14 @@
     </el-card>
   </div>
 </template>
+
+<script>
+export default {
+  // mounted: {
+  //   async fetchUserinfo() {
+  //     const hottopic = await this.$axios.$get('')
+  //     this.hottopic = hottopic
+  //   }
+  // },
+}
+</script>
