@@ -1,80 +1,63 @@
 <template>
   <section id="app">
-    <el-container class="content ncc-container">
-      <el-main>
-        <el-card
-          class="card-box"
-          shadow="hover"
+    <el-card
+      class="card-box card-title"
+      shadow="hover"
+    >
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <span
+          v-for="(type, index) in types"
+          :key="index"
+          class="px-1"
         >
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <!-- <ul class="type-ul">
-              <li
-                v-for="(type, index) in types"
-                :key="index"
-                index="index"
-                class="type-li"
+          {{ type.title }}
+        </span>
+      </div>
+    </el-card>
+    <div
+      v-for="(topic, index) in topics"
+      :key="index"
+      index="index"
+      class="topic-item"
+    >
+      <el-card
+        class="box-card"
+        shadow="hover"
+      >
+        <div class="topic-list">
+          <nuxt-link :to="topic.to">
+            <div>
+              <img
+                :src="topic.avatar"
+                alt=""
               >
-                {{ type.title }}
-              </li>
-            </ul> -->
-            <span
-              v-for="(type, index) in types"
-              :key="index"
-              class="px-1"
-            >
-              {{ type.title }}
-            </span>
-          </div>
-          <div
-            v-for="(topic, index) in topics"
-            :key="index"
-            index="index"
-            class="topic-item"
-          >
-            <div class="topic-list">
-              <nuxt-link :to="topic.to">
-                <div>
-                  <img
-                    :src="topic.avatar"
-                    alt=""
-                  >
-                  <span class="topic-type">{{ topic.type }}</span>
-                  <span class="topic-title">{{ topic.title }}</span>
-                </div>
-                <!-- <div class="topic-abstract">
-                  {{ topic.abstract }}
-                </div> -->
-              </nuxt-link>
-              <div class="mt-1">
-                <span class="browsenum">
-                  <i class="el-icon-view"> {{ topic.browsenum }}</i>
-                </span>
-                <span class="commentnum">
-                  <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
-                </span>
-                <span class="topic-time">{{ topic.time }}</span>
-              </div>
+              <span class="topic-type">{{ topic.type }}</span>
+              <span class="topic-title">{{ topic.title }}</span>
             </div>
+            <!-- <div class="topic-abstract">
+              {{ topic.abstract }}
+            </div> -->
+          </nuxt-link>
+          <div class="mt-1">
+            <span class="browsenum">
+              <i class="el-icon-view"> {{ topic.browsenum }}</i>
+            </span>
+            <span class="commentnum">
+              <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+            </span>
+            <span class="topic-time">{{ topic.time }}</span>
           </div>
-        </el-card>
-      </el-main>
-      <el-aside width="340px">
-        <ncc-slider />
-      </el-aside>
-    </el-container>
+        </div>
+      </el-card>
+    </div>
   </section>
 </template>
 
 <script>
-import NccSlider from '~/components/shared/NccSlider.vue'
-
 export default {
-  components: {
-    NccSlider
-  },
   computed: {
     types() {
       return [
@@ -113,7 +96,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 :root {
   --init-size: 5px;
 }
@@ -127,24 +110,15 @@ export default {
   padding-left: calc(2 * var(--init-size));
   padding-right: calc(2 * var(--init-size));
 }
-
-.el-header,
-.el-footer {
+.card-title .el-card__body {
   padding: 0;
-}
-.type-ul {
-  padding: 0;
-}
-.type-li {
-  display: inline;
-  margin: 0 10px;
 }
 #app .el-main .el-card__body {
   padding: 0;
 }
-.topic-item {
-  padding: 20px;
-  border-bottom: 1px dashed #eee;
+.topic-item .el-card__body {
+  margin-bottom: 0;
+  padding: 15px;
 }
 .topic-item img {
   width: 30px;

@@ -1,59 +1,50 @@
 <template>
   <div id="topic-detail">
-    <el-container class="content ncc-container">
-      <el-main>
-        <el-card
-          class="card-box"
-          shadow="hover"
-        >
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <h2>{{ title }}</h2>
-            <span>发布于 {{ time }}</span>
-            <span>作者 {{ author }}</span>
-            <span>{{ browsenum }} 次浏览</span>
-          </div>
-          <div>
-            {{ content }}
-          </div>
-        </el-card>
-        <el-form
-          :model="commentform"
-          rel="commentform"
-        >
-          <el-input
-            :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="commentform.commenttextarea"
-            prop="commenttextarea"
-            type="textarea"
-            placeholder="请输入评论内容"
-          />
-          <el-button
-            type="success"
-            plain
-            @click="subForm('commentform')"
-          >
-            提交
-          </el-button>
-        </el-form>
-        <ncc-interaction />
-      </el-main>
-      <el-aside width="340px">
-        <ncc-slider />
-      </el-aside>
-    </el-container>
+    <el-card
+      class="card-box"
+      shadow="hover"
+    >
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <h2>{{ title }}</h2>
+        <span>发布于 {{ time }}</span>
+        <span>作者 {{ author }}</span>
+        <span>{{ browsenum }} 次浏览</span>
+      </div>
+      <div>
+        {{ content }}
+      </div>
+    </el-card>
+    <el-form
+      :model="commentform"
+      rel="commentform"
+    >
+      <el-input
+        :autosize="{ minRows: 2, maxRows: 4}"
+        v-model="commentform.commenttextarea"
+        prop="commenttextarea"
+        type="textarea"
+        placeholder="请输入评论内容"
+      />
+      <el-button
+        type="success"
+        plain
+        @click="subForm('commentform')"
+      >
+        提交
+      </el-button>
+    </el-form>
+    <ncc-interaction />
   </div>
 </template>
 <script>
 import NccInteraction from '~/components/topic/NccInteraction.vue'
-import NccSlider from '~/components/shared/NccSlider.vue'
 
 export default {
   components: {
-    NccInteraction,
-    NccSlider
+    NccInteraction
   },
   data() {
     return {

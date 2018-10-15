@@ -18,9 +18,6 @@
           >
           <label>ncc</label>
         </div>
-        <span>积分：</span>
-        <label>0</label>
-        <p>123</p>
         <nuxt-link to="/user/setting">
           <el-button
             type="warning"
