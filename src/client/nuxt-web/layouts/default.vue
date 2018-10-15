@@ -1,12 +1,49 @@
 <template>
   <div class="layout-default">
     <el-container>
-      <el-header height="auto">
-        <ncc-header/>
+      <el-header
+        height="auto"
+        style="padding: 0;"
+        class="theme"
+      >
+        <el-row>
+          <el-col
+            :span="20"
+            :offset="2"
+          >
+            <ncc-header/>
+          </el-col>
+        </el-row>
       </el-header>
-      <nuxt/>
-      <el-footer height="auto">
-        <ncc-footer />
+
+      <el-row>
+        <el-col
+          :span="20"
+          :offset="2"
+        >
+          <el-container>
+            <el-main style="padding: 0;margin-right: 15px;">
+              <nuxt/>
+            </el-main>
+            <el-aside width="340px">
+              <ncc-slider />
+            </el-aside>
+          </el-container>
+        </el-col>
+      </el-row>
+
+      <el-footer
+        height="auto"
+        class="theme"
+      >
+        <el-row>
+          <el-col
+            :span="20"
+            :offset="2"
+          >
+            <ncc-footer />
+          </el-col>
+        </el-row>
       </el-footer>
     </el-container>
     <ncc-backtop />
@@ -15,12 +52,14 @@
 
 <script>
 import NccHeader from '~/components/shared/NccHeader.vue'
+import NccSlider from '~/components/shared/NccSlider.vue'
 import NccFooter from '~/components/shared/NccFooter.vue'
 import NccBacktop from '~/components/shared/NccBacktop.vue'
 
 export default {
   components: {
     NccHeader,
+    NccSlider,
     NccFooter,
     NccBacktop
   },
@@ -36,5 +75,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.theme {
+  background-color: var(--main-color);
+  color: #fff;
+}
 </style>

@@ -42,7 +42,7 @@ const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   layout: 'account',
-  middleware: 'unauth',
+  middleware: 'auth',
 
   data() {
     return {
@@ -91,6 +91,11 @@ export default {
               })
               .then(res => {
                 if (res.code === 0) {
+                  this.$message({
+                    showClose: true,
+                    message: '登陆成功！',
+                    type: 'success'
+                  })
                   // console.log(res)
                   const { currentUser, tokenManager } = res.data
                   const auth = {
@@ -105,12 +110,22 @@ export default {
                   this.$router.push('/')
                 } else {
                   console.log(res.message)
+                  this.$message({
+                    showClose: true,
+                    message: '账号或密码错误，登录失败！',
+                    type: 'error'
+                  })
                 }
               })
-              .catch(err => {
-                console.log(err)
-              })
-          }, 1000)
+              .catch(console.log)
+          }, 500)
+        } else {
+          this.$message({
+            showClose: true,
+            message: '请输入正确的用户登录信息！',
+            type: 'error'
+          })
+          return false
         }
       })
       this.$refs[loginform].resetFields()

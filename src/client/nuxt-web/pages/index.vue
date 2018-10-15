@@ -1,80 +1,69 @@
 <template>
   <section id="app">
-    <el-container class="content ncc-container">
-      <el-main>
-        <el-card
-          class="card-box"
-          shadow="hover"
+    <el-card
+      class="card-box card-title"
+      shadow="hover"
+    >
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <span
+          v-for="(type, index) in types"
+          :key="index"
+          class="px-1"
         >
-          <div
-            slot="header"
-            class="clearfix"
-          >
-            <!-- <ul class="type-ul">
-              <li
-                v-for="(type, index) in types"
-                :key="index"
-                index="index"
-                class="type-li"
+          {{ type.title }}
+        </span>
+      </div>
+    </el-card>
+    <div
+      v-for="(topic, index) in topics"
+      :key="index"
+      index="index"
+      class="topic-item"
+    >
+      <el-card
+        class="box-card"
+        shadow="hover"
+      >
+        <div class="topic-list">
+          <nuxt-link :to="topic.to">
+            <div class="topic-top">
+              <img
+                :src="topic.avatar"
+                alt=""
               >
-                {{ type.title }}
-              </li>
-            </ul> -->
+              <span class="topic-type">{{ topic.type }}</span>
+              <span class="topic-title">{{ topic.title }}</span>
+            </div>
+          </nuxt-link>
+          <div class="tags">
             <span
-              v-for="(type, index) in types"
+              v-for="(tag, index) in tags"
               :key="index"
-              class="px-1"
+              class="tag"
             >
-              {{ type.title }}
+              {{ tag.name }}
             </span>
           </div>
-          <div
-            v-for="(topic, index) in topics"
-            :key="index"
-            index="index"
-            class="topic-item"
-          >
-            <div class="topic-list">
-              <nuxt-link :to="topic.to">
-                <div>
-                  <img
-                    :src="topic.avatar"
-                    alt=""
-                  >
-                  <span class="topic-type">{{ topic.type }}</span>
-                  <span class="topic-title">{{ topic.title }}</span>
-                </div>
-                <!-- <div class="topic-abstract">
-                  {{ topic.abstract }}
-                </div> -->
-              </nuxt-link>
-              <div class="mt-1">
-                <span class="browsenum">
-                  <i class="el-icon-view"> {{ topic.browsenum }}</i>
-                </span>
-                <span class="commentnum">
-                  <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
-                </span>
-                <span class="topic-time">{{ topic.time }}</span>
-              </div>
-            </div>
+          <div class="mt-1">
+            <span class="browsenum">
+              <i class="el-icon-view"> {{ topic.browsenum }}</i>
+            </span>
+            <span class="commentnum">
+              <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+            </span>
+            <span class="topic-time">{{ topic.time }}</span>
           </div>
-        </el-card>
-      </el-main>
-      <el-aside width="340px">
-        <ncc-slider />
-      </el-aside>
-    </el-container>
+        </div>
+      </el-card>
+    </div>
   </section>
 </template>
 
 <script>
-import NccSlider from '~/components/shared/NccSlider.vue'
-
 export default {
-  components: {
-    NccSlider
-  },
   computed: {
     types() {
       return [
@@ -108,12 +97,15 @@ export default {
             '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
         }
       ]
+    },
+    tags() {
+      return [{ name: '问答' }, { name: '招聘' }]
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 :root {
   --init-size: 5px;
 }
@@ -127,33 +119,30 @@ export default {
   padding-left: calc(2 * var(--init-size));
   padding-right: calc(2 * var(--init-size));
 }
-
-.el-header,
-.el-footer {
+.card-title .el-card__body {
   padding: 0;
-}
-.type-ul {
-  padding: 0;
-}
-.type-li {
-  display: inline;
-  margin: 0 10px;
 }
 #app .el-main .el-card__body {
   padding: 0;
 }
-.topic-item {
-  padding: 20px;
-  border-bottom: 1px dashed #eee;
+.topic-item .el-card__body {
+  margin-bottom: 0;
+  padding: 15px;
+}
+.topic-item .tags {
+  margin: 10px 0;
+}
+.topic-item .tags span {
+  margin: 0 4px;
+  padding: 2px 10px;
+  background-color: #99d9ea;
+  border-radius: 13px;
 }
 .topic-item img {
   width: 30px;
   height: 30px;
   border-radius: 50%;
   vertical-align: middle;
-}
-.topic-item .mt-1 {
-  margin-top: 15px;
 }
 .topic-item span {
   margin-top: 10px;
@@ -163,7 +152,10 @@ export default {
   margin-left: 10px;
 }
 .topic-list .topic-type {
-  color: orange;
+  padding: 2px 10px;
+  background-color: orange;
+  color: #fff;
+  border-radius: 13px;
 }
 .topic-list .topic-title {
   color: #222;

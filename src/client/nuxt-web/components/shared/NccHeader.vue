@@ -1,150 +1,97 @@
 <template>
-  <div
-    id="ncc-header"
-    class="ncc-container"
-  >
-    <el-row>
-      <el-col
-        :xs="24"
-        :sm="4"
-        :md="4"
-        :lg="4"
-        :xl="4"
-      >
+  <div id="">
+    <el-row
+      type="flex"
+      align="middle"
+    >
+      <el-col :sm="5">
         <!-- <img src="../../static/images/logo.png" /> -->
-        <div class="ncc-logo">
-          <span class="logo1">.NET</span>
-          <span class="logo2">C</span>
-          <span class="logo1">re</span>
-          <div class="logo-cir" />
-        </div>
-      </el-col>
-      <el-col
-        :xs="24"
-        :sm="4"
-        :md="4"
-        :lg="4"
-        :xl="4"
-      >
-        <el-menu
-          :router="true"
-          mode="horizontal"
-          background-color="#682079"
-          text-color="#fff"
-          active-text-color="#fff"
-        >
-          <el-menu-item
-            v-for="(nav, index) in navs"
-            :key="index"
-            :route="nav.to"
-            index="index"
+        <h1 style="margin: 0; padding: 15px 0;">
+          <span>.NET Core 社区</span>
+          <img
+            height="32"
+            style="vertical-align:middle"
+            src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f1e8-1f1f3.png"
+            alt="中国"
           >
-            {{ nav.title }}
-          </el-menu-item>
-        </el-menu>
+        </h1>
       </el-col>
-      <el-col
-        :xs="24"
-        :sm="6"
-        :md="6"
-        :lg="6"
-        :xl="6"
-      >
-        <el-input
-          :clearable="true"
-          prefix-icon="el-icon-search"
-          placeholder="Search"
-        />
+
+      <el-col :sm="13">
+        <nuxt-link
+          v-for="(nav, index) in navs"
+          :key="index"
+          :to="nav.to"
+          class="text-white nav-link"
+        >
+          {{ nav.title }}
+        </nuxt-link>
       </el-col>
-      <el-col
-        :xs="24"
-        :sm="10"
-        :md="10"
-        :lg="10"
-        :xl="10"
-      >
-        <el-menu
+
+      <el-col :sm="6">
+        <ncc-flex
           v-if="isLogin"
-          :router="true"
-          mode="horizontal"
-          background-color="#682079"
-          text-color="#fff"
-          active-text-color="#fff"
-          class="menu-right"
+          justify="end"
         >
-          <el-menu-item
-            route="/topic/create"
-            index="1"
-          >
-            <i class="el-icon-edit" />
-          </el-menu-item>
-          <el-menu-item
-            route="/user/message"
-            index="2"
+          <nuxt-link
+            to="/"
+            class="text-white nav-link"
           >
             <el-badge
               :value="3"
               :max="99"
-              class="item"
             >
-              <i class="el-icon-message" />
+              <i class="el-icon-message fs16" />
             </el-badge>
-          </el-menu-item>
-          <el-submenu index="3">
-            <template slot="title">
+          </nuxt-link>
+
+          <el-dropdown>
+            <span class="text-white no-outline pointer">
               <img
-                src="~/static/test.jpg"
-                alt=""
+                alt="我"
+                src="/test.jpg"
+                height="32"
+                class="vertical-moddle round"
               >
-            </template>
-            <el-menu-item
-              route="/user"
-              index="3-1"
-            >
-              <i class="el-icon-menu"> 我的主页</i>
-            </el-menu-item>
-            <el-menu-item
-              route="/user/setting"
-              index="3-2"
-            >
-              <i class="el-icon-setting"> 设置</i>
-            </el-menu-item>
-            <el-menu-item
-              index="/"
-            >
-              <i class="el-icon-back"> 退出</i>
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-        <el-menu
-          v-if="!isLogin"
-          :router="true"
-          mode="horizontal"
-          background-color="#682079"
-          text-color="#fff"
-          active-text-color="#fff"
-          class="menu-right"
+              <i class="el-icon-arrow-down el-icon--right"/>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>我的主页</el-dropdown-item>
+              <el-dropdown-item>设置</el-dropdown-item>
+              <el-dropdown-item divided>退出</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </ncc-flex>
+        <ncc-flex
+          v-else
+          justify="end"
         >
-          <el-menu-item
-            route="/user/signin"
-            index="signin"
+          <el-button
+            type="text"
+            size="small"
+            class="text-white transparent"
           >
             登录
-          </el-menu-item>
-          <el-menu-item
-            route="/user/signup"
-            index="signup"
+          </el-button>
+          <el-button
+            type="success"
+            size="small"
           >
             注册
-          </el-menu-item>
-        </el-menu>
+          </el-button>
+        </ncc-flex>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import NccFlex from './NccFlex.vue'
+
 export default {
+  components: {
+    NccFlex
+  },
   computed: {
     navs() {
       return [
@@ -162,12 +109,31 @@ export default {
       let _isLogin = this.$store.state.auth.token
       return _isLogin
     }
+  },
+  methods: {
+    loginout() {
+      this.$store.state.auth.token = null
+    }
   }
 }
 </script>
 
-<style>
-#ncc-header {
+<style scoped>
+.nav-link {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.fs16 {
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.transparent:hover {
+  color: #eee;
+}
+
+/* #ncc-header {
   background-color: #682079;
 }
 #ncc-header .ncc-logo {
@@ -238,5 +204,5 @@ export default {
 }
 #ncc-header i {
   color: #fff;
-}
+} */
 </style>
