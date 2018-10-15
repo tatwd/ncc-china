@@ -17,51 +17,26 @@
         {{ content }}
       </div>
     </el-card>
-    <el-form
-      :model="commentform"
-      rel="commentform"
-    >
-      <el-input
-        :autosize="{ minRows: 2, maxRows: 4}"
-        v-model="commentform.commenttextarea"
-        prop="commenttextarea"
-        type="textarea"
-        placeholder="请输入评论内容"
-      />
-      <el-button
-        type="success"
-        plain
-        @click="subForm('commentform')"
-      >
-        提交
-      </el-button>
-    </el-form>
+    <ncc-comment />
     <ncc-interaction />
   </div>
 </template>
 <script>
+import NccComment from '~/components/topic/NccComment.vue'
 import NccInteraction from '~/components/topic/NccInteraction.vue'
 
 export default {
   components: {
+    NccComment,
     NccInteraction
   },
   data() {
     return {
-      commentform: {
-        commenttextarea: ''
-      },
       title: '45',
       time: '4545',
       author: 'ds',
       browsenum: '44',
       content: 'kjhgfhjlkj'
-    }
-  },
-  methods: {
-    submitForm(commentform) {
-      console.log('success')
-      this.$refs[commentform].resetFields()
     }
   }
 }
@@ -76,11 +51,5 @@ export default {
 #topic-detail span {
   margin-right: 40px;
   color: #797979;
-}
-#topic-detail .el-form {
-  margin: 10px;
-}
-#topic-detail .el-textarea {
-  margin-bottom: 10px;
 }
 </style>
