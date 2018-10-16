@@ -9,6 +9,7 @@
         <img
           :src="comment.ava"
           alt=""
+          class="wh30 round vertical-middle"
         >
         <span>{{ comment.name }}</span>
         <span>{{ comment.time }}</span>
@@ -42,6 +43,7 @@
           <img
             :src="reply.ava"
             alt=""
+            class="wh30 round vertical-middle"
           >
           <span>{{ reply.name }}</span>
           <span>{{ reply.time }}</span>
@@ -119,15 +121,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#ncc-interaction img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: middle;
-}
-#ncc-interaction span {
-  vertical-align: middle;
-}
-</style>

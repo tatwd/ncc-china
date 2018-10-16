@@ -21,8 +21,8 @@
   </div>
 </template>
 
-<style>
-#ncc-communication img {
+<style scoped>
+img {
   margin: 0 12px;
 }
 </style>

@@ -10,20 +10,28 @@
       <div
         v-for="o in 4"
         :key="o"
-        class="text item"
       >
-        <div class="item-list">
-          <nuxt-link to="/user">
-            {{ '话题 ' + o }}
-          </nuxt-link>
-          <el-button
-            type="danger"
-            icon="el-icon-delete"
-            size="mini"
-            title="删除"
-            circle
-            @click="deleteTopic"
-          />
+        <div class="item-list mrtb10">
+          <el-row
+            type="flex"
+            alidn="middle"
+          >
+            <el-col :sm="22">
+              <nuxt-link to="/user">
+                {{ '话题 ' + o }}
+              </nuxt-link>
+            </el-col>
+            <el-col :sm="2">
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                title="删除"
+                circle
+                @click="deleteTopic"
+              />
+            </el-col>
+          </el-row>
         </div>
       </div>
     </el-card>
@@ -61,12 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.item-list {
-  margin: 10px 0;
-}
-.item-list .el-button {
-  float: right;
-}
-</style>

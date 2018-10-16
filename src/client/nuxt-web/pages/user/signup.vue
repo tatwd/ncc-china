@@ -7,8 +7,8 @@
       class="register-box"
     >
       <nuxt-link to="/">
-        <h1>.NET Core</h1>
-        <h2>专业中文社区</h2>
+        <h1 class="mt0">.NET Core</h1>
+        <h2 class="mt0">专业中文社区</h2>
       </nuxt-link>
       <el-form-item prop="username">
         <el-input
@@ -40,6 +40,7 @@
         <el-button
           type="success"
           plain
+          class="allw"
           @click="submitForm('registerform')"
         >
           注册账号
@@ -182,8 +183,8 @@ export default {
 }
 </script>
 
-<style>
-#signup .register-box {
+<style scoped>
+.register-box {
   position: fixed;
   display: block;
   padding: 20px;
@@ -195,12 +196,5 @@ export default {
   height: 460px;
   text-align: center;
   z-index: 1;
-}
-#signup .register-box h1,
-#signup .register-box h2 {
-  margin-top: 0;
-}
-#signup .el-button {
-  width: 100%;
 }
 </style>

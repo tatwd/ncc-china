@@ -1,47 +1,59 @@
 <template>
   <div id="topic-create">
     <el-container>
-      <el-header>
-        <router-link
-          to="/"
-          class="gohome"
+      <el-header class="allw">
+        <el-row
+          type="flex"
+          align="middle"
         >
-          主页
-        </router-link>
-        写文章
-        <a
-          href="https://www.appinn.com/markdown/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="markdown"
-        >
-          <el-button
-            type="primary"
-            plain
-          >
-            Markdown 文档
-          </el-button>
-        </a>
-        <el-button
-          type="success"
-          plain
-          class="publish-btn"
-        >
-          发表文章
-        </el-button>
+          <el-col :sm="6">
+            <router-link
+              to="/"
+              class="gohome"
+            >
+              <h1 class="mrtb10 fs16 dib">主页</h1>
+            </router-link>
+          </el-col>
+          <el-col :sm="12">
+            <h1 class="mrtb10 fs16">写文章</h1>
+          </el-col>
+          <el-col :sm="6">
+            <ncc-flex justify="end">
+              <el-button
+                type="success"
+                plain
+                class="mrlr10"
+              >
+                发表文章
+              </el-button>
+              <a
+                href="https://www.appinn.com/markdown/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <el-button
+                  type="primary"
+                  plain
+                >
+                  Markdown 文档
+                </el-button>
+              </a>
+            </ncc-flex>
+          </el-col>
+        </el-row>
       </el-header>
-      <el-container class="content ncc-container">
-        <el-main>
-          <el-card
-            class="box-card"
-            shadow="hover"
+      <el-main>
+        <el-row>
+          <el-col
+            :sm="12"
+            :offset="6"
           >
-            <div>
+            <el-card shadow="hover">
               <el-form>
                 <el-input
                   v-model="topicTitle"
                   placeholder="请输入文章标题，字数10字以上"
-                  class="input-with-select"
+                  class="input-with-select mb10"
                 >
                   <el-select
                     slot="prepend"
@@ -65,16 +77,21 @@
                   />
                 </no-ssr>
               </el-form>
-            </div>
-          </el-card>
-        </el-main>
-      </el-container>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-main>
     </el-container>
   </div>
 </template>
 <script>
+import NccFlex from '~/components/shared/NccFlex.vue'
+
 export default {
   layout: 'publish',
+  components: {
+    NccFlex
+  },
   data() {
     return {
       input5: '',
@@ -131,40 +148,20 @@ export default {
 }
 </script>
 
-<style>
-#topic-create .el-header {
+<style scoped>
+.el-header {
   position: fixed;
-  padding: 0 15px;
-  width: 100%;
   background-color: #f9f9f9;
   border-bottom: 1px solid #ccc;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 60px;
-  text-align: center;
   z-index: 3000;
 }
-#topic-create .publish-btn,
-#topic-create .markdown .el-button {
-  float: right;
-  margin: 10px;
+.el-card {
+  margin-top: 60px;
 }
-#topic-create .gohome {
-  float: left;
-}
-#topic-create .ncc-container {
-  width: 800px;
-}
-#topic-create .el-card {
-  margin-top: 70px;
-}
-#topic-create .el-select {
+.el-select {
   width: 130px;
 }
-#topic-create .input-with-select {
-  margin-bottom: 10px;
-}
-#topic-create .v-note-wrapper {
+.v-note-wrapper {
   min-height: 460px;
 }
 </style>

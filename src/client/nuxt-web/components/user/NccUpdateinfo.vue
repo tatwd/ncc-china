@@ -27,11 +27,13 @@
             <img
               v-if="avatar"
               :src="updateinfoform.avatar"
+              alt=""
               class="avatar"
             >
             <img
               v-else
               :src="updateinfoform.avatar"
+              alt=""
               class="avatar"
             >
           </el-upload>

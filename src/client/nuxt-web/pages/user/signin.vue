@@ -7,8 +7,8 @@
       class="login-box"
     >
       <nuxt-link to="/">
-        <h1>.NET Core</h1>
-        <h2>专业中文社区</h2>
+        <h1 class="mt0">.NET Core</h1>
+        <h2 class="mt0">专业中文社区</h2>
       </nuxt-link>
       <el-form-item prop="username">
         <el-input
@@ -27,6 +27,7 @@
         <el-button
           type="success"
           plain
+          class="allw"
           @click="submitForm('loginform')"
         >
           登录
@@ -134,8 +135,8 @@ export default {
 }
 </script>
 
-<style>
-#signin .login-box {
+<style scoped>
+.login-box {
   position: fixed;
   display: block;
   padding: 20px;
@@ -147,12 +148,5 @@ export default {
   height: 340px;
   text-align: center;
   z-index: 1;
-}
-#signin .login-box h1,
-#signin .login-box h2 {
-  margin-top: 0;
-}
-#signin .el-button {
-  width: 100%;
 }
 </style>

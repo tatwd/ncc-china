@@ -1,18 +1,27 @@
 <template>
   <section id="app">
-    <el-card shadow="never">
-      <el-button
-        v-for="(type, index) in types"
-        :key="index"
-        size="small"
-      >
-        {{ type.title }}
-      </el-button>
-      <ncc-flex justify="end">
-        <span>按时间</span>
-        <span>按热度</span>
-      </ncc-flex>
-    </el-card>
+    <ncc-search />
+    <el-row
+      type="flex"
+      align="middle"
+    >
+      <el-col :sm="12">
+        <el-button
+          v-for="(type, index) in types"
+          :key="index"
+          type="primary"
+          size="small"
+        >
+          {{ type.title }}
+        </el-button>
+      </el-col>
+      <el-col :sm="12">
+        <ncc-flex justify="end">
+          <span class="mrlr10 pointer">按时间</span>
+          <span class="mrlr10 pointer">按热度</span>
+        </ncc-flex>
+      </el-col>
+    </el-row>
     <div
       v-for="(topic, index) in topics"
       :key="index"
@@ -20,34 +29,47 @@
     >
       <el-card shadow="hover">
         <div class="topic-list">
-          <nuxt-link :to="topic.to">
-            <div class="topic-top">
-              <img
-                :src="topic.avatar"
-                alt=""
-                class="imgw30 round vertical-moddle"
-              >
-              <span class="topic-type">{{ topic.type }}</span>
-              <span class="topic-title">{{ topic.title }}</span>
-            </div>
-          </nuxt-link>
-          <div class="mrtb10">
+          <div class="topic-top ">
+            <img
+              :src="topic.avatar"
+              alt=""
+              class="wh30 round vertical-middle"
+            >
+            <span class="topic-type mrlr10 pdtb4 pdlr10 text-white pointer">
+              {{ topic.type }}
+            </span>
+            <nuxt-link :to="topic.to">
+              <span class="fs12">{{ topic.title }}</span>
+            </nuxt-link>
+          </div>
+          <div class="mrtb15">
             <span
               v-for="(tag, index) in tags"
               :key="index"
-              class="tag"
+              class="tag mrlr10 pdtb4 pdlr10 pointer"
             >
               {{ tag.name }}
             </span>
           </div>
           <div class="mt-1">
-            <span class="browsenum">
-              <i class="el-icon-view"> {{ topic.browsenum }}</i>
-            </span>
-            <span class="commentnum">
-              <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
-            </span>
-            <span class="topic-time">{{ topic.time }}</span>
+            <el-row
+              type="flex"
+              align="middle"
+            >
+              <el-col :sm="12">
+                <span>
+                  <i class="el-icon-view"> {{ topic.browsenum }}</i>
+                </span>
+                <span class="mrlr10">
+                  <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+                </span>
+              </el-col>
+              <el-col :sm="12">
+                <ncc-flex justify="end">
+                  <span class="mrlr10">{{ topic.time }}</span>
+                </ncc-flex>
+              </el-col>
+            </el-row>
           </div>
         </div>
       </el-card>
@@ -57,10 +79,12 @@
 
 <script>
 import NccFlex from '~/components/shared/NccFlex.vue'
+import NccSearch from '~/components/shared/NccSearch.vue'
 
 export default {
   components: {
-    NccFlex
+    NccFlex,
+    NccSearch
   },
   computed: {
     types() {
@@ -103,5 +127,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.topic-type {
+  background-color: orange;
+  border-radius: 15px;
+}
+.tag {
+  background-color: #ccc;
+  border-radius: 15px;
+}
 </style>

@@ -10,6 +10,7 @@
         prop="commenttextarea"
         type="textarea"
         placeholder="请输入评论内容"
+        class="mb10"
       />
       <el-button
         type="success"
@@ -59,12 +60,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#ncc-comment .el-form {
-  margin: 10px;
-}
-#ncc-comment .el-textarea {
-  margin-bottom: 10px;
-}
-</style>

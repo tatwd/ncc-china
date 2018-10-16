@@ -10,11 +10,15 @@ body {
 a {
   text-decoration: none;
   outline: 0;
+  color: #909399;
+}
+a:hover {
+  color: var(--main-color);
 }
 .text-white {
   color: #fff;
 }
-.vertical-moddle {
+.vertical-middle {
   vertical-align: middle;
 }
 .round {
@@ -30,24 +34,60 @@ a {
 .transparent:hover {
   background-color: transparent;
 }
+.dib {
+  display: inline-block;
+}
+/* margin */
+.mt0 {
+  margin-top: 0;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mt60 {
+  margin-top: 60px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
 .mrtb10 {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.mrtb15 {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 .mrlr10 {
   margin-left: 10px;
   margin-right: 10px;
 }
-.mt10 {
-  margin-top: 10px;
+/* padding */
+.pd4 {
+  padding: 4px;
+}
+.pd20 {
+  padding: 20px;
+}
+.pdtb4 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.pdlr10 {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .pdlr15 {
   padding-left: 15px;
   padding-right: 15px;
 }
-.imgw30 {
+.wh30 {
   width: 30px;
   height: 30px;
+}
+.wh50 {
+  width: 50px;
+  height: 50px;
 }
 .px-1 {
   padding-left: calc(1 * var(--init-size));
@@ -59,4 +99,12 @@ a {
 .px-2 {
   padding-left: calc(2 * var(--init-size));
   padding-right: calc(2 * var(--init-size));
+}
+.fs12 {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.fs16 {
+  font-size: 24px;
+  line-height: 1.5;
 }
