@@ -1,9 +1,6 @@
 <template>
   <div id="ncc-mycreate">
-    <el-card
-      class="box-card"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"

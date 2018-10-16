@@ -1,60 +1,55 @@
 <template>
   <div id="ncc-updatepwd">
-    <el-card
-      class="card-box"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"
       >
         <span>修改密码</span>
       </div>
-      <div>
-        <el-form
-          ref="updatepwdform"
-          :model="updatepwdform"
-          :rules="rules"
-          label-width="100px"
+      <el-form
+        ref="updatepwdform"
+        :model="updatepwdform"
+        :rules="rules"
+        label-width="100px"
+      >
+        <el-form-item
+          label="原密码"
+          prop="useroldpwd"
         >
-          <el-form-item
-            label="原密码"
-            prop="useroldpwd"
+          <el-input
+            v-model="updatepwdform.useroldpwd"
+            type="password"
+          />
+        </el-form-item>
+        <el-form-item
+          label="新密码"
+          prop="usernewpwd"
+        >
+          <el-input
+            v-model="updatepwdform.usernewpwd"
+            type="password"
+          />
+        </el-form-item>
+        <el-form-item
+          label="确认新密码"
+          prop="usernewpwd2"
+        >
+          <el-input
+            v-model="updatepwdform.usernewpwd2"
+            type="password"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            type="success"
+            plain
+            @click="submitForm('updatepwdform')"
           >
-            <el-input
-              v-model="updatepwdform.useroldpwd"
-              type="password"
-            />
-          </el-form-item>
-          <el-form-item
-            label="新密码"
-            prop="usernewpwd"
-          >
-            <el-input
-              v-model="updatepwdform.usernewpwd"
-              type="password"
-            />
-          </el-form-item>
-          <el-form-item
-            label="确认新密码"
-            prop="usernewpwd2"
-          >
-            <el-input
-              v-model="updatepwdform.usernewpwd2"
-              type="password"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="success"
-              plain
-              @click="submitForm('updatepwdform')"
-            >
-              保存修改
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </div>
+            保存修改
+          </el-button>
+        </el-form-item>
+      </el-form>
     </el-card>
   </div>
 </template>

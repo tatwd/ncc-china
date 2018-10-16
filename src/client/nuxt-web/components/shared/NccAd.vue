@@ -1,9 +1,6 @@
 <template>
   <div id="ncc-ad">
-    <el-card
-      class="card-box"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         v-for="(ad, index) in ads"
         :key="index"

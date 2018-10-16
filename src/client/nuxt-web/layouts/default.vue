@@ -3,8 +3,7 @@
     <el-container>
       <el-header
         height="auto"
-        style="padding: 0;"
-        class="theme"
+        class="theme header"
       >
         <el-row>
           <el-col
@@ -22,7 +21,7 @@
           :offset="2"
         >
           <el-container>
-            <el-main style="padding: 0;margin-right: 15px;">
+            <el-main class="main">
               <nuxt/>
             </el-main>
             <el-aside width="340px">
@@ -79,5 +78,12 @@ export default {
 .theme {
   background-color: var(--main-color);
   color: #fff;
+}
+.header {
+  padding: 0;
+}
+.main {
+  padding: 0;
+  margin-right: 15px;
 }
 </style>

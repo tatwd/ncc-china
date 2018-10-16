@@ -1,9 +1,6 @@
 <template>
   <div id="ncc-topicnoreply">
-    <el-card
-      class="card-box"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"

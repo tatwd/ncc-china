@@ -1,44 +1,37 @@
 <template>
   <section id="app">
-    <el-card
-      class="card-box card-title"
-      shadow="hover"
-    >
-      <div
-        slot="header"
-        class="clearfix"
+    <el-card shadow="never">
+      <el-button
+        v-for="(type, index) in types"
+        :key="index"
+        size="small"
       >
-        <span
-          v-for="(type, index) in types"
-          :key="index"
-          class="px-1"
-        >
-          {{ type.title }}
-        </span>
-      </div>
+        {{ type.title }}
+      </el-button>
+      <ncc-flex justify="end">
+        <span>按时间</span>
+        <span>按热度</span>
+      </ncc-flex>
     </el-card>
     <div
       v-for="(topic, index) in topics"
       :key="index"
       index="index"
-      class="topic-item"
     >
-      <el-card
-        class="box-card"
-        shadow="hover"
-      >
+      <el-card shadow="hover">
         <div class="topic-list">
           <nuxt-link :to="topic.to">
             <div class="topic-top">
               <img
                 :src="topic.avatar"
                 alt=""
+                class="imgw30 round vertical-moddle"
               >
               <span class="topic-type">{{ topic.type }}</span>
               <span class="topic-title">{{ topic.title }}</span>
             </div>
           </nuxt-link>
-          <div class="tags">
+          <div class="mrtb10">
             <span
               v-for="(tag, index) in tags"
               :key="index"
@@ -63,7 +56,12 @@
 </template>
 
 <script>
+import NccFlex from '~/components/shared/NccFlex.vue'
+
 export default {
+  components: {
+    NccFlex
+  },
   computed: {
     types() {
       return [
@@ -106,67 +104,4 @@ export default {
 </script>
 
 <style>
-:root {
-  --init-size: 5px;
-}
-
-.px-1 {
-  padding-left: calc(1 * var(--init-size));
-  padding-right: calc(1 * var(--init-size));
-}
-
-.px-2 {
-  padding-left: calc(2 * var(--init-size));
-  padding-right: calc(2 * var(--init-size));
-}
-.card-title .el-card__body {
-  padding: 0;
-}
-#app .el-main .el-card__body {
-  padding: 0;
-}
-.topic-item .el-card__body {
-  margin-bottom: 0;
-  padding: 15px;
-}
-.topic-item .tags {
-  margin: 10px 0;
-}
-.topic-item .tags span {
-  margin: 0 4px;
-  padding: 2px 10px;
-  background-color: #99d9ea;
-  border-radius: 13px;
-}
-.topic-item img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: middle;
-}
-.topic-item span {
-  margin-top: 10px;
-  vertical-align: middle;
-}
-.topic-list .commentnum {
-  margin-left: 10px;
-}
-.topic-list .topic-type {
-  padding: 2px 10px;
-  background-color: orange;
-  color: #fff;
-  border-radius: 13px;
-}
-.topic-list .topic-title {
-  color: #222;
-  font-size: 20px;
-  font-weight: 700;
-}
-.topic-list .topic-abstract {
-  margin: 20px 0;
-}
-.topic-item .topic-time {
-  float: right;
-  margin-top: 4px;
-}
 </style>

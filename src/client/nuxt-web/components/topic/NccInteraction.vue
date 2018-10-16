@@ -1,77 +1,72 @@
 <template>
   <div id="ncc-interaction">
-    <el-card
-      class="cox-card"
-      shadow="hover"
-    >
-      <div>
+    <el-card shadow="hover">
+      <div
+        v-for="(comment, index) in comments"
+        :key="index"
+        index="index"
+      >
+        <img
+          :src="comment.ava"
+          alt=""
+        >
+        <span>{{ comment.name }}</span>
+        <span>{{ comment.time }}</span>
+        <p>{{ comment.content }}</p>
+        <span @click="showreplyInput">回复</span>
+        <el-form
+          v-show="showreply"
+          :model="replyform"
+          rel="replyform"
+        >
+          <el-input
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="replyform.replytextarea"
+            prop="replytextarea"
+            type="textarea"
+            placeholder="请输入回复内容"
+          />
+          <el-button
+            type="success"
+            plain
+            @click="subForm('replyform')"
+          >
+            提交
+          </el-button>
+        </el-form>
         <div
-          v-for="(comment, index) in comments"
+          v-for="(reply, index) in replys"
           :key="index"
           index="index"
         >
           <img
-            :src="comment.ava"
+            :src="reply.ava"
             alt=""
           >
-          <span>{{ comment.name }}</span>
-          <span>{{ comment.time }}</span>
-          <p>{{ comment.content }}</p>
-          <span @click="showreplyInput">回复</span>
+          <span>{{ reply.name }}</span>
+          <span>{{ reply.time }}</span>
+          <p>{{ reply.content }}</p>
+          <span @click="showreply1Input">回复</span>
           <el-form
-            v-show="showreply"
+            v-show="showreply1"
             :model="replyform"
-            rel="replyform"
+            rel="reply1form"
           >
             <el-input
               :autosize="{ minRows: 2, maxRows: 4}"
-              v-model="replyform.replytextarea"
-              prop="replytextarea"
+              v-model="reply1form.reply1textarea"
+              prop="reply1textarea"
               type="textarea"
               placeholder="请输入回复内容"
             />
             <el-button
               type="success"
               plain
-              @click="subForm('replyform')"
+              @click="subForm('reply1form')"
             >
               提交
             </el-button>
           </el-form>
-          <div
-            v-for="(reply, index) in replys"
-            :key="index"
-            index="index"
-          >
-            <img
-              :src="reply.ava"
-              alt=""
-            >
-            <span>{{ reply.name }}</span>
-            <span>{{ reply.time }}</span>
-            <p>{{ reply.content }}</p>
-            <span @click="showreply1Input">回复</span>
-            <el-form
-              v-show="showreply1"
-              :model="replyform"
-              rel="reply1form"
-            >
-              <el-input
-                :autosize="{ minRows: 2, maxRows: 4}"
-                v-model="reply1form.reply1textarea"
-                prop="reply1textarea"
-                type="textarea"
-                placeholder="请输入回复内容"
-              />
-              <el-button
-                type="success"
-                plain
-                @click="subForm('reply1form')"
-              >
-                提交
-              </el-button>
-            </el-form>
-          </div>
         </div>
       </div>
     </el-card>
