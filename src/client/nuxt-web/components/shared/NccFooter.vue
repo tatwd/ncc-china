@@ -1,7 +1,7 @@
 <template>
   <div
     id="ncc-footer"
-    class="pd20 text-white"
+    class="pd20 white"
   >
     <el-row>
       <span>.NET Core 专业中文社区</span> | <span><a href="https://github.com/tatwd/ncc-china">源码地址</a></span>

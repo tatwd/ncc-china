@@ -51,26 +51,24 @@
               {{ tag.name }}
             </span>
           </div>
-          <div class="mt-1">
-            <el-row
-              type="flex"
-              align="middle"
-            >
-              <el-col :sm="12">
-                <span>
-                  <i class="el-icon-view"> {{ topic.browsenum }}</i>
-                </span>
-                <span class="mrlr10">
-                  <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
-                </span>
-              </el-col>
-              <el-col :sm="12">
-                <ncc-flex justify="end">
-                  <span class="mrlr10">{{ topic.time }}</span>
-                </ncc-flex>
-              </el-col>
-            </el-row>
-          </div>
+          <el-row
+            type="flex"
+            align="middle"
+          >
+            <el-col :sm="12">
+              <span>
+                <i class="el-icon-view"> {{ topic.browsenum }}</i>
+              </span>
+              <span class="mrlr10">
+                <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+              </span>
+            </el-col>
+            <el-col :sm="12">
+              <ncc-flex justify="end">
+                <span class="mrlr10">{{ topic.time }}</span>
+              </ncc-flex>
+            </el-col>
+          </el-row>
         </div>
       </el-card>
     </div>

@@ -15,28 +15,6 @@ a {
 a:hover {
   color: var(--main-color);
 }
-.text-white {
-  color: #fff;
-}
-.vertical-middle {
-  vertical-align: middle;
-}
-.round {
-  border-radius: 50%;
-}
-.no-outline {
-  outline: 0;
-}
-.pointer {
-  cursor: pointer;
-}
-.transparent,
-.transparent:hover {
-  background-color: transparent;
-}
-.dib {
-  display: inline-block;
-}
 /* margin */
 .mt0 {
   margin-top: 0;
@@ -81,6 +59,7 @@ a:hover {
   padding-left: 15px;
   padding-right: 15px;
 }
+/* width-height */
 .wh30 {
   width: 30px;
   height: 30px;
@@ -89,17 +68,10 @@ a:hover {
   width: 50px;
   height: 50px;
 }
-.px-1 {
-  padding-left: calc(1 * var(--init-size));
-  padding-right: calc(1 * var(--init-size));
-}
 .allw {
   width: 100%;
 }
-.px-2 {
-  padding-left: calc(2 * var(--init-size));
-  padding-right: calc(2 * var(--init-size));
-}
+/* font */
 .fs12 {
   font-size: 18px;
   line-height: 1.5;
@@ -107,4 +79,28 @@ a:hover {
 .fs16 {
   font-size: 24px;
   line-height: 1.5;
+}
+/* color */
+.white {
+  color: #fff;
+}
+/* other */
+.vertical-middle {
+  vertical-align: middle;
+}
+.round {
+  border-radius: 50%;
+}
+.no-outline {
+  outline: 0;
+}
+.pointer {
+  cursor: pointer;
+}
+.transparent,
+.transparent:hover {
+  background-color: transparent;
+}
+.dib {
+  display: inline-block;
 }

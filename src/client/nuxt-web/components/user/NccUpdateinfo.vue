@@ -25,7 +25,7 @@
             action="https://jsonplaceholder.typicode.com/posts/"
           >
             <img
-              v-if="avatar"
+              v-if="hasavatar"
               :src="updateinfoform.avatar"
               alt=""
               class="avatar"
@@ -94,6 +94,11 @@ export default {
   //     this.userinfo = userinfo
   //   }
   // },
+  computed: {
+    hasavatar() {
+      return true
+    }
+  },
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)

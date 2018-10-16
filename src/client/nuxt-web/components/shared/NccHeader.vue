@@ -20,9 +20,9 @@
           v-for="(nav, index) in navs"
           :key="index"
           :to="nav.to"
-          class="text-white nav-link"
+          class="white nav-link"
         >
-          <span class="text-white">{{ nav.title }}</span>
+          <span class="white">{{ nav.title }}</span>
         </nuxt-link>
       </el-col>
       <el-col :sm="6">
@@ -32,19 +32,19 @@
         >
           <nuxt-link
             to="/user/message"
-            class="text-white nav-link"
+            class="white nav-link"
           >
             <el-badge
               :value="3"
               :max="99"
               class="msg-num"
             >
-              <i class="el-icon-message fs16 text-white" />
+              <i class="el-icon-message fs16 white" />
             </el-badge>
           </nuxt-link>
 
           <el-dropdown>
-            <span class="text-white no-outline pointer">
+            <span class="white no-outline pointer">
               <img
                 alt="我"
                 src="/test.jpg"
@@ -81,7 +81,7 @@
             <el-button
               type="text"
               size="small"
-              class="text-white transparent pdlr15"
+              class="white transparent pdlr15"
             >
               登录
             </el-button>
