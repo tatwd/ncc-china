@@ -11,7 +11,7 @@
             height="32"
             src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f1e8-1f1f3.png"
             alt="中国"
-            class="vertical-moddle"
+            class="vertical-middle"
           >
         </h1>
       </el-col>
@@ -115,12 +115,12 @@ export default {
           to: '/'
         },
         {
-          title: '关于',
-          to: '/about'
-        },
-        {
           title: 'Wiki',
           to: '/wiki'
+        },
+        {
+          title: '关于',
+          to: '/about'
         }
       ]
     },

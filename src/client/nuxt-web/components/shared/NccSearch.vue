@@ -3,7 +3,6 @@
     <el-form
       ref="searchform"
       :model="searchform"
-      :rules="rules"
       class="mgt10"
     >
       <el-form-item prop="search">
@@ -28,11 +27,6 @@ export default {
     return {
       searchform: {
         search: ''
-      },
-      rules: {
-        search: true,
-        message: '请输入搜索内容',
-        trigger: 'blur'
       }
     }
   },
