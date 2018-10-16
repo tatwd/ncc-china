@@ -16,14 +16,15 @@
 export default {
   async asyncData({ app }) {
     let _data = 'hello world'
-    _data = await app.$axios.$get('/')
-    // .then(res => {
-    //   console.log(res)
-    //   _data = JSON.stringify(res)
-    // })
-    // .catch(err => {
-    //   console.log(res.config)
-    // })
+    app.$axios
+      .$get('/')
+      .then(res => {
+        console.log(res)
+        _data = JSON.stringify(res)
+      })
+      .catch(err => {
+        console.log(res.config)
+      })
 
     return {
       data: _data

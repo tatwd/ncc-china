@@ -7,8 +7,8 @@
       >
         <el-row>
           <el-col
-            :span="20"
-            :offset="2"
+            :span="18"
+            :offset="3"
           >
             <ncc-header/>
           </el-col>
@@ -17,8 +17,8 @@
 
       <el-row>
         <el-col
-          :span="20"
-          :offset="2"
+          :span="18"
+          :offset="3"
         >
           <el-container>
             <el-main class="pd0 mgr10">
@@ -37,8 +37,8 @@
       >
         <el-row>
           <el-col
-            :span="20"
-            :offset="2"
+            :span="18"
+            :offset="3"
           >
             <ncc-footer />
           </el-col>

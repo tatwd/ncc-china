@@ -1,10 +1,10 @@
-// import * as axios from 'axios'
-
-// let options = {} // The server-side needs a full url to works
-// if (process.server) {
-//   options.baseURL = 'https://www.apiopen.top/'
-//   // options.baseUrl = 'https://gank.io/'
-//   // options.baseURL = `http://${process.env.HOST || 'jsonplaceholder.typicode.com/'}:${process.env.PORT || 3000}/api`
-// }
-
-// export default axios.create(options)
+export default function({ $axios, redirect, store }) {
+  let token = store.state.auth.token
+  $axios.setToken(token, 'Bearer')
+  $axios.onError(error => {
+    const code = parseInt(error.response && error.response.status)
+    if (code === 401) {
+      redirect('/user/signin')
+    }
+  })
+}
