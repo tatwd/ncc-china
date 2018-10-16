@@ -23,6 +23,6 @@
 
 <style>
 #ncc-communication img {
-  margin: 0 8px;
+  margin: 0 12px;
 }
 </style>
