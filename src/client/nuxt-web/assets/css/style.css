@@ -16,31 +16,37 @@ a:hover {
   color: var(--main-color);
 }
 /* margin */
-.mt0 {
+.mgt0 {
   margin-top: 0;
 }
-.mt10 {
+.mgt10 {
   margin-top: 10px;
 }
-.mt60 {
+.mgt60 {
   margin-top: 60px;
 }
-.mb10 {
+.mgr10 {
+  margin-right: 10px;
+}
+.mgb10 {
   margin-bottom: 10px;
 }
-.mrtb10 {
+.mgtb10 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.mrtb15 {
+.mgtb15 {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-.mrlr10 {
+.mglr10 {
   margin-left: 10px;
   margin-right: 10px;
 }
 /* padding */
+.pd0 {
+  padding: 0;
+}
 .pd4 {
   padding: 4px;
 }

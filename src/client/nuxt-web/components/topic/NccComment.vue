@@ -10,7 +10,7 @@
         prop="commenttextarea"
         type="textarea"
         placeholder="请输入评论内容"
-        class="mb10"
+        class="mgb10"
       />
       <el-button
         type="success"

@@ -10,9 +10,8 @@
       <div
         v-for="o in 4"
         :key="o"
-        class="text item"
       >
-        <div class="item-list mrtb10">
+        <div class="item-list mgtb10">
           <el-row
             type="flex"
             alidn="middle"

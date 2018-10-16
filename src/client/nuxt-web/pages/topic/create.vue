@@ -11,18 +11,18 @@
               to="/"
               class="gohome"
             >
-              <h1 class="mrtb10 fs16 dib">主页</h1>
+              <h1 class="mgtb10 fs16 dib">主页</h1>
             </router-link>
           </el-col>
           <el-col :sm="12">
-            <h1 class="mrtb10 fs16">写文章</h1>
+            <h1 class="mgtb10 fs16">写文章</h1>
           </el-col>
           <el-col :sm="6">
             <ncc-flex justify="end">
               <el-button
                 type="success"
                 plain
-                class="mrlr10"
+                class="mglr10"
               >
                 发表文章
               </el-button>
@@ -53,7 +53,7 @@
                 <el-input
                   v-model="topicTitle"
                   placeholder="请输入文章标题，字数10字以上"
-                  class="input-with-select mb10"
+                  class="input-with-select mgb10"
                 >
                   <el-select
                     slot="prepend"

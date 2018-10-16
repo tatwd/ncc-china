@@ -3,7 +3,7 @@
     <nuxt-link to="/topic/create">
       <el-button
         type="success"
-        class="allw mt10"
+        class="allw mgt10"
       >
         发表文章
       </el-button>

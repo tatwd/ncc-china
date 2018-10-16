@@ -4,7 +4,7 @@
       ref="searchform"
       :model="searchform"
       :rules="rules"
-      class="mt10"
+      class="mgt10"
     >
       <el-form-item prop="search">
         <el-input

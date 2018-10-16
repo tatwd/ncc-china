@@ -17,8 +17,8 @@
       </el-col>
       <el-col :sm="12">
         <ncc-flex justify="end">
-          <span class="mrlr10 pointer">按时间</span>
-          <span class="mrlr10 pointer">按热度</span>
+          <span class="mglr10 pointer">按时间</span>
+          <span class="mglr10 pointer">按热度</span>
         </ncc-flex>
       </el-col>
     </el-row>
@@ -29,24 +29,22 @@
     >
       <el-card shadow="hover">
         <div class="topic-list">
-          <div class="topic-top ">
-            <img
-              :src="topic.avatar"
-              alt=""
-              class="wh30 round vertical-middle"
-            >
-            <span class="topic-type mrlr10 pdtb4 pdlr10 text-white pointer">
-              {{ topic.type }}
-            </span>
-            <nuxt-link :to="topic.to">
-              <span class="fs12">{{ topic.title }}</span>
-            </nuxt-link>
-          </div>
-          <div class="mrtb15">
+          <img
+            :src="topic.avatar"
+            alt=""
+            class="wh30 round vertical-middle"
+          >
+          <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
+            {{ topic.type }}
+          </span>
+          <nuxt-link :to="topic.to">
+            <span class="fs12">{{ topic.title }}</span>
+          </nuxt-link>
+          <div class="mgtb15">
             <span
               v-for="(tag, index) in tags"
               :key="index"
-              class="tag mrlr10 pdtb4 pdlr10 pointer"
+              class="tag mglr10 pdtb4 pdlr10 pointer"
             >
               {{ tag.name }}
             </span>
@@ -59,13 +57,13 @@
               <span>
                 <i class="el-icon-view"> {{ topic.browsenum }}</i>
               </span>
-              <span class="mrlr10">
+              <span class="mglr10">
                 <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
               </span>
             </el-col>
             <el-col :sm="12">
               <ncc-flex justify="end">
-                <span class="mrlr10">{{ topic.time }}</span>
+                <span class="mglr10">{{ topic.time }}</span>
               </ncc-flex>
             </el-col>
           </el-row>

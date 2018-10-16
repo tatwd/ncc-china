@@ -8,7 +8,7 @@
         slot="header"
         class="clearfix"
       >
-        <h2 class="fs16 mt0">{{ title }}</h2>
+        <h2 class="fs16 mgt0">{{ title }}</h2>
         <span>发布于 {{ time }}</span>
         <span>作者 {{ author }}</span>
         <span>{{ browsenum }} 次浏览</span>

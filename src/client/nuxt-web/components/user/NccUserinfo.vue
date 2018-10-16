@@ -7,7 +7,7 @@
       >
         <span><nuxt-link to="/">主页</nuxt-link> / 用户信息</span>
       </div>
-      <div class="ava-name mb10">
+      <div class="ava-name mgb10">
         <img
           src="~/static/test.jpg"
           alt=""
@@ -15,15 +15,15 @@
         >
         <label class="fs16">ncc</label>
       </div>
-      <div class="userid mb10">
+      <div class="userid mgb10">
         <span>用户ID：</span>
         <label>121</label>
       </div>
-      <div class="gender mb10">
+      <div class="gender mgb10">
         <span>性别：</span>
         <label>未知</label>
       </div>
-      <div class="createtime mb10">
+      <div class="createtime mgb10">
         <span>注册时间：</span>
         <label>2018-10-15</label>
       </div>
