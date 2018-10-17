@@ -78,6 +78,10 @@ a:hover {
   width: 100%;
 }
 /* font */
+.fs8 {
+  font-size: 12px;
+  line-height: 1.5;
+}
 .fs12 {
   font-size: 18px;
   line-height: 1.5;

@@ -1,6 +1,19 @@
 <template>
   <section id="app">
-    <ncc-search />
+    <el-form
+      ref="searchform"
+      :model="searchform"
+      class="mgt10"
+    >
+      <el-form-item prop="search">
+        <el-input
+          v-model="searchform.search"
+          placeholder="请选择搜索内容"
+          suffix-icon="el-icon-search"
+          @keyup.enter.native="search"
+        />
+      </el-form-item>
+    </el-form>
     <el-row
       type="flex"
       align="middle"
@@ -44,9 +57,9 @@
             <span
               v-for="(tag, index) in tags"
               :key="index"
-              class="tag mglr10 pdtb4 pdlr10 pointer"
+              class="tag pdtb4 pdlr10 fs8 pointer"
             >
-              {{ tag.name }}
+              # {{ tag.name }}
             </span>
           </div>
           <el-row
@@ -75,12 +88,17 @@
 
 <script>
 import NccFlex from '~/components/shared/NccFlex.vue'
-import NccSearch from '~/components/shared/NccSearch.vue'
 
 export default {
   components: {
-    NccFlex,
-    NccSearch
+    NccFlex
+  },
+  data() {
+    return {
+      searchform: {
+        search: ''
+      }
+    }
   },
   computed: {
     types() {
@@ -99,9 +117,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail',
-          abstract:
-            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
+          to: '/topic/detail'
         },
         {
           avatar: require('../static/test.jpg'),
@@ -110,14 +126,26 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail',
-          abstract:
-            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
+          to: '/topic/detail'
         }
       ]
     },
     tags() {
       return [{ name: '问答' }, { name: '招聘' }]
+    }
+  },
+  methods: {
+    search() {
+      setTimeout(() => {
+        this.$axios
+          .$post('', {
+            search: this.searchform.search
+          })
+          .then(res => {
+            console.log(res)
+            console.log(search)
+          })
+      }, 500)
     }
   }
 }
@@ -126,10 +154,6 @@ export default {
 <style scoped>
 .topic-type {
   background-color: orange;
-  border-radius: 15px;
-}
-.tag {
-  background-color: #ccc;
   border-radius: 15px;
 }
 </style>
