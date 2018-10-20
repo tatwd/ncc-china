@@ -1,61 +1,85 @@
 <template>
   <section id="app">
-    <el-card
-      class="card-box card-title"
-      shadow="hover"
+    <el-form
+      ref="searchform"
+      :model="searchform"
+      class="mgt10"
     >
-      <div
-        slot="header"
-        class="clearfix"
-      >
-        <span
+      <el-form-item prop="search">
+        <el-input
+          v-model="searchform.search"
+          placeholder="请选择搜索内容"
+          suffix-icon="el-icon-search"
+          @keyup.enter.native="search"
+        />
+      </el-form-item>
+    </el-form>
+    <el-row
+      type="flex"
+      align="middle"
+    >
+      <el-col :sm="12">
+        <el-button
           v-for="(type, index) in types"
           :key="index"
-          class="px-1"
+          type="primary"
+          size="small"
         >
           {{ type.title }}
-        </span>
-      </div>
-    </el-card>
+        </el-button>
+      </el-col>
+      <el-col :sm="12">
+        <ncc-flex justify="end">
+          <span class="mglr10 pointer">按时间</span>
+          <span class="mglr10 pointer">按热度</span>
+        </ncc-flex>
+      </el-col>
+    </el-row>
     <div
       v-for="(topic, index) in topics"
       :key="index"
       index="index"
-      class="topic-item"
     >
-      <el-card
-        class="box-card"
-        shadow="hover"
-      >
+      <el-card shadow="hover">
         <div class="topic-list">
+          <img
+            :src="topic.avatar"
+            alt=""
+            class="wh30 round vertical-middle"
+          >
+          <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
+            {{ topic.type }}
+          </span>
           <nuxt-link :to="topic.to">
-            <div class="topic-top">
-              <img
-                :src="topic.avatar"
-                alt=""
-              >
-              <span class="topic-type">{{ topic.type }}</span>
-              <span class="topic-title">{{ topic.title }}</span>
-            </div>
+            <span class="fs12">{{ topic.title }}</span>
           </nuxt-link>
-          <div class="tags">
+          <div class="mgtb15">
             <span
               v-for="(tag, index) in tags"
               :key="index"
-              class="tag"
+              class="tag pdtb4 pdlr10 fs8 pointer"
             >
-              {{ tag.name }}
+              # {{ tag.name }}
             </span>
           </div>
-          <div class="mt-1">
-            <span class="browsenum">
-              <i class="el-icon-view"> {{ topic.browsenum }}</i>
-            </span>
-            <span class="commentnum">
-              <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
-            </span>
-            <span class="topic-time">{{ topic.time }}</span>
-          </div>
+          <el-row
+            type="flex"
+            align="middle"
+          >
+            <el-col :sm="12">
+              <span>
+                <i class="el-icon-view"> {{ topic.browsenum }}</i>
+              </span>
+              <span class="mglr10">
+                <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+              </span>
+            </el-col>
+            <el-col :sm="12">
+              <ncc-flex justify="end">
+                <span class="mglr10">{{ topic.time }}</span>
+              </ncc-flex>
+            </el-col>
+          </el-row>
         </div>
       </el-card>
     </div>
@@ -63,7 +87,19 @@
 </template>
 
 <script>
+import NccFlex from '~/components/shared/NccFlex.vue'
+
 export default {
+  components: {
+    NccFlex
+  },
+  data() {
+    return {
+      searchform: {
+        search: ''
+      }
+    }
+  },
   computed: {
     types() {
       return [
@@ -81,9 +117,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail',
-          abstract:
-            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
+          to: '/topic/detail'
         },
         {
           avatar: require('../static/test.jpg'),
@@ -92,81 +126,34 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail',
-          abstract:
-            '这是文章摘要！墨守陈规文案狗： 旧金山街头，一名华裔男子在街头驾驶一辆Audi R8跑车，一名白人男子疑似不满跑车引擎声音太大，直接朝他的车用力踹了一脚，气得华裔男子立刻下车与对方理论，双方开始斗殴。'
+          to: '/topic/detail'
         }
       ]
     },
     tags() {
       return [{ name: '问答' }, { name: '招聘' }]
     }
+  },
+  methods: {
+    search() {
+      setTimeout(() => {
+        this.$axios
+          .$post('', {
+            search: this.searchform.search
+          })
+          .then(res => {
+            console.log(res)
+            console.log(search)
+          })
+      }, 500)
+    }
   }
 }
 </script>
 
-<style>
-:root {
-  --init-size: 5px;
-}
-
-.px-1 {
-  padding-left: calc(1 * var(--init-size));
-  padding-right: calc(1 * var(--init-size));
-}
-
-.px-2 {
-  padding-left: calc(2 * var(--init-size));
-  padding-right: calc(2 * var(--init-size));
-}
-.card-title .el-card__body {
-  padding: 0;
-}
-#app .el-main .el-card__body {
-  padding: 0;
-}
-.topic-item .el-card__body {
-  margin-bottom: 0;
-  padding: 15px;
-}
-.topic-item .tags {
-  margin: 10px 0;
-}
-.topic-item .tags span {
-  margin: 0 4px;
-  padding: 2px 10px;
-  background-color: #99d9ea;
-  border-radius: 13px;
-}
-.topic-item img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: middle;
-}
-.topic-item span {
-  margin-top: 10px;
-  vertical-align: middle;
-}
-.topic-list .commentnum {
-  margin-left: 10px;
-}
-.topic-list .topic-type {
-  padding: 2px 10px;
+<style scoped>
+.topic-type {
   background-color: orange;
-  color: #fff;
-  border-radius: 13px;
-}
-.topic-list .topic-title {
-  color: #222;
-  font-size: 20px;
-  font-weight: 700;
-}
-.topic-list .topic-abstract {
-  margin: 20px 0;
-}
-.topic-item .topic-time {
-  float: right;
-  margin-top: 4px;
+  border-radius: 15px;
 }
 </style>

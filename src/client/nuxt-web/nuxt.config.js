@@ -49,12 +49,13 @@ module.exports = {
     {
       src: '@/plugins/mavon-editor',
       ssr: false
-    }
+    },
+    '@/plugins/axios'
   ],
 
   modules: ['@nuxtjs/axios'],
   axios: {
-    baseURL: 'http://192.168.1.104:5000/'
+    baseURL: 'https://api.github.com/'
   },
 
   build: {

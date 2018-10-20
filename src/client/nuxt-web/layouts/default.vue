@@ -3,13 +3,12 @@
     <el-container>
       <el-header
         height="auto"
-        style="padding: 0;"
-        class="theme"
+        class="theme pd0"
       >
         <el-row>
           <el-col
-            :span="20"
-            :offset="2"
+            :span="18"
+            :offset="3"
           >
             <ncc-header/>
           </el-col>
@@ -18,11 +17,11 @@
 
       <el-row>
         <el-col
-          :span="20"
-          :offset="2"
+          :span="18"
+          :offset="3"
         >
           <el-container>
-            <el-main style="padding: 0;margin-right: 15px;">
+            <el-main class="pd0 mgr10">
               <nuxt/>
             </el-main>
             <el-aside width="340px">
@@ -38,8 +37,8 @@
       >
         <el-row>
           <el-col
-            :span="20"
-            :offset="2"
+            :span="18"
+            :offset="3"
           >
             <ncc-footer />
           </el-col>

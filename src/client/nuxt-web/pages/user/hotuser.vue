@@ -19,6 +19,7 @@
         <img
           :src="hotuser.ava"
           alt=""
+          class="wh30 round vertical-middle"
         >
         <span>{{ hotuser.name }}</span>
         <span>{{ hotuser.jifen }}</span>
@@ -44,14 +45,7 @@ export default {
 </script>
 
 <style scoped>
-#hotuser img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  vertical-align: middle;
-}
-#hotuser .user-list span {
+.user-list span {
   margin-left: 20px;
-  vertical-align: middle;
 }
 </style>

@@ -1,31 +1,29 @@
 <template>
   <div id="ncc-userinfo">
-    <el-card
-      class="box-card"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"
       >
         <span><nuxt-link to="/">主页</nuxt-link> / 用户信息</span>
       </div>
-      <div class="ava-name">
+      <div class="ava-name mgb10">
         <img
           src="~/static/test.jpg"
           alt=""
+          class="wh50 round vertical-middle"
         >
-        <label>ncc</label>
+        <label class="fs16">ncc</label>
       </div>
-      <div class="userid">
+      <div class="userid mgb10">
         <span>用户ID：</span>
         <label>121</label>
       </div>
-      <div class="gender">
+      <div class="gender mgb10">
         <span>性别：</span>
         <label>未知</label>
       </div>
-      <div class="createtime">
+      <div class="createtime mgb10">
         <span>注册时间：</span>
         <label>2018-10-15</label>
       </div>
@@ -42,22 +40,7 @@
 </template>
 
 <style scoped>
-.ava-name,
-.userid,
-.gender,
-.createtime {
-  margin-bottom: 10px;
-}
-#ncc-userinfo .ava-name img {
-  width: 50px;
-  height: 50px;
-  vertical-align: middle;
-}
-#ncc-userinfo label {
+label {
   margin-left: 20px;
-  vertical-align: middle;
-}
-#ncc-userinfo p {
-  margin: 0;
 }
 </style>

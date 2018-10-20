@@ -1,9 +1,6 @@
 <template>
   <div id="ncc-communication">
-    <el-card
-      class="card-box"
-      shadow="hover"
-    >
+    <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"
@@ -24,8 +21,8 @@
   </div>
 </template>
 
-<style>
-#ncc-communication img {
-  margin: 0 8px;
+<style scoped>
+img {
+  margin: 0 12px;
 }
 </style>

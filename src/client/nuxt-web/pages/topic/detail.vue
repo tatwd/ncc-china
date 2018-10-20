@@ -8,7 +8,7 @@
         slot="header"
         class="clearfix"
       >
-        <h2>{{ title }}</h2>
+        <h2 class="fs16 mgt0">{{ title }}</h2>
         <span>发布于 {{ time }}</span>
         <span>作者 {{ author }}</span>
         <span>{{ browsenum }} 次浏览</span>
@@ -43,12 +43,10 @@ export default {
 </script>
 
 <style scoped>
-#topic-detail h2 {
+h2 {
   color: #1a1a1a;
-  font-size: 24px;
-  font-weight: 600;
 }
-#topic-detail span {
+span {
   margin-right: 40px;
   color: #797979;
 }

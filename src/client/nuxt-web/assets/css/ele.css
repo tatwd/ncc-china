@@ -1,4 +1,4 @@
-/* .clearfix:before,
+.clearfix:before,
 .clearfix:after {
   display: table;
   content: "";
@@ -6,23 +6,6 @@
 .clearfix:after {
   clear: both;
 }
-.el-header,
-.el-footer {
-  background-color: #682079;
-}
-.el-main {
-  padding: 0;
-}
-.el-aside {
-  width: 340px;
-}
 .el-card {
-  background-color: #fff;
-  border-radius: 4px;
-  margin: 10px;
+  margin: 10px 0;
 }
-.el-card__header {
-  padding: 12px 20px;
-  color: #682079;
-  background-color: #f6f6f6;
-} */
