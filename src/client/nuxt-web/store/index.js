@@ -23,7 +23,7 @@ export const mutations = {
 
 export const actions = {
   nuxtServerInit({ commit }, { req }) {
-    let _cookie = req.headers.cookie
+    let _cookie = req && req.headers.cookie
     if (_cookie) {
       let result = cookie.parse(_cookie)
       commit('setAuth', JSON.parse(result.auth))
