@@ -59,6 +59,7 @@ module.exports = {
   },
 
   build: {
+    extractCSS: true,
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
