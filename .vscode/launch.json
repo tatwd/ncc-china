@@ -8,6 +8,38 @@
             "name": "Launch identity.api",
             "type": "coreclr",
             "request": "launch",
+            "preLaunchTask": "build postsys.api",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/src/server/services/postsys/api/bin/Debug/netcoreapp2.1/Ncc.China.Services.Postsys.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/server/services/postsys/api",
+            "stopAtEntry": false,
+            "internalConsoleOptions": "openOnSessionStart",
+            "launchBrowser": {
+                "enabled": true,
+                "args": "${auto-detect-url}",
+                "windows": {
+                    "command": "cmd.exe",
+                    "args": "/C start ${auto-detect-url}"
+                },
+                "osx": {
+                    "command": "open"
+                },
+                "linux": {
+                    "command": "xdg-open"
+                }
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "Launch identity.api",
+            "type": "coreclr",
+            "request": "launch",
             "preLaunchTask": "build identity.api",
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/src/server/services/identity/api/bin/Debug/netcoreapp2.1/Ncc.China.Services.Identity.Api.dll",
