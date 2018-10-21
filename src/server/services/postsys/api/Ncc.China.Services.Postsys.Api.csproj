@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\data\Ncc.China.Services.Postsys.Data.csproj" />
+    <ProjectReference Include="..\logic\Ncc.China.Services.Postsys.Logic.csproj" />
+    <ProjectReference Include="..\repository\Ncc.China.Services.Postsys.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
