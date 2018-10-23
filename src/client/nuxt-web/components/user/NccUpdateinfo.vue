@@ -25,7 +25,7 @@
             action="https://jsonplaceholder.typicode.com/posts/"
           >
             <img
-              v-if="hasavatar"
+              v-if="avatar"
               :src="updateinfoform.avatar"
               alt=""
               class="avatar"
@@ -85,7 +85,8 @@ export default {
             trigger: 'blur'
           }
         ]
-      }
+      },
+      avatar: true
     }
   },
   // mounted: {
@@ -94,14 +95,14 @@ export default {
   //     this.userinfo = userinfo
   //   }
   // },
-  computed: {
-    hasavatar() {
-      return true
-    }
-  },
+  // computed: {
+  //   avatar() {
+  //     return true
+  //   }
+  // },
   methods: {
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.avatar = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
