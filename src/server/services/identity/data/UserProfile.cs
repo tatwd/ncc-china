@@ -16,6 +16,9 @@ namespace Ncc.China.Services.Identity.Data
         [Column("nickname", TypeName = "varchar(100)")]
         public string Nickname { get; set; }
 
+        [Column("bio", TypeName = "varchar(200)")]
+        public string Bio { get; set; }
+
         [Column("gender", TypeName = "tinyint(1)")]
         public Gender Gender { get; set; } = Gender.Unknown;
 
