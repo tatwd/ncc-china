@@ -22,17 +22,18 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<BaseResponseMessage> Get()
+        public async Task<IActionResult> Get()
         {
-            var service = new PostService(_postRepository);
-            return await service.GetPosts();
+            var res = await new PostService(_postRepository).GetPosts();
+            return Ok(res);
         }
 
         [HttpGet("{id}")]
-        public async Task<BaseResponseMessage> Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
-            var service = new PostService(_postRepository);
-            return await service.GetPost(id);
+            var res = await new PostService(_postRepository).GetPost(id);
+            if (res.Code == Http.MessageStatusCode.Succeeded) return Ok(res);
+            return NotFound(res);
         }
     }
 }
