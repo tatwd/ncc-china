@@ -8,18 +8,18 @@ namespace Ncc.China.Services.Postsys.Data
     {
         private readonly IMongoDatabase _context ;
 
-        public PostsysDbContext(string connectionString, string db)
-        {
-            try
-            {
-                var client = new MongoClient(connectionString);
-                _context = client.GetDatabase(db);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        // public PostsysDbContext(string connectionString, string db)
+        // {
+        //     try
+        //     {
+        //         var client = new MongoClient(connectionString);
+        //         _context = client.GetDatabase(db);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         throw ex;
+        //     }
+        // }
 
         public PostsysDbContext(IOptions<MongoSettings> options)
         {
@@ -36,7 +36,12 @@ namespace Ncc.China.Services.Postsys.Data
 
         public IMongoCollection<Post> Posts
         {
-            get { return _context.GetCollection<Post>($"{nameof(Posts).ToLower()}"); }
+            get { return _context.GetCollection<Post>("posts"); }
+        }
+
+        public IMongoCollection<Category> Categories
+        {
+            get { return _context.GetCollection<Category>("categories"); }
         }
     }
 }
