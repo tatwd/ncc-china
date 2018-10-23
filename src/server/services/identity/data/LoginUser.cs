@@ -22,6 +22,12 @@ namespace Ncc.China.Services.Identity.Data
         [Column("salt", TypeName = "varchar(50)"), Required]
         public string Salt { get; set; }
 
+        [Column("is_deleted", TypeName = "tinyint(2)"), Required]
+        public bool IsDeleted { get; set; } = false;
+
+        [Column("is_admin", TypeName = "tinyint(2)"), Required]
+        public bool IsAdmin { get; set; } = false;
+
         [Column("utc_created", TypeName = "datetime"), Required]
         public DateTime UtcCreated { get; set; } = DateTime.UtcNow;
 

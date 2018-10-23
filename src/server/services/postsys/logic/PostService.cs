@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Ncc.China.Services.Postsys.Data;
 using Ncc.China.Services.Postsys.Repository;
 using Ncc.China.Http.Message;
+using Ncc.China.Services.Postsys.Logic.Dto;
+using MongoDB.Bson;
 
 namespace Ncc.China.Services.Postsys.Logic
 {
@@ -37,6 +39,28 @@ namespace Ncc.China.Services.Postsys.Logic
                 var data = await _repository.GetPost(id);
                 if (data == null) return new FailedResponseMessage("不存在该记录");
                 return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
+        public BaseResponseMessage CreatePost(PostCreateDto dto)
+        {
+            try
+            {
+                var post = new Post
+                {
+                    Title = dto.Title,
+                    AbstractText = dto.AbstractText,
+                    HtmlText = dto.HtmlText,
+                    CategoryId = ObjectId.Parse(dto.CategoryId),
+                    Author = dto.Author,
+                    Tags = dto.Tags
+                };
+                _repository.CreatePost(post);
+                return new SucceededResponseMessage(post.Id);
             }
             catch (Exception ex)
             {

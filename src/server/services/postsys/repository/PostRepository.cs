@@ -21,12 +21,16 @@ namespace Ncc.China.Services.Postsys.Repository
             return documents;
         }
 
-        public async Task<Post> GetPost(string id)
+        public Task<Post> GetPost(string id)
         {
-            var document = await _context.Posts
+            return _context.Posts
                 .Find(_ => _.Id.Equals(id))
                 .FirstOrDefaultAsync();
-            return document;
+        }
+
+        public void CreatePost(Post post)
+        {
+            _context.Posts.InsertOne(post);
         }
     }
 }
