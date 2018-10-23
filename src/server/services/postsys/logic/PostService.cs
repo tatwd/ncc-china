@@ -29,5 +29,19 @@ namespace Ncc.China.Services.Postsys.Logic
                 return new FailedResponseMessage(ex.Message);
             }
         }
+
+        public async Task<BaseResponseMessage> GetPost(string id)
+        {
+            try
+            {
+                var data = await _repository.GetPost(id);
+                if (data == null) return new FailedResponseMessage("不存在该记录");
+                return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
     }
 }

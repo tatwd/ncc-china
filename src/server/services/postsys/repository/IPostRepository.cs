@@ -8,8 +8,7 @@ namespace Ncc.China.Services.Postsys.Repository
     public interface IPostRepository
     {
         Task<IEnumerable<Post>> GetPosts();
-
-        // Task<Note> GetNote(string id);
+        Task<Post> GetPost(string id);
 
         // // query after multiple parameters
         // Task<IEnumerable<Note>> GetNote(string bodyText, DateTime updatedFrom, long headerSizeLimit);

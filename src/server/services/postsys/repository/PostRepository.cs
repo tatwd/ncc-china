@@ -20,5 +20,13 @@ namespace Ncc.China.Services.Postsys.Repository
             var documents = await _context.Posts.Find(_ => true).ToListAsync();
             return documents;
         }
+
+        public async Task<Post> GetPost(string id)
+        {
+            var document = await _context.Posts
+                .Find(_ => _.Id.Equals(id))
+                .FirstOrDefaultAsync();
+            return document;
+        }
     }
 }

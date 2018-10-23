@@ -27,5 +27,12 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
             var service = new PostService(_postRepository);
             return await service.GetPosts();
         }
+
+        [HttpGet("{id}")]
+        public async Task<BaseResponseMessage> Get(string id)
+        {
+            var service = new PostService(_postRepository);
+            return await service.GetPost(id);
+        }
     }
 }
