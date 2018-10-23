@@ -1,18 +1,21 @@
 {
   "ReRoutes": [
     {
-      "DownstreamPathTemplate": "/api/{any1}",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/users/{any1}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 5011
+          "Port": 5000
         }
       ],
-      "UpstreamPathTemplate": "/api/v1/{any1}"
+      "UpstreamPathTemplate": "/api/v1/users/{any1}",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     },
     {
-      "DownstreamPathTemplate": "/api/{any2}",
+      "DownstreamPathTemplate": "/api/posts/{any2}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -20,7 +23,10 @@
           "Port": 5010
         }
       ],
-      "UpstreamPathTemplate": "/api/v1/{any2}"
+      "UpstreamPathTemplate": "/api/v1/posts/{any2}",
+      "LoadBalancerOptions": {
+        "Type": "RoundRobin"
+      }
     }
   ],
   "GlobalConfiguration": {

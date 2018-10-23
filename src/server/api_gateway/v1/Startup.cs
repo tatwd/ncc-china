@@ -32,7 +32,7 @@ namespace Ncc.China.ApiGateway
 
             services.AddOcelot(new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("ocelot.json")
+                .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
                 .Build());
         }
 
