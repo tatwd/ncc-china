@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -49,6 +50,15 @@ namespace Ncc.China.Services.Postsys.Api
             {
                 app.UseHsts();
             }
+
+            app.UseStatusCodePages(builder => {
+                builder.Run(async ctx => {
+                    if (ctx.Response.StatusCode == StatusCodes.Status404NotFound) {
+                        ctx.Response.ContentType = "application/json; charset=utf-8";
+                        await ctx.Response.WriteAsync("{\"error\": \"failed:not found your url\"}");
+                    }
+                });
+            });
 
             // app.UseHttpsRedirection();
             app.UseMvc();
