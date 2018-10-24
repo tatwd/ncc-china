@@ -23,9 +23,12 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]PostPaginateByCategoryDto dto)
         {
-            var res = await new PostService(_postRepository).GetPosts();
+            var service = new PostService(_postRepository);
+            var res = !dto.IsValid
+                ? await service.GetPosts()
+                : await service.GetPosts(dto);
             if (res.Code == Http.MessageStatusCode.Succeeded) return Ok(res);
             return NotFound(res);
         }

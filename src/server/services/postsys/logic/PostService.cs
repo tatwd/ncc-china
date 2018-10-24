@@ -32,6 +32,19 @@ namespace Ncc.China.Services.Postsys.Logic
             }
         }
 
+        public async Task<BaseResponseMessage> GetPosts(PostPaginateByCategoryDto dto)
+        {
+            try
+            {
+                var data = await _repository.GetPostsByPage(dto.Page, dto.Limit, dto.Desc, dto.Category);
+                return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
         public async Task<BaseResponseMessage> GetPost(string id)
         {
             try
