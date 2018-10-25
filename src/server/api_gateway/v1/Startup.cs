@@ -48,10 +48,9 @@ namespace Ncc.China.ApiGateway
                 app.UseHsts();
             }
 
-            app.UseOcelot().Wait();
-
             // app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseOcelot().Wait();
         }
     }
 }
