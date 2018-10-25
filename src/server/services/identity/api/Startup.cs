@@ -43,6 +43,7 @@ namespace Ncc.China.Services.Identity.Api
                     mysqlOptions =>
                     {
                         mysqlOptions.ServerVersion(new Version(8, 0, 12), ServerType.MySql);
+                        mysqlOptions.MigrationsAssembly("Ncc.China.Services.Identity.Api");
                     })
             );
 
@@ -106,13 +107,15 @@ namespace Ncc.China.Services.Identity.Api
                 var context = scope.ServiceProvider.GetService<IdentityDbContext>();
 
                 // true is created and false is already existed
-                if (!context.Database.EnsureCreated())
-                {
-                    // if (context.Database.GetPendingMigrations().Any())
-                    // {
-                    //     context.Database.Migrate();
-                    // }
-                }
+                // if (!context.Database.EnsureCreated())
+                // {
+                //     // if (context.Database.GetPendingMigrations().Any())
+                //     // {
+                //     //     context.Database.Migrate();
+                //     // }
+                // }
+
+                context.Database.Migrate();
             }
 
             app.UseAuthentication();
