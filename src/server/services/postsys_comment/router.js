@@ -13,4 +13,8 @@ router
   .get(commentController.get)
   .post(commentController.post);
 
+// router
+//   .route('/posts/:post_id/comments')
+//   .get(commentController.get);
+
 module.exports = router;
