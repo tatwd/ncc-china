@@ -55,7 +55,7 @@ module.exports = {
 
   modules: ['@nuxtjs/axios'],
   axios: {
-    baseURL: 'https://api.github.com/'
+    baseURL: 'http://localhost:6660/api/'
   },
 
   build: {

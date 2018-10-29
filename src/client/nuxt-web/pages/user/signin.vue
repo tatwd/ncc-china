@@ -86,7 +86,7 @@ export default {
           let { username, userpwd } = this.loginform
           setTimeout(() => {
             this.$axios
-              .$post('api/auth/login', {
+              .$post('v1/auth/login', {
                 login: username,
                 password: userpwd
               })
@@ -94,7 +94,7 @@ export default {
                 if (res.code === 0) {
                   this.$message({
                     showClose: true,
-                    message: '登陆成功！',
+                    message: '登录成功！',
                     type: 'success'
                   })
                   // console.log(res)
