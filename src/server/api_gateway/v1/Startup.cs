@@ -30,6 +30,18 @@ namespace Ncc.China.ApiGateway
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddCors(options => {
+                // add default policy to allow all
+                options.AddPolicy(options.DefaultPolicyName,
+                    builder => {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyMethod();
+                        builder.AllowAnyHeader();
+                    });
+
+                // others here
+            });
+
             services.AddOcelot(new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true)
@@ -47,6 +59,8 @@ namespace Ncc.China.ApiGateway
             {
                 app.UseHsts();
             }
+
+            app.UseCors();
 
             // app.UseHttpsRedirection();
             app.UseMvc();
