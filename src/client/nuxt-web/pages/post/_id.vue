@@ -8,13 +8,13 @@
         slot="header"
         class="clearfix"
       >
-        <h2 class="fs16 mgt0">{{ title }}</h2>
-        <span>发布于 {{ time }}</span>
-        <span>作者 {{ author }}</span>
-        <span>{{ browsenum }} 次浏览</span>
+        <h2 class="fs16 mgt0">{{ post.title }}</h2>
+        <span>发布于 {{ post.utcCreated }}</span>
+        <span>作者 {{ post.author.username }}</span>
+        <!-- <span>{{ browsenum }} 次浏览</span> -->
       </div>
       <div>
-        {{ content }}
+        {{ post.htmlText }}
       </div>
     </el-card>
     <ncc-comment />
@@ -38,6 +38,19 @@ export default {
       browsenum: '44',
       content: 'kjhgfhjlkj'
     }
+  },
+  asyncData({ app, params, redirect }) {
+    return app.$axios
+      .$get(`v1/posts?id=${params.id}`)
+      .then(res => {
+        console.log(res)
+        if (res.code == 0) {
+          return { post: res.data }
+        }
+      })
+      .catch(err => {
+        redirect('/')
+      })
   }
 }
 </script>

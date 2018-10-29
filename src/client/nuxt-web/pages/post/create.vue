@@ -50,10 +50,7 @@
             :offset="6"
           >
             <el-card shadow="hover">
-              <el-form
-                ref="topicform"
-                :model="topicform"
-              >
+              <el-form>
                 <el-input
                   v-model="model.title"
                   placeholder="请输入文章标题，字数10字以上"

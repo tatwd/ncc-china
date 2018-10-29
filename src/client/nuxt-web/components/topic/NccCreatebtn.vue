@@ -1,6 +1,6 @@
 <template>
   <div id="ncc-createbtn">
-    <nuxt-link to="/topic/create">
+    <nuxt-link to="/post/create">
       <el-button
         type="success"
         class="allw mgt10"
