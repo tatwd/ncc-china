@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Ncc.China.Services.Postsys.Data;
 using MongoDB.Driver;
 using System.Linq;
+using MongoDB.Bson;
 
 namespace Ncc.China.Services.Postsys.Repository
 {
@@ -25,8 +26,11 @@ namespace Ncc.China.Services.Postsys.Repository
 
         public Task<Post> GetPost(string id)
         {
+            if(!ObjectId.TryParse(id, out ObjectId _id)) {
+                _id = ObjectId.Empty;
+            }
             return _context.Posts
-                .Find(_ => _.Id.Equals(id))
+                .Find(_ => _.Id == _id)
                 .FirstOrDefaultAsync();
         }
 
