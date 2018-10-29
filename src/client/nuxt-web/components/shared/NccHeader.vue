@@ -27,7 +27,7 @@
       </el-col>
       <el-col :sm="6">
         <ncc-flex
-          v-if="!isLogin"
+          v-if="isLogin"
           justify="end"
         >
           <nuxt-link
@@ -51,7 +51,7 @@
                 height="32"
                 class="vertical-moddle round"
               >
-              <i class="el-icon-arrow-down el-icon--right"/>
+              <i class="el-icon-arrow-down el-icon--right" />
             </span>
             <el-dropdown-menu slot="dropdown">
               <nuxt-link to="/user">

@@ -117,7 +117,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail'
+          to: '/topic/1'
         },
         {
           avatar: require('../static/test.jpg'),
@@ -126,7 +126,7 @@ export default {
           type: '问答',
           title: '.NET Core 这个问题怎么解决?',
           time: '2018-10-05',
-          to: '/topic/detail'
+          to: '/topic/2'
         }
       ]
     },

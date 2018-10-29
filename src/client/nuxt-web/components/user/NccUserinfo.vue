@@ -27,14 +27,6 @@
         <span>注册时间：</span>
         <label>2018-10-15</label>
       </div>
-      <nuxt-link to="/user/setting">
-        <el-button
-          type="warning"
-          plain
-        >
-          更改信息
-        </el-button>
-      </nuxt-link>
     </el-card>
   </div>
 </template>
