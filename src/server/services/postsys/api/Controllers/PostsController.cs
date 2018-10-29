@@ -34,7 +34,7 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get([FromRoute]string id)
         {
             var res = await new PostService(_postRepository).GetPost(id);
             if (res.Code == Http.MessageStatusCode.Succeeded) return Ok(res);
