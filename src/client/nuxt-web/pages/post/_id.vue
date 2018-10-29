@@ -9,13 +9,11 @@
         class="clearfix"
       >
         <h2 class="fs16 mgt0">{{ post.title }}</h2>
-        <span>发布于 {{ post.utcCreated }}</span>
+        <span>发布于 {{ new Date(post.utcCreated) }}</span>
         <span>作者 {{ post.author.username }}</span>
         <!-- <span>{{ browsenum }} 次浏览</span> -->
       </div>
-      <div>
-        {{ post.htmlText }}
-      </div>
+      <div v-html="post.htmlText" />
     </el-card>
     <ncc-comment />
     <ncc-interaction />
@@ -30,20 +28,11 @@ export default {
     NccComment,
     NccInteraction
   },
-  data() {
-    return {
-      title: '45',
-      time: '4545',
-      author: 'ds',
-      browsenum: '44',
-      content: 'kjhgfhjlkj'
-    }
-  },
   asyncData({ app, params, redirect }) {
     return app.$axios
-      .$get(`v1/posts?id=${params.id}`)
+      .$get(`v1/posts/${params.id}`)
       .then(res => {
-        console.log(res)
+        console.log(res.data.author)
         if (res.code == 0) {
           return { post: res.data }
         }
