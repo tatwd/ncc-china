@@ -71,7 +71,7 @@ namespace Ncc.China.Services.Identity.Logic
                     Email = user.Email,
                     Nickname = userProfile?.Nickname,
                     Gender = userProfile?.Gender,
-                    AvatarUrl = userProfile?.AvatarUrl,
+                    AvatarUrl = userProfile?.AvatarUrl ?? "https://avatars3.githubusercontent.com/u/33537787?s=460&v=4",
                     UtcCreated = user.UtcCreated
                 };
                 if (tokenCb == null) return new SucceededResponseMessage(currentUser);
