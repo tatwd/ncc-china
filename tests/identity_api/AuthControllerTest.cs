@@ -23,7 +23,7 @@ namespace Ncc.China.Services.Identity.Api.Test
                 .UseInMemoryDatabase(databaseName: "identity_api_test_db")
                 .Options;
             _context = new IdentityDbContext(_options);
-            _controller = new AuthController(_context);
+            _controller = new AuthController(_context, null); // todo: fix this configuration
         }
 
         [Fact]
