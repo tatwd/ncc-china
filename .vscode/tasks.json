@@ -29,7 +29,8 @@
                 "test",
                 "${workspaceFolder}/tests/identity_api/Ncc.China.Services.Identity.Api.Test.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": "test" 
         }
     ]
 }

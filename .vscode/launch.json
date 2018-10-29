@@ -5,7 +5,7 @@
    "version": "0.2.0",
    "configurations": [
         {
-            "name": "Launch identity.api",
+            "name": "Launch postsys.api",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build postsys.api",
