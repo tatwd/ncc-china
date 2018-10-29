@@ -15,7 +15,7 @@ module.exports = {
   failed(message) {
     return {
       code: statusCodes.failed,
-      message
+      message: message ? `failed:${message}` : 'failed'
     }
   }
 }

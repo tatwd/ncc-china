@@ -29,17 +29,12 @@ module.exports = {
     if (!req.body) {
       return res
         .sendStatus(400)
-        .send({ error: 'faild:please set request body' });
+        .send(message.failed('please set request body'));
     }
     var comment = new Comment(req.body);
     comment.save(function(err) {
-      if (err) res.sendStatus(400).send({ error: err });
-      else
-        res.json({
-          code: 0,
-          data: comment._id,
-          message: 'succeeded'
-        });
+      if (err) res.sendStatus(400).send(message.failed(err));
+      else res.json(message.succeeded(comment._id));
     });
   }
 };
