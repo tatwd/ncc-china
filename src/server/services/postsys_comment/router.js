@@ -9,12 +9,12 @@ router.use(function(req, res, next) {
 });
 
 router
-  .route('/comments')
-  .get(commentController.get)
-  .post(commentController.post);
+  .route('/posts/:post_id/comments')
 
-// router
-//   .route('/posts/:post_id/comments')
-//   .get(commentController.get);
+  // GET /api/:post_id/comments
+  .get(commentController.get)
+
+  // POST /api/:post_id/comments
+  .post(commentController.post);
 
 module.exports = router;
