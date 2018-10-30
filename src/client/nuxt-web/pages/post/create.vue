@@ -80,6 +80,32 @@
                 </no-ssr>
               </el-form>
             </el-card>
+            <el-tag
+              v-for="tag in model.tags"
+              :key="tag"
+              :disable-transitions="false"
+              closable
+              @close="handleClose(tag)"
+            >
+              {{ tag }}
+            </el-tag>
+            <el-input
+              v-if="inputVisible"
+              ref="saveTagInput"
+              v-model="inputValue"
+              size="small"
+              class="input-new-tag"
+              @keyup.enter.native="handleInputConfirm"
+              @blur="handleInputConfirm"
+            />
+            <el-button
+              v-else
+              size="small"
+              class="button-new-tag"
+              @click="showInput"
+            >
+              + 添加新标签
+            </el-button>
           </el-col>
         </el-row>
       </el-main>
@@ -88,37 +114,7 @@
 </template>
 <script>
 import NccFlex from '~/components/shared/NccFlex.vue'
-const markdownOption = {
-  bold: false, // 粗体
-  italic: false, // 斜体
-  header: true, // 标题
-  underline: false, // 下划线
-  strikethrough: true, // 中划线
-  mark: true, // 标记
-  superscript: false, // 上角标
-  subscript: false, // 下角标
-  quote: true, // 引用
-  ol: true, // 有序列表
-  ul: true, // 无序列表
-  link: true, // 链接
-  imagelink: true, // 图片链接
-  code: true, // code
-  table: false, // 表格
-  fullscreen: false, // 全屏编辑
-  readmodel: false, // 沉浸式阅读
-  htmlcode: true, // 展示html源码
-  help: false, // 帮助
-  undo: false, // 上一步
-  redo: false, // 下一步
-  trash: true, // 清空
-  save: false, // 保存（触发events中的save事件）
-  navigation: true, // 导航目录
-  alignleft: true, // 左对齐
-  aligncenter: true, // 居中
-  alignright: true, // 右对齐
-  subfield: true, // 单双栏模式
-  preview: true // 预览
-}
+import markdownOption from '~/config/MavonEditor.js'
 
 export default {
   middleware: 'unauth',
@@ -127,19 +123,25 @@ export default {
     NccFlex
   },
   data() {
+    let { id, username, avatarUrl, email } = this.$store.state.auth.user
     return {
       markdownOption,
       mdValue: '',
       model: {
         author: {
-          id: this.$store.state.auth.user.id,
-          username: this.$store.state.auth.user.username,
-          avatar_url: this.$store.state.auth.user.avatarUrl
+          id,
+          username,
+          avatarUrl,
+          email
         },
         categoryId: '',
         title: '',
-        htmlText: ''
-      }
+        htmlText: '',
+        tags: []
+      },
+      dynamicTags: [],
+      inputVisible: false,
+      inputValue: ''
     }
   },
   asyncData({ app }) {
@@ -153,8 +155,30 @@ export default {
     },
     submitForm(topicform) {
       setTimeout(() => {
-        this.$axios.$post('v1/posts', this.model)
+        this.$axios.$post('v1/posts', this.model).then(res => {
+          if (res.code == 0) {
+            this.$router.push('/')
+          }
+        })
       })
+    },
+    handleClose(tag) {
+      this.model.tags.splice(this.model.tags.indexOf(tag), 1)
+    },
+
+    showInput() {
+      this.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+    handleInputConfirm() {
+      let inputValue = this.inputValue
+      if (inputValue) {
+        this.model.tags.push(inputValue)
+      }
+      this.inputVisible = false
+      this.inputValue = ''
     }
   }
 }
@@ -175,5 +199,20 @@ export default {
 }
 .v-note-wrapper {
   min-height: 460px;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 </style>

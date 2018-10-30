@@ -42,7 +42,7 @@
       <el-card shadow="hover">
         <div class="topic-list">
           <img
-            :src="post.avatarUrl"
+            :src="post.author.avatarUrl"
             alt=""
             class="wh30 round vertical-middle"
           >
@@ -54,11 +54,11 @@
           </nuxt-link>
           <div class="mgtb15">
             <span
-              v-for="(tag, index) in tags"
+              v-for="(tag, index) in post.tags"
               :key="index"
               class="tag pdtb4 pdlr10 fs8 pointer"
             >
-              # {{ tag.name }}
+              # {{ tag }}
             </span>
           </div>
           <el-row
@@ -106,9 +106,6 @@ export default {
         { title: '关注', to: '/' },
         { title: '热榜', to: '/' }
       ]
-    },
-    tags() {
-      return [{ name: '问答' }, { name: '招聘' }]
     }
   },
   asyncData({ app }) {
