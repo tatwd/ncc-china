@@ -1,9 +1,9 @@
 <template>
   <div id="ncc-slider">
     <ncc-createbtn />
-    <ncc-hottopic />
+    <ncc-hotpost />
     <ncc-ad />
-    <ncc-topicnoreply />
+    <ncc-postnoreply />
     <ncc-integral />
     <ncc-communication />
     <ncc-friendship />
@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import NccCreatebtn from '~/components/topic/NccCreatebtn.vue'
-import NccHottopic from '~/components/topic/NccHottopic.vue'
+import NccCreatebtn from '~/components/post/NccCreatebtn.vue'
+import NccHotpost from '~/components/post/NccHotpost.vue'
 import NccAd from '~/components/shared/NccAd.vue'
-import NccTopicnoreply from '~/components/shared/NccTopicnoreply.vue'
+import NccPostnoreply from '~/components/shared/Nccpostnoreply.vue'
 import NccIntegral from '~/components/shared/NccIntegral.vue'
 import NccCommunication from '~/components/shared/NccCommunication.vue'
 import NccFriendship from '~/components/shared/NccFriendship.vue'
@@ -22,9 +22,9 @@ import NccFriendship from '~/components/shared/NccFriendship.vue'
 export default {
   components: {
     NccCreatebtn,
-    NccHottopic,
+    NccHotpost,
     NccAd,
-    NccTopicnoreply,
+    NccPostnoreply,
     NccIntegral,
     NccCommunication,
     NccFriendship
