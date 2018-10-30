@@ -15,31 +15,27 @@
       </div>
       <div v-html="post.htmlText" />
     </el-card>
-    <ncc-comment />
-    <ncc-interaction />
+    <ncc-interaction
+      :post-id="post.id"
+      :comments="comments"
+    />
   </div>
 </template>
 <script>
-import NccComment from '~/components/topic/NccComment.vue'
-import NccInteraction from '~/components/topic/NccInteraction.vue'
+import NccInteraction from '~/components/post/NccInteraction.vue'
 
 export default {
   components: {
-    NccComment,
     NccInteraction
   },
-  asyncData({ app, params, redirect }) {
-    return app.$axios
-      .$get(`v1/posts/${params.id}`)
-      .then(res => {
-        console.log(res.data.author)
-        if (res.code == 0) {
-          return { post: res.data }
-        }
-      })
-      .catch(err => {
-        redirect('/')
-      })
+  async asyncData({ app, params }) {
+    let post = await app.$axios.$get(`v1/posts/${params.id}`)
+    console.log(post)
+    let comments = await app.$axios.$get(`v1/posts/${params.id}/comments`)
+    return {
+      post: post.data,
+      comments: comments.data
+    }
   }
 }
 </script>
