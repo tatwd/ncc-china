@@ -56,30 +56,8 @@ export default {
   layout: 'account',
 
   data() {
-    var validateusername = (rule, value, callback) => {
-      if (value === '') {
-        return callback(new Error('用户名不能为空!'))
-      }
-    }
-    var validateuseremail = (rule, value, callback) => {
-      if (value === '') {
-        return callback(new Error('用户邮箱不能为空!'))
-      }
-    }
-    var validateuserpwd = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入密码!'))
-      } else {
-        if (this.registerform.userpwd2 !== '') {
-          this.$refs.registerform.validateField('userpwd2')
-        }
-        callback()
-      }
-    }
     var validateuserpwd2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码!'))
-      } else if (value !== this.registerform.userpwd) {
+      if (value !== this.registerform.userpwd) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -95,13 +73,15 @@ export default {
       rules: {
         username: [
           {
-            validator: validateusername,
+            required: true,
+            message: '请输入用户名',
             trigger: 'blur'
           }
         ],
         useremail: [
           {
-            validator: validateuseremail,
+            required: true,
+            message: '请输入邮箱',
             trigger: 'blur'
           },
           {
@@ -112,7 +92,8 @@ export default {
         ],
         userpwd: [
           {
-            validator: validateuserpwd,
+            required: true,
+            message: '请输入密码',
             trigger: 'blur'
           },
           {
@@ -124,13 +105,12 @@ export default {
         ],
         userpwd2: [
           {
-            validator: validateuserpwd2,
+            required: true,
+            message: '请再次输入密码',
             trigger: 'blur'
           },
           {
-            min: 6,
-            max: 18,
-            message: '长度在 6 到 18 个字符',
+            validator: validateuserpwd2,
             trigger: 'blur'
           }
         ]
@@ -139,12 +119,13 @@ export default {
   },
   methods: {
     submitForm(registerform) {
-      this.$refs[registerform].validate(valid => {
+      this.$refs[registerform].validate((valid, obj) => {
         if (valid) {
           let { username, useremail, userpwd } = this.registerform
           setTimeout(() => {
+            console.log(1)
             this.$axios
-              .$post('api/auth/register', {
+              .$post('v1/auth/register', {
                 username: username,
                 email: useremail,
                 password: userpwd
@@ -157,7 +138,7 @@ export default {
                     message: '注册成功！请登录！',
                     type: 'success'
                   })
-                  this.$router.push('/user/signup')
+                  this.$router.push('/user/signin')
                 } else {
                   this.$message({
                     showClose: true,

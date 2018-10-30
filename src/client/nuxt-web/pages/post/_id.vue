@@ -1,0 +1,51 @@
+<template>
+  <div id="topic-detail">
+    <el-card
+      class="card-box"
+      shadow="hover"
+    >
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <h2 class="fs16 mgt0">{{ post.title }}</h2>
+        <span>发布于 {{ new Date(post.utcCreated) }}</span>
+        <span>作者 {{ post.author.username }}</span>
+        <!-- <span>{{ browsenum }} 次浏览</span> -->
+      </div>
+      <div v-html="post.htmlText" />
+    </el-card>
+    <ncc-interaction
+      :post-id="post.id"
+      :comments="comments"
+    />
+  </div>
+</template>
+<script>
+import NccInteraction from '~/components/post/NccInteraction.vue'
+
+export default {
+  components: {
+    NccInteraction
+  },
+  async asyncData({ app, params }) {
+    let post = await app.$axios.$get(`v1/posts/${params.id}`)
+    console.log(post)
+    let comments = await app.$axios.$get(`v1/posts/${params.id}/comments`)
+    return {
+      post: post.data,
+      comments: comments.data
+    }
+  }
+}
+</script>
+
+<style scoped>
+h2 {
+  color: #1a1a1a;
+}
+span {
+  margin-right: 40px;
+  color: #797979;
+}
+</style>

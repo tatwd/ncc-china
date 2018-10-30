@@ -1,11 +1,11 @@
 <template>
-  <div id="ncc-hottopic">
+  <div id="ncc-postnoreply">
     <el-card shadow="hover">
       <div
         slot="header"
         class="clearfix"
       >
-        <span>热门话题</span>
+        <span>无人回复的话题</span>
       </div>
       <div
         v-for="o in 4"
@@ -23,8 +23,8 @@
 export default {
   // mounted: {
   //   async fetchUserinfo() {
-  //     const hottopic = await this.$axios.$get('')
-  //     this.hottopic = hottopic
+  //     const noreply = await this.$axios.$get('')
+  //     this.noreply = noreply
   //   }
   // },
 }

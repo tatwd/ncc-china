@@ -9,35 +9,50 @@
       </div>
       <div class="ava-name mgb10">
         <img
-          src="~/static/test.jpg"
+          :src="avatarUrl"
           alt=""
           class="wh50 round vertical-middle"
         >
-        <label class="fs16">ncc</label>
+        <label class="fs16">{{ username }}</label>
       </div>
       <div class="userid mgb10">
         <span>用户ID：</span>
-        <label>121</label>
+        <label>{{ id }}</label>
       </div>
       <div class="gender mgb10">
         <span>性别：</span>
-        <label>未知</label>
+        <label>{{ gender }}</label>
       </div>
       <div class="createtime mgb10">
         <span>注册时间：</span>
-        <label>2018-10-15</label>
+        <label>{{ utcCreate }}</label>
       </div>
-      <nuxt-link to="/user/setting">
-        <el-button
-          type="warning"
-          plain
-        >
-          更改信息
-        </el-button>
-      </nuxt-link>
     </el-card>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    let {
+      id,
+      avatarUrl,
+      username,
+      email,
+      gender,
+      utcCreate
+    } = this.$store.state.auth.user
+    return {
+      id,
+      avatarUrl,
+      username,
+      email,
+      gender,
+      utcCreate
+    }
+  }
+}
+</script>
 
 <style scoped>
 label {

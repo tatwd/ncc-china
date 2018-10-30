@@ -36,30 +36,29 @@
       </el-col>
     </el-row>
     <div
-      v-for="(topic, index) in topics"
-      :key="index"
-      index="index"
+      v-for="post in posts"
+      :key="post.id"
     >
       <el-card shadow="hover">
         <div class="topic-list">
           <img
-            :src="topic.avatar"
+            :src="post.author.avatarUrl"
             alt=""
             class="wh30 round vertical-middle"
           >
           <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
-            {{ topic.type }}
+            {{ post.categoryId }}
           </span>
-          <nuxt-link :to="topic.to">
-            <span class="fs12">{{ topic.title }}</span>
+          <nuxt-link :to="`/post/`+post.id">
+            <span class="fs12">{{ post.title }}</span>
           </nuxt-link>
           <div class="mgtb15">
             <span
-              v-for="(tag, index) in tags"
+              v-for="(tag, index) in post.tags"
               :key="index"
               class="tag pdtb4 pdlr10 fs8 pointer"
             >
-              # {{ tag.name }}
+              # {{ tag }}
             </span>
           </div>
           <el-row
@@ -68,15 +67,15 @@
           >
             <el-col :sm="12">
               <span>
-                <i class="el-icon-view"> {{ topic.browsenum }}</i>
+                <i class="el-icon-view"> {{ post.browsenum }}</i>
               </span>
               <span class="mglr10">
-                <i class="el-icon-edit-outline"> {{ topic.commentnum }}</i>
+                <i class="el-icon-edit-outline"> {{ post.commentnum }}</i>
               </span>
             </el-col>
             <el-col :sm="12">
               <ncc-flex justify="end">
-                <span class="mglr10">{{ topic.time }}</span>
+                <span class="mglr10">{{ post.utcCreated }}</span>
               </ncc-flex>
             </el-col>
           </el-row>
@@ -107,32 +106,27 @@ export default {
         { title: '关注', to: '/' },
         { title: '热榜', to: '/' }
       ]
-    },
-    topics() {
-      return [
-        {
-          avatar: require('../static/test.jpg'),
-          commentnum: '39',
-          browsenum: '46',
-          type: '问答',
-          title: '.NET Core 这个问题怎么解决?',
-          time: '2018-10-05',
-          to: '/topic/detail'
-        },
-        {
-          avatar: require('../static/test.jpg'),
-          commentnum: '39',
-          browsenum: '46',
-          type: '问答',
-          title: '.NET Core 这个问题怎么解决?',
-          time: '2018-10-05',
-          to: '/topic/detail'
-        }
-      ]
-    },
-    tags() {
-      return [{ name: '问答' }, { name: '招聘' }]
     }
+  },
+  asyncData({ app }) {
+    return app.$axios
+      .$get('v1/posts', {
+        params: {
+          page: 1,
+          limit: 10,
+          category: 'test',
+          desc: true
+        }
+      })
+      .then(res => {
+        console.log(res.data)
+        if (res.code == 0) {
+          return { posts: res.data }
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   methods: {
     search() {

@@ -5,6 +5,8 @@ export default function({ $axios, redirect, store }) {
     const code = parseInt(error.response && error.response.status)
     if (code === 401) {
       redirect('/user/signin')
+    } else if (code === 404) {
+      redirect('/')
     }
   })
 }
