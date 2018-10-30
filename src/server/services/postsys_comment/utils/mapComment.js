@@ -1,8 +1,10 @@
 function mapComment(schema) {
+  if (!schema) return schema;
   return {
     id: schema._id,
     postId: schema.post_id,
-    replyTo: schema.reply_to,
+    replyTo: mapComment(schema.reply_to),
+    // commentId: schema.comment_id,
     owner: {
       id: schema.owner.id,
       username: schema.owner.username,

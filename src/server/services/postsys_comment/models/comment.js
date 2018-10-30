@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
-// var ObjectId = Schema.Types.ObjectId;
+var ObjectId = Schema.Types.ObjectId;
 
 var OwnerSchema = new Schema(
   {
@@ -22,10 +22,15 @@ var CommentSchema = new Schema({
     alias: 'postId'
   },
   reply_to: {
-    type: String,
+    type: ObjectId,
     alias: 'replyTo',
     default: null
   },
+  // comment_id: {
+  //   type: ObjectId,
+  //   alias: 'commentId',
+  //   default: null
+  // },
   owner: OwnerSchema,
   text: String,
   utc_created: {

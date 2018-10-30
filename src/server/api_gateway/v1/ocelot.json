@@ -47,6 +47,17 @@
       "UpstreamPathTemplate": "/api/v1/posts"
     },
     {
+      "DownstreamPathTemplate": "/api/posts/{post_id}/comments",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/posts/{post_id}/comments"
+    },
+    {
       "DownstreamPathTemplate": "/api/posts{any}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -79,18 +90,6 @@
         }
       ],
       "UpstreamPathTemplate": "/api/v1/categories{any}"
-    },
-
-    {
-      "DownstreamPathTemplate": "/api/comments",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5003
-        }
-      ],
-      "UpstreamPathTemplate": "/api/v1/comments"
     }
   ],
   "GlobalConfiguration": {
