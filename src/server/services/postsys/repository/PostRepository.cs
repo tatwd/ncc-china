@@ -36,6 +36,16 @@ namespace Ncc.China.Services.Postsys.Repository
 
         public async Task<IEnumerable<Post>> GetPostsByPage(int page, int limit, bool isDesc, string category)
         {
+            var skip = (page - 1) * limit;
+
+            if (category.Equals("全部") || category.Equals("all")) {
+                return await _context.Posts
+                    .Find(_ => true)
+                    .Skip(skip)
+                    .Limit(limit)
+                    .ToListAsync();
+            }
+
             var categoryId = _context.Categories
                 .Find(_ => _.Title.Equals(category.Trim()))
                 .FirstOrDefault()
@@ -43,7 +53,6 @@ namespace Ncc.China.Services.Postsys.Repository
 
             if (!categoryId.HasValue) return Enumerable.Empty<Post>();
 
-            var skip = (page - 1) * limit;
             var posts = _context.Posts
                 .Find(_ => !_.IsDeleted && _.CategoryId.Equals(categoryId));
             posts = !isDesc
