@@ -15,9 +15,17 @@ a {
 a:hover {
   color: var(--main-color);
 }
+/* float */
+.fr {
+  float: right;
+}
+
 /* margin */
 .mgt0 {
   margin-top: 0;
+}
+.mgb0 {
+  margin-bottom: 0;
 }
 .mgt10 {
   margin-top: 10px;
@@ -56,6 +64,13 @@ a:hover {
 .pdtb4 {
   padding-top: 4px;
   padding-bottom: 4px;
+}
+.pdt10 {
+  padding-top: 10px;
+}
+.pdtb10 {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .pdlr10 {
   padding-left: 10px;
