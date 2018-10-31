@@ -97,7 +97,6 @@ export default {
                     message: '登录成功！',
                     type: 'success'
                   })
-                  // console.log(res)
                   const { currentUser, tokenManager } = res.data
                   const auth = {
                     user: currentUser,
@@ -110,7 +109,6 @@ export default {
                   this.$store.commit('setAuth', auth)
                   this.$router.push('/')
                 } else {
-                  console.log(res.message)
                   this.$message({
                     showClose: true,
                     message: '账号或密码错误，登录失败！',
@@ -118,8 +116,14 @@ export default {
                   })
                 }
               })
-              .catch(console.log)
-          }, 500)
+              .catch(err => {
+                this.$message({
+                  showClose: true,
+                  message: err.response.data.message,
+                  type: 'error'
+                })
+              })
+          }, 100)
         } else {
           this.$message({
             showClose: true,

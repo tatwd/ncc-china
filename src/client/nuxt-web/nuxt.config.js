@@ -50,7 +50,8 @@ module.exports = {
       src: '@/plugins/mavon-editor',
       ssr: false
     },
-    '@/plugins/axios'
+    '@/plugins/axios',
+    '@/plugins/filters'
   ],
 
   modules: ['@nuxtjs/axios'],

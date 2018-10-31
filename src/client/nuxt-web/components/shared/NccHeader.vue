@@ -132,6 +132,7 @@ export default {
   methods: {
     loginout() {
       this.$store.state.auth.token = null
+      $Cookie.remove()
     }
   }
 }

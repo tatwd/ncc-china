@@ -9,7 +9,7 @@
         class="clearfix"
       >
         <h2 class="fs16 mgt0">{{ post.title }}</h2>
-        <span>发布于 {{ new Date(post.utcCreated) }}</span>
+        <span>发布于 {{ post.utcCreated | timeAgo }}前</span>
         <span>作者 {{ post.author.username }}</span>
         <!-- <span>{{ browsenum }} 次浏览</span> -->
       </div>
@@ -18,6 +18,7 @@
     <ncc-interaction
       :post-id="post.id"
       :comments="comments"
+      @change="getcomments"
     />
   </div>
 </template>
@@ -32,9 +33,23 @@ export default {
     let post = await app.$axios.$get(`v1/posts/${params.id}`)
     console.log(post)
     let comments = await app.$axios.$get(`v1/posts/${params.id}/comments`)
+    comments.data = comments.data.map(item => {
+      item.show = false
+      return item
+    })
     return {
       post: post.data,
       comments: comments.data
+    }
+  },
+  methods: {
+    getcomments() {
+      console.log(1)
+      this.$axios.$get(`v1/posts/${this.post.id}/comments`).then(res => {
+        if (res.code == 0) {
+          this.comments = res.data
+        }
+      })
     }
   }
 }

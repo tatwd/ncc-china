@@ -18,7 +18,7 @@
       type="flex"
       align="middle"
     >
-      <el-col :sm="12">
+      <el-col>
         <el-button
           v-for="(type, index) in types"
           :key="index"
@@ -27,12 +27,6 @@
         >
           {{ type.title }}
         </el-button>
-      </el-col>
-      <el-col :sm="12">
-        <ncc-flex justify="end">
-          <span class="mglr10 pointer">按时间</span>
-          <span class="mglr10 pointer">按热度</span>
-        </ncc-flex>
       </el-col>
     </el-row>
     <div
@@ -47,7 +41,7 @@
             class="wh30 round vertical-middle"
           >
           <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
-            {{ post.categoryId }}
+            {{ post.category.title }}
           </span>
           <nuxt-link :to="`/post/`+post.id">
             <span class="fs12">{{ post.title }}</span>
@@ -67,15 +61,15 @@
           >
             <el-col :sm="12">
               <span>
-                <i class="el-icon-view"> {{ post.browsenum }}</i>
+                <i class="el-icon-view"> {{ post.viewsCount }}</i>
               </span>
               <span class="mglr10">
-                <i class="el-icon-edit-outline"> {{ post.commentnum }}</i>
+                <i class="el-icon-edit-outline"> {{ post.commentsCount }}</i>
               </span>
             </el-col>
             <el-col :sm="12">
               <ncc-flex justify="end">
-                <span class="mglr10">{{ post.utcCreated }}</span>
+                <span class="mglr10">{{ post.utcCreated | timeAgo }}前</span>
               </ncc-flex>
             </el-col>
           </el-row>
