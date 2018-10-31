@@ -1,4 +1,5 @@
 var express = require('express');
+var verifyToken = require('./utils/verifyToken');
 var router = express.Router();
 var commentController = require('./controllers/comment');
 
@@ -16,5 +17,17 @@ router
 
   // POST /api/:post_id/comments
   .post(commentController.post);
+
+router
+  .route('/comments')
+
+  // GET /api/comments
+  .get(verifyToken, commentController.getCommentsOfCurrentUser)
+
+router
+  .route('/comments/:id')
+
+   // DELETE /api/:post_id/comments
+   .delete(verifyToken, commentController.delete);
 
 module.exports = router;
