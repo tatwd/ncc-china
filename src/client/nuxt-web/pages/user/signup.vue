@@ -123,7 +123,6 @@ export default {
         if (valid) {
           let { username, useremail, userpwd } = this.registerform
           setTimeout(() => {
-            console.log(1)
             this.$axios
               .$post('v1/auth/register', {
                 username: username,
@@ -147,8 +146,14 @@ export default {
                   })
                 }
               })
-              .catch(console.log)
-          }, 1000)
+              .catch(err => {
+                this.$message({
+                  showClose: true,
+                  message: err.response.data.message,
+                  type: 'error'
+                })
+              })
+          }, 100)
         } else {
           this.$message({
             showClose: true,
