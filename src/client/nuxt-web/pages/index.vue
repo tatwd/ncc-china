@@ -41,7 +41,7 @@
             class="wh30 round vertical-middle"
           >
           <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
-            {{ post.categoryId }}
+            {{ post.category.title }}
           </span>
           <nuxt-link :to="`/post/`+post.id">
             <span class="fs12">{{ post.title }}</span>
@@ -69,7 +69,7 @@
             </el-col>
             <el-col :sm="12">
               <ncc-flex justify="end">
-                <span class="mglr10">{{ post.utcCreated | formatDate }}</span>
+                <span class="mglr10">{{ post.utcCreated | timeAgo }}前</span>
               </ncc-flex>
             </el-col>
           </el-row>
@@ -83,12 +83,6 @@
 import NccFlex from '~/components/shared/NccFlex.vue'
 
 export default {
-  filters: {
-    formatDate(date) {
-      let currentDate = new Date(date).toLocaleString()
-      return currentDate
-    }
-  },
   components: {
     NccFlex
   },

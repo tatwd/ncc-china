@@ -2,11 +2,11 @@
   <div id="ncc-interaction">
     <el-form
       ref="commentform"
-      :model="commentform"
+      :model="model"
     >
       <el-input
         :autosize="{ minRows: 2, maxRows: 4}"
-        v-model="commentform.commenttextarea"
+        v-model="model.text"
         prop="commenttextarea"
         type="textarea"
         placeholder="请输入评论内容"
@@ -15,7 +15,7 @@
       <el-button
         type="success"
         plain
-        @click="submitForm('commentform')"
+        @click="submitComment"
       >
         提交
       </el-button>
@@ -41,7 +41,7 @@
             回复 {{ comment.replyTo.owner.username }}：
           </span>
         </span>
-        <span class="fr">{{ comment.utcCreated | formatDate }}</span>
+        <span class="fr">{{ comment.utcCreated | timeAgo }}前</span>
         <p
           class="pointer mgt10"
           @click="showreplyInput(comment)"
@@ -51,11 +51,11 @@
         <el-form
           v-if="comment.show"
           ref="replyform"
-          :model="replyform"
+          :model="model"
         >
           <el-input
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="replyform.replytextarea"
+            v-model="model.text"
             prop="replytextarea"
             type="textarea"
             placeholder="请输入回复内容"
@@ -65,7 +65,7 @@
             type="success"
             plain
             class="mgb10"
-            @click="submitreplyForm('replyform')"
+            @click="submitReplyComment"
           >
             提交
           </el-button>
@@ -83,12 +83,6 @@
 
 <script>
 export default {
-  filters: {
-    formatDate(date) {
-      let currentDate = new Date(date).toLocaleString()
-      return currentDate
-    }
-  },
   props: {
     comments: {
       type: Array,
@@ -101,13 +95,12 @@ export default {
   },
   data() {
     return {
-      commentform: {
-        commenttextarea: ''
-      },
-      replyform: {
-        replytextarea: ''
-      },
-      showed: null
+      showed: null,
+      model: {
+        replyTo: null,
+        postId: this.postId,
+        text: ''
+      }
     }
   },
   methods: {
@@ -118,76 +111,67 @@ export default {
       comment.show = !comment.show
       this.showed = comment
     },
-    submitForm(commentform) {
+
+    createComment(data, cb) {
       if (!this.$store.state.auth.user) {
         this.$router.push('/user/signin')
       } else {
+        data.owner = {
+          id: this.$store.state.auth.user.id,
+          username: this.$store.state.auth.user.username,
+          avatarUrl: this.$store.state.auth.user.avatarUrl,
+          email: this.$store.state.auth.user.email
+        }
         setTimeout(() => {
           this.$axios
-            .$post(`v1/posts/${this.postId}/comments`, {
-              owner: {
-                Id: this.$store.state.auth.user.id,
-                username: this.$store.state.auth.user.username,
-                avatarUrl: this.$store.state.auth.user.avatarUrl,
-                email: this.$store.state.auth.user.email
-              },
-              postId: this.postId,
-              text: this.commentform.commenttextarea
-            })
+            .$post(`v1/posts/${this.postId}/comments`, data)
             .then(res => {
-              if (res.code === 0) {
-                this.$message({
-                  showClose: true,
-                  message: '评论成功！',
-                  type: 'success'
-                })
-              } else {
-                this.$message({
-                  showClose: true,
-                  message: '评论失败，请重试！',
-                  type: 'error'
-                })
-              }
+              if (cb) cb(res)
             })
         }, 500)
-        this.$refs[commentform].resetFields()
       }
     },
-    submitreplyForm(commentform) {
-      if (!this.$store.state.auth.user) {
-        this.$router.push('/user/signin')
-      } else {
-        setTimeout(() => {
-          this.$axios
-            .$post(`v1/posts/${this.postId}/comments`, {
-              owner: {
-                id: this.$store.state.auth.user.id,
-                username: this.$store.state.auth.user.username,
-                avatarUrl: this.$store.state.auth.user.avatarUrl,
-                email: this.$store.state.auth.user.email
-              },
-              replyTo: this.showed.id,
-              postId: this.postId,
-              text: this.replyform.replytextarea
-            })
-            .then(res => {
-              if (res.code === 0) {
-                this.replyform.replytextarea = ''
-                this.$message({
-                  showClose: true,
-                  message: '评论成功！',
-                  type: 'success'
-                })
-              } else {
-                this.$message({
-                  showClose: true,
-                  message: '评论失败，请重试！',
-                  type: 'error'
-                })
-              }
-            })
-        }, 500)
-      }
+
+    submitComment() {
+      this.createComment(this.model, res => {
+        if (res.code === 0) {
+          this.$emit('change')
+          this.$router.go(0)
+          this.model.text = ''
+          this.$message({
+            showClose: true,
+            message: '评论成功！',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            showClose: true,
+            message: '评论失败，请重试！',
+            type: 'error'
+          })
+        }
+      })
+    },
+    submitReplyComment() {
+      this.model.replyTo = this.showed.id
+      this.createComment(this.model, res => {
+        if (res.code === 0) {
+          this.$emit('change')
+          this.model.text = ''
+          this.$router.go(0)
+          this.$message({
+            showClose: true,
+            message: '评论成功！',
+            type: 'success'
+          })
+        } else {
+          this.$message({
+            showClose: true,
+            message: '评论失败，请重试！',
+            type: 'error'
+          })
+        }
+      })
     }
   }
 }
