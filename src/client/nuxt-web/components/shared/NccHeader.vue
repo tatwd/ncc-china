@@ -46,8 +46,8 @@
           <el-dropdown>
             <span class="white no-outline pointer">
               <img
+                :src="this.$store.state.auth.user.avatarUrl"
                 alt="我"
-                src="/test.jpg"
                 height="32"
                 class="vertical-moddle round"
               >

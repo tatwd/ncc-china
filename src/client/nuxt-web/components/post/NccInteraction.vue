@@ -105,6 +105,7 @@ export default {
   },
   methods: {
     showreplyInput(comment) {
+      console.log(comment, this.showed)
       if (this.showed) {
         this.showed.show = false
       }
@@ -136,7 +137,7 @@ export default {
       this.createComment(this.model, res => {
         if (res.code === 0) {
           this.$emit('change')
-          this.$router.go(0)
+          //this.$router.go(0)
           this.model.text = ''
           this.$message({
             showClose: true,
@@ -158,7 +159,7 @@ export default {
         if (res.code === 0) {
           this.$emit('change')
           this.model.text = ''
-          this.$router.go(0)
+          //this.$router.go(0)
           this.$message({
             showClose: true,
             message: '评论成功！',
