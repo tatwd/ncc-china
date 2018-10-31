@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
@@ -36,6 +37,20 @@ namespace Ncc.China.Services.Postsys.Repository
             return _context.Categories
                 .Find(_ => _.Id.Equals(_id))
                 .FirstOrDefaultAsync();
+        }
+
+        public Task<Category> GetCategory(ObjectId id)
+        {
+            return _context.Categories
+                .Find(_ => _.Id.Equals(id))
+                .FirstOrDefaultAsync();
+        }
+
+        public IEnumerable<Category> GetCategories(IEnumerable<ObjectId> ids)
+        {
+            return _context.Categories
+                .Find(_ => ids.Contains(_.Id))
+                .ToList();
         }
     }
 }

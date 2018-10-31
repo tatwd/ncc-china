@@ -13,17 +13,42 @@ namespace Ncc.China.Services.Postsys.Logic
     public class PostService
     {
         private IPostRepository _repository;
+        private ICategoryRepository _categoryRepository;
 
         public PostService(IPostRepository repository)
         {
             _repository = repository;
         }
 
+        public PostService(IPostRepository repository, ICategoryRepository categoryRepository)
+        {
+            _repository = repository;
+            _categoryRepository = categoryRepository;
+        }
+
+        private async Task<PostQueryDto> Map(Post post)
+        {
+            var category = await _categoryRepository.GetCategory(post.CategoryId);
+            return new PostQueryDto(post, category);
+        }
+
+        private async Task<IEnumerable<PostQueryDto>> Map(IEnumerable<Post> posts)
+        {
+            IList<PostQueryDto> data = new List<PostQueryDto>();
+            foreach (var post in posts)
+            {
+                var category = await _categoryRepository.GetCategory(post.CategoryId);
+                data.Add(new PostQueryDto(post, category));
+            }
+            return data;
+        }
+
         public async Task<BaseResponseMessage> GetPosts()
         {
             try
             {
-                var data = (await _repository.GetPosts()).ToList();
+                var posts = await _repository.GetPosts();
+                var data = await this.Map(posts);
                 return new SucceededResponseMessage(data);
             }
             catch (Exception ex)
@@ -36,7 +61,8 @@ namespace Ncc.China.Services.Postsys.Logic
         {
             try
             {
-                var data = await _repository.GetPostsByPage(dto.Page, dto.Limit, dto.Desc, dto.Category);
+                var posts = await _repository.GetPostsByPage(dto.Page, dto.Limit, dto.Desc, dto.Category);
+                var data = await this.Map(posts);
                 return new SucceededResponseMessage(data);
             }
             catch (Exception ex)
@@ -49,8 +75,9 @@ namespace Ncc.China.Services.Postsys.Logic
         {
             try
             {
-                var data = await _repository.GetPost(id);
-                if (data == null) return new FailedResponseMessage("不存在该记录");
+                var post = await _repository.GetPost(id);
+                if (post == null) return new FailedResponseMessage("不存在该记录");
+                var data = await this.Map(post);
                 return new SucceededResponseMessage(data);
             }
             catch (Exception ex)

@@ -16,16 +16,18 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
     public class PostsController : ControllerBase
     {
         private IPostRepository _postRepository;
+        private ICategoryRepository _categoryRepository;
 
-        public PostsController(IPostRepository postRepository)
+        public PostsController(IPostRepository postRepository, ICategoryRepository categoryRepository)
         {
             _postRepository = postRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]PostPaginateByCategoryDto dto)
         {
-            var service = new PostService(_postRepository);
+            var service = new PostService(_postRepository, _categoryRepository);
             var res = !dto.IsValid
                 ? await service.GetPosts()
                 : await service.GetPosts(dto);
@@ -36,7 +38,7 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute]string id)
         {
-            var res = await new PostService(_postRepository).GetPost(id);
+            var res = await new PostService(_postRepository, _categoryRepository).GetPost(id);
             if (res.Code == Http.MessageStatusCode.Succeeded) return Ok(res);
             return NotFound(res);
         }
