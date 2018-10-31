@@ -1,5 +1,6 @@
 function mapComment(schema) {
   if (!schema) return schema;
+  if (!schema.owner) return schema;
   return {
     id: schema._id,
     postId: schema.post_id,
