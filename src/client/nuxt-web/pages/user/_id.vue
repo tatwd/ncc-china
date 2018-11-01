@@ -33,7 +33,7 @@
         slot="header"
         class="clearfix"
       >
-        <span>他创建的话题</span>
+        <span>他创建的帖子</span>
       </div>
       <div
         v-for="o in 4"
@@ -58,7 +58,7 @@
         slot="header"
         class="clearfix"
       >
-        <span>他参与的话题</span>
+        <span>他参与的讨论</span>
       </div>
       <div
         v-for="o in 4"

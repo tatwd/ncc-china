@@ -5,7 +5,7 @@
         slot="header"
         class="clearfix"
       >
-        <span>热门话题</span>
+        <span>热门帖子</span>
       </div>
       <div
         v-for="o in 4"

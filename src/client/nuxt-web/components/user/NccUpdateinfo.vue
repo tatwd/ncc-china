@@ -9,7 +9,7 @@
       </div>
       <el-form
         ref="updateinfoform"
-        :model="updateinfoform"
+        :model="currentuser"
         :rules="rules"
         label-width="100px"
       >
@@ -25,34 +25,42 @@
             action="https://jsonplaceholder.typicode.com/posts/"
           >
             <img
-              v-if="avatar"
-              :src="updateinfoform.avatar"
-              alt=""
-              class="avatar"
-            >
-            <img
-              v-else
-              :src="updateinfoform.avatar"
+              :src="currentuser.avatarUrl"
               alt=""
               class="avatar"
             >
           </el-upload>
         </el-form-item>
         <el-form-item
-          label="用户名："
-          prop="username"
+          label="昵称："
+          prop="nickname"
         >
-          <el-input v-model="updateinfoform.username" />
+          <el-input v-model="currentuser.nickname" />
+        </el-form-item>
+        <el-form-item
+          label="邮箱："
+          prop="email"
+        >
+          <el-input v-model="currentuser.email" />
         </el-form-item>
         <el-form-item
           label="性别："
           prop="gender"
         >
-          <el-radio-group v-model="updateinfoform.gender">
-            <el-radio :label="0">未知</el-radio>
+          <el-radio-group v-model="currentuser.gender">
             <el-radio :label="1">男</el-radio>
             <el-radio :label="2">女</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item
+          label="个人简介："
+          prop="bio"
+        >
+          <el-input
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="currentuser.bio"
+            type="textarea"
+          />
         </el-form-item>
         <el-form-item>
           <el-button
@@ -70,36 +78,50 @@
 
 <script>
 export default {
+  props: {
+    currentuser: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
-      updateinfoform: {
-        avatar: '',
-        username: '',
-        gender: 0
-      },
       rules: {
-        username: [
+        nickname: [
           {
             required: true,
-            message: '请输入用户名',
+            message: '请输入用户昵称',
+            trigger: 'blur'
+          }
+        ],
+        email: [
+          {
+            required: true,
+            message: '请输入邮箱',
+            trigger: 'blur'
+          },
+          {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            trigger: 'blur'
+          }
+        ],
+        bio: [
+          {
+            required: false,
+            message: '请输入用户个人简介',
+            trigger: 'blur'
+          },
+          {
+            min: 0,
+            max: 140,
+            message: '长度在 0 到 140 个字符',
             trigger: 'blur'
           }
         ]
-      },
-      avatar: true
+      }
     }
   },
-  // mounted: {
-  //   async fetchUserinfo() {
-  //     const userinfo = await this.$axios.$get('')
-  //     this.userinfo = userinfo
-  //   }
-  // },
-  // computed: {
-  //   avatar() {
-  //     return true
-  //   }
-  // },
   methods: {
     handleAvatarSuccess(res, file) {
       this.avatar = URL.createObjectURL(file.raw)
@@ -119,13 +141,23 @@ export default {
     submitForm(updateinfoform) {
       this.$refs[updateinfoform].validate(valid => {
         if (valid) {
-          let { avatar, username, gender } = this.updateinfoform
+          let {
+            avatarUrl,
+            username,
+            nickname,
+            email,
+            gender,
+            bio
+          } = this.currentuser
           setTimeout(() => {
             this.$axios
-              .$post('', {
-                avatar: avatar,
-                username: username,
-                gender: gender
+              .$post('v1/user', {
+                username,
+                avatarUrl,
+                nickname,
+                email,
+                gender,
+                bio
               })
               .then(res => {
                 if (res.code === 0) {
@@ -142,7 +174,7 @@ export default {
                   })
                 }
               })
-          }, 500)
+          }, 100)
         } else {
           this.$message({
             showClose: true,
@@ -152,7 +184,6 @@ export default {
           return false
         }
       })
-      this.$refs[updateinfoform].resetFields()
     }
   }
 }

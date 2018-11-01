@@ -1,9 +1,11 @@
 <template>
-  <section id="app">
+  <div
+    id="app"
+    class="mgt10"
+  >
     <el-form
       ref="searchform"
       :model="searchform"
-      class="mgt10"
     >
       <el-form-item prop="search">
         <el-input
@@ -35,16 +37,14 @@
     >
       <el-card shadow="hover">
         <div class="topic-list">
-          <img
-            :src="post.author.avatarUrl"
-            alt=""
-            class="wh30 round vertical-middle"
+          <el-tag
+            type="success"
+            size="small"
           >
-          <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
             {{ post.category.title }}
-          </span>
+          </el-tag>
           <nuxt-link :to="`/post/`+post.id">
-            <span class="fs12">{{ post.title }}</span>
+            <span class="">{{ post.title }}</span>
           </nuxt-link>
           <div class="mgtb15">
             <span
@@ -60,6 +60,11 @@
             align="middle"
           >
             <el-col :sm="12">
+              <img
+                :src="post.author.avatarUrl"
+                alt=""
+                class="wh30 round vertical-middle"
+              >
               <span>
                 <i class="el-icon-view"> {{ post.viewsCount }}</i>
               </span>
@@ -76,7 +81,7 @@
         </div>
       </el-card>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -108,12 +113,11 @@ export default {
         params: {
           page: 1,
           limit: 10,
-          category: 'test',
+          category: '全部',
           desc: true
         }
       })
       .then(res => {
-        console.log(res.data)
         if (res.code == 0) {
           return { posts: res.data }
         }
@@ -133,7 +137,7 @@ export default {
             console.log(res)
             console.log(search)
           })
-      }, 500)
+      }, 100)
     }
   }
 }

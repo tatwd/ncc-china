@@ -31,7 +31,6 @@ export default {
   },
   async asyncData({ app, params }) {
     let post = await app.$axios.$get(`v1/posts/${params.id}`)
-    console.log(post)
     let comments = await app.$axios.$get(`v1/posts/${params.id}/comments`)
     comments.data = comments.data.map(item => {
       item.show = false
@@ -44,10 +43,12 @@ export default {
   },
   methods: {
     getcomments() {
-      console.log(1)
       this.$axios.$get(`v1/posts/${this.post.id}/comments`).then(res => {
         if (res.code == 0) {
-          this.comments = res.data
+          this.comments = res.data.map(item => {
+            item.show = false
+            return item
+          })
         }
       })
     }
