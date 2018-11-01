@@ -39,20 +39,35 @@
           </el-upload>
         </el-form-item>
         <el-form-item
-          label="用户名："
-          prop="username"
+          label="昵称："
+          prop="nickname"
         >
-          <el-input v-model="updateinfoform.username" />
+          <el-input v-model="updateinfoform.nickname" />
+        </el-form-item>
+        <el-form-item
+          label="邮箱："
+          prop="useremail"
+        >
+          <el-input v-model="updateinfoform.useremail" />
         </el-form-item>
         <el-form-item
           label="性别："
           prop="gender"
         >
           <el-radio-group v-model="updateinfoform.gender">
-            <el-radio :label="0">未知</el-radio>
             <el-radio :label="1">男</el-radio>
             <el-radio :label="2">女</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item
+          label="个人简介："
+          prop="userjj"
+        >
+          <el-input
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="updateinfoform.userjj"
+            type="textarea"
+          />
         </el-form-item>
         <el-form-item>
           <el-button
@@ -74,14 +89,39 @@ export default {
     return {
       updateinfoform: {
         avatar: '',
-        username: '',
+        nickname: '',
         gender: 0
       },
       rules: {
-        username: [
+        nickname: [
           {
             required: true,
-            message: '请输入用户名',
+            message: '请输入用户昵称',
+            trigger: 'blur'
+          }
+        ],
+        useremail: [
+          {
+            required: true,
+            message: '请输入邮箱',
+            trigger: 'blur'
+          },
+          {
+            type: 'email',
+            message: '请输入正确的邮箱地址',
+            trigger: 'blur'
+          }
+        ],
+        userjj: [
+          {
+            required: false,
+            message: '请输入用户个人简介',
+            trigger: 'blur'
+          },
+          {
+            min: 0,
+            max: 140,
+            message: '长度在 0 到 140 个字符',
             trigger: 'blur'
           }
         ]
