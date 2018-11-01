@@ -1,6 +1,8 @@
 <template>
   <div id="setting">
-    <ncc-updateinfo />
+    <ncc-updateinfo
+      :currentuser="currentuser"
+    />
     <ncc-updatepwd />
   </div>
 </template>
@@ -14,6 +16,13 @@ export default {
   components: {
     NccUpdateinfo,
     NccUpdatepwd
+  },
+  async asyncData({ app }) {
+    let currentuser = await app.$axios.$get('v1/user')
+    console.log(currentuser)
+    return {
+      currentuser: currentuser.data
+    }
   }
 }
 </script>

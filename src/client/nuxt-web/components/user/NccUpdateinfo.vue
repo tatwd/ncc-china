@@ -9,7 +9,7 @@
       </div>
       <el-form
         ref="updateinfoform"
-        :model="updateinfoform"
+        :model="currentuser"
         :rules="rules"
         label-width="100px"
       >
@@ -25,14 +25,7 @@
             action="https://jsonplaceholder.typicode.com/posts/"
           >
             <img
-              v-if="avatar"
-              :src="updateinfoform.avatar"
-              alt=""
-              class="avatar"
-            >
-            <img
-              v-else
-              :src="this.$store.state.auth.user.avatarUrl"
+              :src="currentuser.avatarUrl"
               alt=""
               class="avatar"
             >
@@ -42,30 +35,30 @@
           label="昵称："
           prop="nickname"
         >
-          <el-input v-model="updateinfoform.nickname" />
+          <el-input v-model="currentuser.nickname" />
         </el-form-item>
         <el-form-item
           label="邮箱："
-          prop="useremail"
+          prop="email"
         >
-          <el-input v-model="updateinfoform.useremail" />
+          <el-input v-model="currentuser.email" />
         </el-form-item>
         <el-form-item
           label="性别："
           prop="gender"
         >
-          <el-radio-group v-model="updateinfoform.gender">
+          <el-radio-group v-model="currentuser.gender">
             <el-radio :label="1">男</el-radio>
             <el-radio :label="2">女</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item
           label="个人简介："
-          prop="userjj"
+          prop="bio"
         >
           <el-input
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="updateinfoform.userjj"
+            v-model="currentuser.bio"
             type="textarea"
           />
         </el-form-item>
@@ -85,13 +78,14 @@
 
 <script>
 export default {
+  props: {
+    currentuser: {
+      type: Object,
+      default: null
+    }
+  },
   data() {
     return {
-      updateinfoform: {
-        avatar: '',
-        nickname: '',
-        gender: 0
-      },
       rules: {
         nickname: [
           {
@@ -100,7 +94,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        useremail: [
+        email: [
           {
             required: true,
             message: '请输入邮箱',
@@ -112,7 +106,7 @@ export default {
             trigger: 'blur'
           }
         ],
-        userjj: [
+        bio: [
           {
             required: false,
             message: '请输入用户个人简介',
@@ -125,8 +119,7 @@ export default {
             trigger: 'blur'
           }
         ]
-      },
-      avatar: ''
+      }
     }
   },
   methods: {
@@ -148,13 +141,23 @@ export default {
     submitForm(updateinfoform) {
       this.$refs[updateinfoform].validate(valid => {
         if (valid) {
-          let { avatar, username, gender } = this.updateinfoform
+          let {
+            avatarUrl,
+            username,
+            nickname,
+            email,
+            gender,
+            bio
+          } = this.currentuser
           setTimeout(() => {
             this.$axios
-              .$post('', {
-                avatar: avatar,
-                username: username,
-                gender: gender
+              .$post('v1/user', {
+                username,
+                avatarUrl,
+                nickname,
+                email,
+                gender,
+                bio
               })
               .then(res => {
                 if (res.code === 0) {
@@ -171,7 +174,7 @@ export default {
                   })
                 }
               })
-          }, 500)
+          }, 100)
         } else {
           this.$message({
             showClose: true,
@@ -181,7 +184,6 @@ export default {
           return false
         }
       })
-      this.$refs[updateinfoform].resetFields()
     }
   }
 }
