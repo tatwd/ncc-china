@@ -8,14 +8,16 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
     using Data;
+    using Http;
+    using Http.Message;
     using Logic;
     using Logic.Dto;
-    using Http;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -65,6 +67,24 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             var res = new UserService(_context).Register(dto);
             if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
             else return BadRequest(res);
+        }
+
+        [Authorize]
+        [HttpPut("password")]
+        public IActionResult Post([FromQuery] string type, [FromBody] PasswordUpdateDto dto)
+        {
+            var currentUser = GetUser();
+            var res = type.Equals("update")
+                ? new UserService(_context).UpdatePassword(currentUser, dto)
+                : new FailedResponseMessage($"不支持 `type={type}` 的请求");
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            else return BadRequest(res);
+        }
+
+        private LoginUser GetUser()
+        {
+            var username = HttpContext.Items["username"] as string;
+            return new UserService(_context).GetUserByIdOrUsernameOrEmail(username);
         }
     }
 }

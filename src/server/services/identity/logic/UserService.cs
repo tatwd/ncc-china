@@ -179,8 +179,20 @@ namespace Ncc.China.Services.Identity.Logic
             {
                 using (_context)
                 {
-                    user.Username = dto.Username;
-                    user.Email = dto.Email;
+                    if (!user.Username.Equals(dto.Username)) {
+                        if (_context.LoginUsers.Any(_ => _.Username.Equals(dto.Username)))
+                            return new  FailedResponseMessage("用户名已被占用");
+                        else {
+                            user.Username = dto.Username;
+                        }
+                    }
+                    if (!user.Email.Equals(dto.Email)) {
+                        if (_context.LoginUsers.Any(_ => _.Email.Equals(dto.Email)))
+                            return new  FailedResponseMessage("邮箱已被占用");
+                        else {
+                            user.Email = dto.Email;
+                        }
+                    }
                     user.UtcUpdated = DateTime.UtcNow;
 
                     var profile = _context.UserProfiles.FirstOrDefault(_ => _.UserId.Equals(user.Id));
@@ -202,6 +214,33 @@ namespace Ncc.China.Services.Identity.Logic
                 return new FailedResponseMessage(ex.Message);
             }
         }
+
+        public BaseResponseMessage UpdatePassword(LoginUser user, PasswordUpdateDto dto)
+        {
+            try
+            {
+                using (_context)
+                {
+                    var encode = CryptoUtil.Encrypt(dto.Old, user.Salt);
+                    if (!encode.Equals(user.Password)) {
+                        return new FailedResponseMessage("原密码错误");
+                    }
+                    var salt = CryptoUtil.CreateSalt(10);
+                    user.Password = CryptoUtil.Encrypt(dto.New, salt);
+                    user.Salt = salt;
+                    user.UtcUpdated = DateTime.UtcNow;
+                    if(_context.SaveChanges() > 0) {
+                        return new SucceededResponseMessage(null, "ok");
+                    }
+                    return new FailedResponseMessage("数据库操作异常");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
         public void Dispose()
         {
             _context.Dispose();
