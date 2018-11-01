@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Ncc.China.Http;
+using Ncc.China.Http.Message;
+using Ncc.China.Services.Identity.Data;
+using Ncc.China.Services.Identity.Logic;
+using Ncc.China.Services.Identity.Logic.Dto;
+
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
-    using Data;
-    using Logic;
-    using Http;
-    using Http.Message;
-
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -23,14 +24,39 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             _context = context;
         }
 
+        private LoginUser GetUser()
+        {
+            var username = HttpContext.Items["username"] as string;
+            return new UserService(_context).GetUserByIdOrUsernameOrEmail(username);
+        }
+
         [Authorize]
-        [HttpGet]
+        [HttpGet("api/user")]
+        public IActionResult GetCurrentUser()
+        {
+            var username = HttpContext.Items["username"] as string;
+            var user = new UserService(_context).GetUserByUsername(username);
+            return Ok(user);
+        }
+
+        [Authorize]
+        [HttpPost("api/user")]
+        public IActionResult UpdateUserProfile(UserProfileUpdateDto dto)
+        {
+            var currentUser = GetUser();
+            var res = new UserService(_context).UpdateUserProfile(currentUser, dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            else return BadRequest(res);
+        }
+
+        [Authorize]
+        [HttpGet("api/users")]
         public IActionResult GetFromQuery([FromQuery]string id)
         {
             return GetFromRoute(id);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("api/users/{id}")]
         public IActionResult GetFromRoute([FromRoute]string id)
         {
             var res = new UserService(_context).GetUser(id);
