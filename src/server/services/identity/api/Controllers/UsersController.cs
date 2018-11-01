@@ -10,7 +10,6 @@ using Ncc.China.Services.Identity.Data;
 using Ncc.China.Services.Identity.Logic;
 using Ncc.China.Services.Identity.Logic.Dto;
 
-
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
     // [Route("api/[controller]")]
@@ -40,8 +39,8 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         }
 
         [Authorize]
-        [HttpPost("api/user")]
-        public IActionResult UpdateUserProfile(UserProfileUpdateDto dto)
+        [HttpPut("api/user")]
+        public IActionResult UpdateUserProfile([FromBody]UserProfileUpdateDto dto)
         {
             var currentUser = GetUser();
             var res = new UserService(_context).UpdateUserProfile(currentUser, dto);
