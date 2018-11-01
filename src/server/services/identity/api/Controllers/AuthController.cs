@@ -46,7 +46,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
                 var jwt = new JwtSecurityToken(
                     issuer: _configuration["Tokens:Issuer"],
                     audience: _configuration["Tokens:Audience"],
-                    expires: DateTime.UtcNow.AddMinutes(5), // expired after 1 min.
+                    expires: DateTime.UtcNow.AddMinutes(30), // expired after 30 minutes.
                     claims:claims,
                     signingCredentials: new SigningCredentials(signingKey,
                         SecurityAlgorithms.HmacSha256)
