@@ -8,8 +8,8 @@
         <span>我参与的讨论</span>
       </div>
       <div
-        v-for="o in 4"
-        :key="o"
+        v-for="(comment, index) in comments"
+        :key="comment.id"
       >
         <div class="item-list mgtb10">
           <el-row
@@ -18,7 +18,7 @@
           >
             <el-col :sm="22">
               <nuxt-link to="/user">
-                {{ '话题 ' + o }}
+                {{ comment.text }}
               </nuxt-link>
             </el-col>
             <el-col :sm="2">
@@ -28,7 +28,7 @@
                 size="mini"
                 title="删除"
                 circle
-                @click="deleteComment"
+                @click="deleteComment(index)"
               />
             </el-col>
           </el-row>
@@ -40,24 +40,33 @@
 
 <script>
 export default {
-  // mounted: {
-  //   async fetchUserinfo() {
-  //     const myjoin = await this.$axios.$get('')
-  //     this.myjoin = myjoin
-  //   }
-  // },
+  props: {
+    comments: {
+      type: Array,
+      default: () => {}
+    }
+  },
   methods: {
-    deleteComment() {
+    deleteComment(index) {
       this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
+          console.log(1)
+          this.$axios
+            .delete(`v1/comments/${this.comments[index].id}`)
+            .then(res => {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              this.comments.splice(index, 1)
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
         .catch(() => {
           this.$message({
