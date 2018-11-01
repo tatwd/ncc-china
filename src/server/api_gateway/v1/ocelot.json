@@ -12,6 +12,17 @@
       "UpstreamPathTemplate": "/api/v1/user"
     },
     {
+      "DownstreamPathTemplate": "/api/user/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/user/posts"
+    },
+    {
       "DownstreamPathTemplate": "/api/users",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [

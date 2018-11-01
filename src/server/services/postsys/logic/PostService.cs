@@ -57,11 +57,53 @@ namespace Ncc.China.Services.Postsys.Logic
             }
         }
 
+        public async Task<BaseResponseMessage> GetPosts(string username)
+        {
+            try
+            {
+                var posts = await _repository.GetPosts(username);
+                var data = await this.Map(posts);
+                return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
         public async Task<BaseResponseMessage> GetPosts(PostPaginateByCategoryDto dto)
         {
             try
             {
                 var posts = await _repository.GetPostsByPage(dto.Page, dto.Limit, dto.Desc, dto.Category);
+                var data = await this.Map(posts);
+                return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
+        public async Task<BaseResponseMessage> GetPosts(string query, PostPaginateByCategoryDto dto)
+        {
+            try
+            {
+                var posts = await _repository.GetPostsByPage(query, dto.Page, dto.Limit, dto.Desc, dto.Category);
+                var data = await this.Map(posts);
+                return new SucceededResponseMessage(data);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
+        public async Task<BaseResponseMessage> GetHotPosts()
+        {
+            try
+            {
+                var posts = await _repository.GetHotPosts();
                 var data = await this.Map(posts);
                 return new SucceededResponseMessage(data);
             }
