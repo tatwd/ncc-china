@@ -131,7 +131,6 @@ export default {
               })
               .then(res => {
                 if (res.code === 0) {
-                  console.log(res)
                   this.$message({
                     showClose: true,
                     message: '注册成功！请登录！',
