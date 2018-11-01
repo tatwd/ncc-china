@@ -36,7 +36,7 @@ namespace Ncc.China.Services.Identity.Api.Migrations
                     user_id = table.Column<string>(type: "char(32)", nullable: false),
                     nickname = table.Column<string>(type: "varchar(100)", nullable: true),
                     bio = table.Column<string>(type: "varchar(200)", nullable: true),
-                    gender = table.Column<sbyte>(type: "tinyint(1)", nullable: false),
+                    gender = table.Column<sbyte>(type: "tinyint(3)", nullable: false),
                     avatar_url = table.Column<string>(type: "text", nullable: true),
                     utc_created = table.Column<DateTime>(type: "datetime", nullable: false),
                     utc_updated = table.Column<DateTime>(type: "datetime ", nullable: false)

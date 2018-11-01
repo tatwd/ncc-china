@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var router = require('./router');
 var app = express();
 var port = process.env.PORT || 5003;
-var databaseName = 'test';
+var databaseName = 'postsys';
 var connectionString = `mongodb://localhost:27017/${databaseName}`;
 
 // connet mongodb

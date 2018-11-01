@@ -9,7 +9,7 @@ using Ncc.China.Services.Identity.Data;
 namespace Ncc.China.Services.Identity.Api.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20181025081200_init_db")]
+    [Migration("20181101134905_init_db")]
     partial class init_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,7 @@ namespace Ncc.China.Services.Identity.Api.Migrations
 
                     b.Property<sbyte>("Gender")
                         .HasColumnName("gender")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("tinyint(3)");
 
                     b.Property<string>("Nickname")
                         .HasColumnName("nickname")

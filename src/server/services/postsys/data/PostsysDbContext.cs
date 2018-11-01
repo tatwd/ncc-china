@@ -8,19 +8,6 @@ namespace Ncc.China.Services.Postsys.Data
     {
         private readonly IMongoDatabase _context ;
 
-        // public PostsysDbContext(string connectionString, string db)
-        // {
-        //     try
-        //     {
-        //         var client = new MongoClient(connectionString);
-        //         _context = client.GetDatabase(db);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         throw ex;
-        //     }
-        // }
-
         public PostsysDbContext(IOptions<MongoSettings> options)
         {
             try
