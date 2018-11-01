@@ -19,7 +19,7 @@ namespace Ncc.China.Services.Identity.Data
         [Column("bio", TypeName = "varchar(200)")]
         public string Bio { get; set; }
 
-        [Column("gender", TypeName = "tinyint(1)")]
+        [Column("gender", TypeName = "tinyint(3)")]
         public Gender Gender { get; set; } = Gender.Unknown;
 
         [Column("avatar_url", TypeName = "text")]
@@ -29,7 +29,7 @@ namespace Ncc.China.Services.Identity.Data
         public DateTime UtcCreated { get; set; } = DateTime.UtcNow;
 
         [Column("utc_updated", TypeName = "datetime "), Required]
-        public DateTime UtcUpdated { get; set; }
+        public DateTime UtcUpdated { get; set; } = DateTime.UtcNow;
     }
 
     public enum Gender : byte

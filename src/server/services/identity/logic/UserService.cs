@@ -47,39 +47,85 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
-        public BaseResponseMessage Login(LoginDto dto, Func<object> tokenCb = null)
+        public LoginUser GetUserByIdOrUsernameOrEmail(string id_username_email)
         {
             using (_context)
             {
                 var user = _context.LoginUsers
-                    .FirstOrDefault(u => u.Username.Equals(dto.Login) ||
-                        u.Email.Equals(dto.Login));
-                if (user == null)
+                    .FirstOrDefault(u =>
+                        u.Id.Equals(id_username_email) ||
+                        u.Username.Equals(id_username_email) ||
+                        u.Email.Equals(id_username_email)
+                        );
+                return user;
+            }
+        }
+
+        public BaseResponseMessage GetUserByUsername(string username)
+        {
+            using (_context)
+            {
+                var user = _context.LoginUsers
+                    .FirstOrDefault(u => u.Username.Equals(username));
+                if(user == null)
                 {
-                    return new FailedResponseMessage("该用户还未注册");
-                }
-                var encode = CryptoUtil.Encrypt(dto.Password, user.Salt);
-                if (!encode.Equals(user.Password))
-                {
-                    return new FailedResponseMessage("密码错误");
+                    return new FailedResponseMessage("未找到该用户");
                 }
                 var userProfile = _context.UserProfiles
                     .FirstOrDefault(u => u.UserId.Equals(user.Id));
-                var currentUser = new {
+                return new SucceededResponseMessage(new {
                     Id = user.Id,
                     Username = user.Username,
                     Email = user.Email,
-                    Nickname = userProfile?.Nickname,
+                    UtcCreated = user.UtcCreated,
+                    AvatarUrl = userProfile?.AvatarUrl,
                     Gender = userProfile?.Gender,
-                    AvatarUrl = userProfile?.AvatarUrl ?? "https://avatars3.githubusercontent.com/u/33537787?s=460&v=4",
-                    UtcCreated = user.UtcCreated
-                };
-                if (tokenCb == null) return new SucceededResponseMessage(currentUser);
-                var tokenManager = tokenCb();
-                return new SucceededResponseMessage(new {
-                    currentUser,
-                    tokenManager,
+                    Bio = userProfile?.Bio,
+                    Nickname = userProfile?.Nickname
                 });
+            }
+        }
+
+        public BaseResponseMessage Login(LoginDto dto, Func<object> tokenCb = null)
+        {
+            try
+            {
+                using (_context)
+                {
+                    var user = _context.LoginUsers
+                        .FirstOrDefault(u => u.Username.Equals(dto.Login) ||
+                            u.Email.Equals(dto.Login));
+                    if (user == null)
+                    {
+                        return new FailedResponseMessage("该用户还未注册");
+                    }
+                    var encode = CryptoUtil.Encrypt(dto.Password, user.Salt);
+                    if (!encode.Equals(user.Password))
+                    {
+                        return new FailedResponseMessage("密码错误");
+                    }
+                    var userProfile = _context.UserProfiles
+                        .FirstOrDefault(u => u.UserId.Equals(user.Id));
+                    var currentUser = new {
+                        Id = user.Id,
+                        Username = user.Username,
+                        Email = user.Email,
+                        Nickname = userProfile?.Nickname,
+                        Gender = userProfile?.Gender,
+                        AvatarUrl = userProfile?.AvatarUrl,
+                        UtcCreated = user.UtcCreated
+                    };
+                    if (tokenCb == null) return new SucceededResponseMessage(currentUser);
+                    var tokenManager = tokenCb();
+                    return new SucceededResponseMessage(new {
+                        currentUser,
+                        tokenManager,
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
             }
         }
 
@@ -104,7 +150,6 @@ namespace Ncc.China.Services.Identity.Logic
                 var encode = CryptoUtil.Encrypt(dto.Password, salt);
                 var user = new LoginUser
                 {
-                    // Id = Guid.NewGuid().ToString().Replace("-", ""),
                     Username = dto.Username,
                     Email = dto.Email,
                     Password = encode,
@@ -113,6 +158,13 @@ namespace Ncc.China.Services.Identity.Logic
                     UtcUpdated = DateTime.UtcNow,
                 };
                 _context.LoginUsers.Add(user);
+
+                // add some info to user_profile
+                _context.UserProfiles.Add(new UserProfile{
+                    UserId = user.Id,
+                    AvatarUrl = "https://avatars3.githubusercontent.com/u/33537787?s=460&v=4",
+                });
+
                 if (_context.SaveChanges() <= 0)
                 {
                     return new FailedResponseMessage("数据库操作异常");
@@ -121,6 +173,35 @@ namespace Ncc.China.Services.Identity.Logic
             }
         }
 
+        public BaseResponseMessage UpdateUserProfile(LoginUser user, UserProfileUpdateDto dto)
+        {
+            try
+            {
+                using (_context)
+                {
+                    user.Username = dto.Username;
+                    user.Email = dto.Email;
+                    user.UtcUpdated = DateTime.UtcNow;
+
+                    var profile = _context.UserProfiles.FirstOrDefault(_ => _.UserId.Equals(user.Id));
+                    profile.Nickname = dto.Nickname;
+                    profile.AvatarUrl = dto.AvatarUrl;
+                    profile.Gender = dto.Gender;
+                    profile.Bio = dto.Bio;
+                    profile.UtcUpdated = DateTime.UtcNow;
+
+                    _context.UpdateRange(user, profile);
+                    if(_context.SaveChanges() > 0) {
+                        return new SucceededResponseMessage(null, "ok");
+                    }
+                    return new FailedResponseMessage("数据库操作异常");
+                }
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
         public void Dispose()
         {
             _context.Dispose();

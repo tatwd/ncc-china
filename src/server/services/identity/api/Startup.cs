@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Http;
 using System.Text;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -83,6 +84,12 @@ namespace Ncc.China.Services.Identity.Api
                             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                             context.Response.ContentType = "application/json";
                             return context.Response.WriteAsync(body);
+                        },
+                        OnTokenValidated = (context) => {
+                            var sub = context.Principal.Claims.FirstOrDefault(_ =>
+                                _.Type.Equals(System.Security.Claims.ClaimTypes.NameIdentifier))?.Value;
+                            context.HttpContext.Items.Add("username", sub);
+                            return Task.CompletedTask;
                         }
                     };
                 });
