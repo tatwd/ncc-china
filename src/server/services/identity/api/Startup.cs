@@ -126,8 +126,6 @@ namespace Ncc.China.Services.Identity.Api
             }
 
             app.UseAuthentication();
-
-            // app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
