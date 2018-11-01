@@ -113,7 +113,7 @@ export default {
         params: {
           page: 1,
           limit: 10,
-          category: 'test',
+          category: '全部',
           desc: true
         }
       })
