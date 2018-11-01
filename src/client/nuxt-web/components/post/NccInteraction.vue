@@ -2,11 +2,11 @@
   <div id="ncc-interaction">
     <el-form
       ref="commentform"
-      :model="model"
+      :model="comment"
     >
       <el-input
         :autosize="{ minRows: 2, maxRows: 4}"
-        v-model="model.text"
+        v-model="comment.text"
         prop="commenttextarea"
         type="textarea"
         placeholder="请输入评论内容"
@@ -51,11 +51,11 @@
         <el-form
           v-if="comment.show"
           ref="replyform"
-          :model="model"
+          :model="reply"
         >
           <el-input
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="model.text"
+            v-model="reply.text"
             prop="replytextarea"
             type="textarea"
             placeholder="请输入回复内容"
@@ -96,7 +96,12 @@ export default {
   data() {
     return {
       showed: null,
-      model: {
+      comment: {
+        replyTo: null,
+        postId: this.postId,
+        text: ''
+      },
+      reply: {
         replyTo: null,
         postId: this.postId,
         text: ''
@@ -105,7 +110,6 @@ export default {
   },
   methods: {
     showreplyInput(comment) {
-      console.log(comment, this.showed)
       if (this.showed) {
         this.showed.show = false
       }
@@ -134,11 +138,10 @@ export default {
     },
 
     submitComment() {
-      this.createComment(this.model, res => {
+      this.createComment(this.comment, res => {
         if (res.code === 0) {
           this.$emit('change')
-          //this.$router.go(0)
-          this.model.text = ''
+          this.comment.text = ''
           this.$message({
             showClose: true,
             message: '评论成功！',
@@ -154,12 +157,11 @@ export default {
       })
     },
     submitReplyComment() {
-      this.model.replyTo = this.showed.id
-      this.createComment(this.model, res => {
+      this.reply.replyTo = this.showed.id
+      this.createComment(this.reply, res => {
         if (res.code === 0) {
           this.$emit('change')
-          this.model.text = ''
-          //this.$router.go(0)
+          this.reply.text = ''
           this.$message({
             showClose: true,
             message: '评论成功！',

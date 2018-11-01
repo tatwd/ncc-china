@@ -32,7 +32,7 @@
             >
             <img
               v-else
-              :src="updateinfoform.avatar"
+              :src="this.$store.state.auth.user.avatarUrl"
               alt=""
               class="avatar"
             >
@@ -86,20 +86,9 @@ export default {
           }
         ]
       },
-      avatar: true
+      avatar: ''
     }
   },
-  // mounted: {
-  //   async fetchUserinfo() {
-  //     const userinfo = await this.$axios.$get('')
-  //     this.userinfo = userinfo
-  //   }
-  // },
-  // computed: {
-  //   avatar() {
-  //     return true
-  //   }
-  // },
   methods: {
     handleAvatarSuccess(res, file) {
       this.avatar = URL.createObjectURL(file.raw)
