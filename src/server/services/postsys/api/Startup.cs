@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Ncc.China.Services.Postsys.Data;
 using Ncc.China.Services.Postsys.Repository;
+using Newtonsoft.Json;
 
 namespace Ncc.China.Services.Postsys.Api
 {
@@ -30,10 +34,46 @@ namespace Ncc.China.Services.Postsys.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters{
+                        ValidateIssuer = true,
+                        ValidIssuer = Configuration["Tokens:Issuer"],
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["Tokens:Audience"],
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.Zero,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                            Configuration["Tokens:SecurityKey"])),
+                    };
+                    options.Events = new JwtBearerEvents{
+                        OnChallenge  = (context) => {
+                            var body = JsonConvert.SerializeObject(new {
+                                code = 1,
+                                message = "failed:unauthorized"
+                            });
+                            context.HandleResponse();
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(body);
+                        },
+                        OnTokenValidated = (context) => {
+                            var sub = context.Principal.Claims.FirstOrDefault(_ =>
+                                _.Type.Equals(System.Security.Claims.ClaimTypes.NameIdentifier))?.Value;
+                            context.HttpContext.Items.Add("username", sub);
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
+
             services.Configure<MongoSettings>(options => {
                 options.ConnectionString = "mongodb://localhost:27017";
                 options.DatabaseName = "ncc_postsys";
             });
+
+
 
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
@@ -60,7 +100,7 @@ namespace Ncc.China.Services.Postsys.Api
                 });
             });
 
-            // app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
