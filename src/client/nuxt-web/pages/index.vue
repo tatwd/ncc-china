@@ -1,5 +1,5 @@
 <template>
-  <section
+  <div
     id="app"
     class="mgt10"
   >
@@ -37,10 +37,12 @@
     >
       <el-card shadow="hover">
         <div class="topic-list">
-          <!-- <span class="topic-type mglr10 pdtb4 pdlr10 white pointer">
+          <el-tag
+            type="success"
+            size="small"
+          >
             {{ post.category.title }}
-          </span> -->
-          <el-tag type="success">{{ post.category.title }}</el-tag>
+          </el-tag>
           <nuxt-link :to="`/post/`+post.id">
             <span class="">{{ post.title }}</span>
           </nuxt-link>
@@ -79,7 +81,7 @@
         </div>
       </el-card>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -116,7 +118,6 @@ export default {
         }
       })
       .then(res => {
-        console.log(res.data)
         if (res.code == 0) {
           return { posts: res.data }
         }
@@ -136,7 +137,7 @@ export default {
             console.log(res)
             console.log(search)
           })
-      }, 500)
+      }, 100)
     }
   }
 }

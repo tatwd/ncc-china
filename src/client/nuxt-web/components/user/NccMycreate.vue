@@ -5,7 +5,7 @@
         slot="header"
         class="clearfix"
       >
-        <span>我创建的话题</span>
+        <span>我创建的帖子</span>
       </div>
       <div
         v-for="o in 4"

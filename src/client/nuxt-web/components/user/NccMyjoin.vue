@@ -5,7 +5,7 @@
         slot="header"
         class="clearfix"
       >
-        <span>我参与的话题</span>
+        <span>我参与的讨论</span>
       </div>
       <div
         v-for="o in 4"
