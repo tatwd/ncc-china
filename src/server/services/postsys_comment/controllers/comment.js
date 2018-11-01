@@ -19,10 +19,12 @@ async function getCommentsByPostId(post_id, res) {
       }
     },
     { $unwind: { path: '$reply_to', preserveNullAndEmptyArrays: true } }
-  ]).exec(function(err, comments) {
-    if (err) res.send(400, message.failed(err));
-    else res.json(message.succeeded(comments.map(mapComment)));
-  });
+  ])
+    .sort('-utc_created')
+    .exec(function(err, comments) {
+      if (err) res.send(400, message.failed(err));
+      else res.json(message.succeeded(comments.map(mapComment)));
+    });
 }
 
 module.exports = {
