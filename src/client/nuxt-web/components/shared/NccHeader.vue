@@ -66,7 +66,7 @@
               </nuxt-link>
               <el-dropdown-item
                 divided
-                @click="loginout"
+                @command="handleCommand"
               >
                 退出
               </el-dropdown-item>
@@ -102,6 +102,7 @@
 
 <script>
 import NccFlex from './NccFlex.vue'
+const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   components: {
@@ -130,9 +131,10 @@ export default {
     }
   },
   methods: {
-    loginout() {
-      this.$store.state.auth.token = null
-      $Cookie.remove()
+    handleCommand() {
+      Cookie.remove('auth')
+      // this.$router.push('/user/signin')
+      window.location.href = '/user/signin'
     }
   }
 }
