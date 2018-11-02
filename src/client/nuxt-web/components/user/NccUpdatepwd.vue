@@ -55,27 +55,12 @@
 </template>
 
 <script>
+const Cookie = process.client ? require('js-cookie') : undefined
+
 export default {
   data() {
-    var validateoldpwd = (rule, value, callback) => {
-      if (value === '') {
-        return callback(new Error('原密码不能为空!'))
-      }
-    }
-    var validatenewpwd = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请输入新密码!'))
-      } else {
-        if (this.updatepwdform.usernewpwd2 !== '') {
-          this.$refs.updatepwdform.validateField('usernewpwd2')
-        }
-        callback()
-      }
-    }
     var validatenewpwd2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入新密码!'))
-      } else if (value !== this.updatepwdform.usernewpwd) {
+      if (value !== this.updatepwdform.usernewpwd) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -90,7 +75,8 @@ export default {
       rules: {
         useroldpwd: [
           {
-            validator: validateoldpwd,
+            required: true,
+            message: '请输入密码',
             trigger: 'blur'
           },
           {
@@ -102,7 +88,8 @@ export default {
         ],
         usernewpwd: [
           {
-            validator: validatenewpwd,
+            required: true,
+            message: '请输入密码',
             trigger: 'blur'
           },
           {
@@ -114,13 +101,12 @@ export default {
         ],
         usernewpwd2: [
           {
-            validator: validatenewpwd2,
+            required: true,
+            message: '请再次输入密码',
             trigger: 'blur'
           },
           {
-            min: 6,
-            max: 18,
-            message: '长度在 6 到 18 个字符',
+            validator: validatenewpwd2,
             trigger: 'blur'
           }
         ]
@@ -133,51 +119,38 @@ export default {
         if (valid) {
           setTimeout(() => {
             this.$axios
-              .$post('', {
-                password: this.updatepwdform.useroldpwd
+              .put('v1/auth/password?type=update', {
+                old: this.updatepwdform.useroldpwd,
+                new: this.updatepwdform.usernewpwd
               })
               .then(res => {
-                if (res.code === 0) {
-                  this.$axios
-                    .post('', {
-                      password: this.updatepwdform.usernewpwd
-                    })
-                    .then(res => {
-                      if (res.code === 0) {
-                        this.$message({
-                          showClose: true,
-                          message: '密码修改成功，请重新登录！',
-                          type: 'success'
-                        })
-                        this.$store.state.auth.token = null
-                        this.router.push('/user/signin')
-                      } else {
-                        this.$message({
-                          showClose: true,
-                          message: '密码修改失败，请重试！',
-                          type: 'error'
-                        })
-                      }
-                    })
+                if (res.data.code === 0) {
+                  this.$message({
+                    showClose: true,
+                    message: '密码修改成功，请重新登录！',
+                    type: 'success'
+                  })
+                  this.$refs[updatepwdform].resetFields()
+                  Cookie.remove('auth')
+                  window.location.href = '/user/signin'
                 } else {
                   this.$message({
                     showClose: true,
-                    message: '原密码错误，请重试！',
+                    message: '密码修改失败，请重试！',
                     type: 'error'
                   })
                 }
               })
-          }, 500)
-        } else {
-          this.$message({
-            showClose: true,
-            message: '请输入正确的密码格式！',
-            type: 'error'
-          })
-          return false
+              .catch(err => {
+                this.$message({
+                  showClose: true,
+                  message: err.message,
+                  type: 'error'
+                })
+              })
+          }, 100)
         }
       })
-      this.$refs[updatepwdform].resetFields()
     }
   }
 }
