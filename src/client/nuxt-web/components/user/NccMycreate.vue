@@ -8,8 +8,8 @@
         <span>我创建的帖子</span>
       </div>
       <div
-        v-for="o in 4"
-        :key="o"
+        v-for="(post, index) in posts"
+        :key="post.id"
       >
         <div class="item-list mgtb10">
           <el-row
@@ -18,7 +18,7 @@
           >
             <el-col :sm="22">
               <nuxt-link to="/user">
-                {{ '话题 ' + o }}
+                {{ post.title }}
               </nuxt-link>
             </el-col>
             <el-col :sm="2">
@@ -28,7 +28,7 @@
                 size="mini"
                 title="删除"
                 circle
-                @click="deleteTopic"
+                @click="deleteTopic(index)"
               />
             </el-col>
           </el-row>
@@ -40,24 +40,32 @@
 
 <script>
 export default {
-  // mounted: {
-  //   async fetchUserinfo() {
-  //     const mycreate = await this.$axios.$get('')
-  //     this.mycreate = mycreate
-  //   }
-  // },
+  props: {
+    posts: {
+      type: Array,
+      default: () => {}
+    }
+  },
   methods: {
-    deleteTopic() {
+    deleteTopic(index) {
       this.$confirm('此操作将永久删除该话题, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
+          this.$axios
+            .delete(`v1/user/posts/${this.posts[index].id}`)
+            .then(res => {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              this.posts.splice(index, 1)
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
         .catch(() => {
           this.$message({

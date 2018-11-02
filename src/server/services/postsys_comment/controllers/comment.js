@@ -27,10 +27,38 @@ function getCommentsByPostId(post_id, res) {
     });
 }
 
+function getCommentsByUserId(user_id, res) {
+  Comment.aggregate([
+    {
+      $match: { 'owner.id': user_id }
+    },
+    {
+      $lookup: {
+        from: 'comments',
+        localField: 'reply_to',
+        foreignField: '_id',
+        as: 'reply_to'
+      }
+    },
+    { $unwind: { path: '$reply_to', preserveNullAndEmptyArrays: true } }
+  ])
+    .sort('-utc_created')
+    .exec(function(err, comments) {
+      if (err) res.send(400, message.failed(err));
+      else res.json(message.succeeded(comments.map(mapComment)));
+    });
+}
+
 module.exports = {
   get(req, res) {
     var { post_id } = req.params;
     if (post_id) getCommentsByPostId(post_id, res);
+    else res.send(400, message.failed('please set `post_id` value'));
+  },
+
+  getCommentsByUserId(req, res) {
+    var { user_id } = req.params;
+    if (user_id) getCommentsByUserId(user_id, res);
     else res.send(400, message.failed('please set `post_id` value'));
   },
 

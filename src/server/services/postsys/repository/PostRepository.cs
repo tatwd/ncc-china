@@ -24,10 +24,10 @@ namespace Ncc.China.Services.Postsys.Repository
             return documents;
         }
 
-        public async Task<IEnumerable<Post>> GetPosts(string username)
+        public async Task<IEnumerable<Post>> GetPosts(string username_or_userid)
         {
             var documents = await _context.Posts
-                .Find(_ => _.Author.Username.Equals(username))
+                .Find(_ => _.Author.Username.Equals(username_or_userid) || _.Author.Id.Equals(username_or_userid))
                 .ToListAsync();
             return documents;
         }

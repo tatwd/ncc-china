@@ -19,6 +19,12 @@ router
   .post(commentController.post);
 
 router
+  .route('/users/:user_id/comments')
+
+  // GET /api/users/:user_id/comments
+  .get(commentController.getCommentsByUserId)
+
+router
   .route('/comments')
 
   // GET /api/comments

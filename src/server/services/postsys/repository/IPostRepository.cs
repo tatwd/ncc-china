@@ -8,7 +8,7 @@ namespace Ncc.China.Services.Postsys.Repository
     public interface IPostRepository
     {
         Task<IEnumerable<Post>> GetPosts();
-        Task<IEnumerable<Post>> GetPosts(string username);
+        Task<IEnumerable<Post>> GetPosts(string username_or_userid);
         Task<IEnumerable<Post>> GetHotPosts();
         Task<Post> GetPost(string id);
         Task<IEnumerable<Post>> GetPostsByPage(int page, int limit, bool isDesc, string category);

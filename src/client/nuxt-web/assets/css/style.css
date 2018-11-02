@@ -11,6 +11,7 @@ a {
   text-decoration: none;
   outline: 0;
   color: #909399;
+  transition: all .1s linear;
 }
 a:hover {
   color: var(--main-color);

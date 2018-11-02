@@ -57,11 +57,11 @@ namespace Ncc.China.Services.Postsys.Logic
             }
         }
 
-        public async Task<BaseResponseMessage> GetPosts(string username)
+        public async Task<BaseResponseMessage> GetPosts(string id_or_username)
         {
             try
             {
-                var posts = await _repository.GetPosts(username);
+                var posts = await _repository.GetPosts(id_or_username);
                 var data = await this.Map(posts);
                 return new SucceededResponseMessage(data);
             }

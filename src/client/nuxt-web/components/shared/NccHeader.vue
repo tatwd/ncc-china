@@ -34,13 +34,13 @@
             to="/user/message"
             class="white nav-link"
           >
-            <el-badge
-              :value="3"
+            <!-- <el-badge
+              :value="0"
               :max="99"
               class="msg-num"
-            >
-              <i class="el-icon-message fs16 white" />
-            </el-badge>
+            > -->
+            <i class="el-icon-message fs16 white" />
+            <!-- </el-badge> -->
           </nuxt-link>
 
           <el-dropdown>

@@ -37,6 +37,14 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
             return NotFound(res);
         }
 
+        [HttpGet("api/users/{uid}/posts")]
+        public async Task<IActionResult> GetByUserId([FromRoute]string uid)
+        {
+            var res = await new PostService(_postRepository, _categoryRepository).GetPosts(uid);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return NotFound(res);
+        }
+
         [HttpGet("api/posts")]
         public async Task<IActionResult> Get([FromQuery]string query, [FromQuery]string type, [FromQuery]PostPaginateByCategoryDto dto)
         {
@@ -60,7 +68,7 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
             return NotFound(res);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("api/posts/{id}")]
         public async Task<IActionResult> Get([FromRoute]string id)
         {
             var res = await new PostService(_postRepository, _categoryRepository).GetPost(id);

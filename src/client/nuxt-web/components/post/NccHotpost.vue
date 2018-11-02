@@ -8,11 +8,11 @@
         <span>热门帖子</span>
       </div>
       <div
-        v-for="o in 4"
-        :key="o"
+        v-for="hotpost in hotposts"
+        :key="hotpost.id"
       >
-        <nuxt-link to="/">
-          {{ '话题 ' + o }}
+        <nuxt-link to="`/post/`+hotpost.id">
+          {{ hotpost.title }}
         </nuxt-link>
       </div>
     </el-card>
@@ -21,11 +21,17 @@
 
 <script>
 export default {
-  // mounted: {
-  //   async fetchUserinfo() {
-  //     const hottopic = await this.$axios.$get('')
-  //     this.hottopic = hottopic
-  //   }
-  // },
+  data() {
+    return {
+      hotposts: []
+    }
+  },
+  created() {
+    this.$axios.$get('v1/posts?type=hot').then(res => {
+      if (res.code == 0) {
+        this.hotposts = res.data
+      }
+    })
+  }
 }
 </script>
