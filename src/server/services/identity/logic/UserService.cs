@@ -37,12 +37,17 @@ namespace Ncc.China.Services.Identity.Logic
                 {
                     return new FailedResponseMessage("未找到该用户");
                 }
+                var userProfile = _context.UserProfiles
+                    .FirstOrDefault(u => u.UserId.Equals(user.Id));
                 return new SucceededResponseMessage(new {
                     Id = user.Id,
                     Username = user.Username,
                     Email = user.Email,
                     UtcCreated = user.UtcCreated,
-                    UtcUpdated = user.UtcCreated
+                    AvatarUrl = userProfile?.AvatarUrl,
+                    Gender = userProfile?.Gender,
+                    Bio = userProfile?.Bio,
+                    Nickname = userProfile?.Nickname
                 });
             }
         }

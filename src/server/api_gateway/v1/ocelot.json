@@ -34,6 +34,28 @@
       "UpstreamPathTemplate": "/api/v1/users"
     },
     {
+      "DownstreamPathTemplate": "/api/users/{id}/posts",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/users/{id}/posts"
+    },
+    {
+      "DownstreamPathTemplate": "/api/users/{id}/comments",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5003
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1/users/{id}/comments"
+    },
+    {
       "DownstreamPathTemplate": "/api/users{any}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
