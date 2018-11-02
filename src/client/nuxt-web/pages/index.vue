@@ -98,33 +98,20 @@ export default {
       }
     }
   },
-  computed: {
-    types() {
-      return [
-        { title: '全部', to: '/' },
-        { title: '关注', to: '/' },
-        { title: '热榜', to: '/' }
-      ]
+  async asyncData({ app }) {
+    let posts = await app.$axios.$get('v1/posts', {
+      params: {
+        page: 1,
+        limit: 10,
+        category: '全部',
+        desc: true
+      }
+    })
+    let categories = await app.$axios.$get('v1/categories')
+    return {
+      posts: posts.data,
+      types: categories.data
     }
-  },
-  asyncData({ app }) {
-    return app.$axios
-      .$get('v1/posts', {
-        params: {
-          page: 1,
-          limit: 10,
-          category: '全部',
-          desc: true
-        }
-      })
-      .then(res => {
-        if (res.code == 0) {
-          return { posts: res.data }
-        }
-      })
-      .catch(err => {
-        console.log(err)
-      })
   },
   methods: {
     search() {
