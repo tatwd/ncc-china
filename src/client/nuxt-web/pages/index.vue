@@ -131,11 +131,11 @@ export default {
             }
           })
           .then(res => {
-            console.log(res)
+            // console.log(res)
             this.posts = res.data
           })
           .catch(err => {
-            console.log(err)
+            console.log('search', err.statusText)
           })
       }, 100)
     },

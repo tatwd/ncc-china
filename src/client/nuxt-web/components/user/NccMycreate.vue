@@ -64,7 +64,7 @@ export default {
               this.posts.splice(index, 1)
             })
             .catch(err => {
-              console.log(err)
+              console.log('deleteTopic', err.statusText)
             })
         })
         .catch(() => {

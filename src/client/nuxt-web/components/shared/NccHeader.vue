@@ -30,18 +30,18 @@
           v-if="isLogin"
           justify="end"
         >
-          <nuxt-link
+          <!-- <nuxt-link
             to="/user/message"
             class="white nav-link"
           >
-            <!-- <el-badge
+            <el-badge
               :value="0"
               :max="99"
               class="msg-num"
-            > -->
+            >
             <i class="el-icon-message fs16 white" />
-            <!-- </el-badge> -->
-          </nuxt-link>
+            </el-badge>
+          </nuxt-link> -->
 
           <el-dropdown>
             <span class="white no-outline pointer">
@@ -49,7 +49,7 @@
                 :src="this.$store.state.auth.user.avatarUrl"
                 alt=""
                 height="32"
-                class="vertical-moddle round"
+                class="vertical-middle round"
               >
               <i class="el-icon-arrow-down el-icon--right" />
             </span>
@@ -129,7 +129,7 @@ export default {
   },
   methods: {
     logout() {
-      console.log(1)
+      //console.log(1)
       Cookie.remove('auth')
       // this.$router.push('/user/signin')
       window.location.href = '/user/signin'

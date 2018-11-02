@@ -56,7 +56,7 @@
             alidn="middle"
           >
             <el-col>
-              <nuxt-link to="`/post/` + post.id">
+              <nuxt-link :to="`/post/` + post.id">
                 {{ post.title }}
               </nuxt-link>
             </el-col>
@@ -84,7 +84,7 @@
             alidn="middle"
           >
             <el-col>
-              <nuxt-link to="`/post/` + postId">
+              <nuxt-link :to="`/post/` + comment.postId">
                 {{ comment.text }}
               </nuxt-link>
             </el-col>

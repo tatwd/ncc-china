@@ -64,7 +64,7 @@ export default {
               this.comments.splice(index, 1)
             })
             .catch(err => {
-              console.log(err)
+              console.log('deleteComment', err.statusText)
             })
         })
         .catch(() => {

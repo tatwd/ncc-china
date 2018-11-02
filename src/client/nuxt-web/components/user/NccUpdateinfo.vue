@@ -176,7 +176,7 @@ export default {
                 }
               })
               .catch(err => {
-                console.log(err)
+                console.log('NccUpdateinfo => submitForm', err.statusText)
               })
           }, 100)
         } else {

@@ -11,7 +11,7 @@
         v-for="hotpost in hotposts"
         :key="hotpost.id"
       >
-        <nuxt-link to="`/post/`+hotpost.id">
+        <nuxt-link :to="`/post/`+hotpost.id">
           {{ hotpost.title }}
         </nuxt-link>
       </div>
