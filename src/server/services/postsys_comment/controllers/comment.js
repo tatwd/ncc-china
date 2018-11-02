@@ -5,7 +5,7 @@ var message = require('../message');
 var jwt = require('jsonwebtoken');
 var { secretKey } = require('../config');
 
-async function getCommentsByPostId(post_id, res) {
+function getCommentsByPostId(post_id, res) {
   Comment.aggregate([
     {
       $match: { post_id }
