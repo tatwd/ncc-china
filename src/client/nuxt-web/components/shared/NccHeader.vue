@@ -47,7 +47,7 @@
             <span class="white no-outline pointer">
               <img
                 :src="this.$store.state.auth.user.avatarUrl"
-                alt="我"
+                alt=""
                 height="32"
                 class="vertical-moddle round"
               >
@@ -64,11 +64,8 @@
                   设置
                 </el-dropdown-item>
               </nuxt-link>
-              <el-dropdown-item
-                divided
-                @command="handleCommand"
-              >
-                退出
+              <el-dropdown-item divided>
+                <span @click="logout">退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -131,7 +128,8 @@ export default {
     }
   },
   methods: {
-    handleCommand() {
+    logout() {
+      console.log(1)
       Cookie.remove('auth')
       // this.$router.push('/user/signin')
       window.location.href = '/user/signin'
