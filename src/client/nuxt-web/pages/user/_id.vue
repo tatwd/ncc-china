@@ -9,23 +9,31 @@
       </div>
       <div class="ava-name mgb10">
         <img
-          src="~/static/test.jpg"
+          :src="user.avatarUrl"
           alt=""
           class="wh50 round vertical-middle"
         >
-        <label class="fs16">ncc</label>
+        <label class="fs16">{{ user.username }}</label>
       </div>
       <div class="userid mgb10">
         <span>用户ID：</span>
-        <label>121</label>
+        <label>{{ user.id }}</label>
+      </div>
+      <div class="gender mgb10">
+        <span>Email：</span>
+        <label>{{ user.email }}</label>
       </div>
       <div class="gender mgb10">
         <span>性别：</span>
-        <label>未知</label>
+        <label>{{ user.gender }}</label>
+      </div>
+      <div class="gender mgb10">
+        <span>个人简介：</span>
+        <label>{{ user.bio }}</label>
       </div>
       <div class="createtime mgb10">
         <span>注册时间：</span>
-        <label>2018-10-15</label>
+        <label>{{ user.utcCreated }}</label>
       </div>
     </el-card>
     <el-card shadow="hover">
@@ -35,9 +43,12 @@
       >
         <span>他创建的帖子</span>
       </div>
+      <div v-if="hisposts.lenght === 0">
+        <div>该用户暂无发表帖子</div>
+      </div>
       <div
-        v-for="o in 4"
-        :key="o"
+        v-for="post in hisposts"
+        :key="post.id"
       >
         <div class="item-list mgtb10">
           <el-row
@@ -45,8 +56,8 @@
             alidn="middle"
           >
             <el-col>
-              <nuxt-link to="/user">
-                {{ '话题 ' + o }}
+              <nuxt-link to="`/post/` + post.id">
+                {{ post.title }}
               </nuxt-link>
             </el-col>
           </el-row>
@@ -60,9 +71,12 @@
       >
         <span>他参与的讨论</span>
       </div>
+      <div v-if="hiscomments.lenght === 0">
+        <div>该用户暂无发表评论</div>
+      </div>
       <div
-        v-for="o in 4"
-        :key="o"
+        v-for="comment in hiscomments"
+        :key="comment.id"
       >
         <div class="item-list mgtb10">
           <el-row
@@ -70,8 +84,8 @@
             alidn="middle"
           >
             <el-col>
-              <nuxt-link to="/user">
-                {{ '话题 ' + o }}
+              <nuxt-link to="`/post/` + postId">
+                {{ comment.text }}
               </nuxt-link>
             </el-col>
           </el-row>
@@ -80,3 +94,18 @@
     </el-card>
   </div>
 </template>
+
+<script>
+export default {
+  async asyncData({ app, params }) {
+    let user = await app.$axios.$get(`v1/users/${params.id}`)
+    let hisposts = await app.$axios.$get(`v1/users/${params.id}/posts`)
+    let hiscomments = await app.$axios.$get(`v1/users/${params.id}/comments`)
+    return {
+      user: user.data,
+      hisposts: hisposts.data,
+      hiscomments: hiscomments.data
+    }
+  }
+}
+</script>

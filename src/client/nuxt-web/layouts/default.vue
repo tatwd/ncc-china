@@ -25,7 +25,11 @@
               <nuxt/>
             </el-main>
             <el-aside width="340px">
-              <ncc-slider />
+              <ncc-createbtn />
+              <ncc-hotpost />
+              <ncc-ad />
+              <ncc-communication />
+              <ncc-friendship />
             </el-aside>
           </el-container>
         </el-col>
@@ -51,25 +55,24 @@
 
 <script>
 import NccHeader from '~/components/shared/NccHeader.vue'
-import NccSlider from '~/components/shared/NccSlider.vue'
+import NccCreatebtn from '~/components/post/NccCreatebtn.vue'
+import NccHotpost from '~/components/post/NccHotpost.vue'
+import NccAd from '~/components/shared/NccAd.vue'
+import NccCommunication from '~/components/shared/NccCommunication.vue'
+import NccFriendship from '~/components/shared/NccFriendship.vue'
 import NccFooter from '~/components/shared/NccFooter.vue'
 import NccBacktop from '~/components/shared/NccBacktop.vue'
 
 export default {
   components: {
     NccHeader,
-    NccSlider,
+    NccCreatebtn,
+    NccHotpost,
+    NccAd,
+    NccCommunication,
+    NccFriendship,
     NccFooter,
     NccBacktop
-  },
-  mounted() {
-    // if (!this.$store.state.auth) {
-    //   const auth = {
-    //     user_name: localStorage.getItem('currentUser_name'),
-    //     user_token: localStorage.getItem('currentUser_token')
-    //   }
-    //   this.$store.commit('setUser', auth)
-    // }
   }
 }
 </script>

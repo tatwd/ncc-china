@@ -3,29 +3,31 @@
     id="app"
     class="mgt10"
   >
-    <el-form
-      ref="searchform"
-      :model="searchform"
-    >
-      <el-form-item prop="search">
-        <el-input
-          v-model="searchform.search"
-          placeholder="请选择搜索内容"
-          suffix-icon="el-icon-search"
-          @keyup.enter.native="search"
-        />
-      </el-form-item>
-    </el-form>
+    <el-input
+      v-model="searchform.search"
+      placeholder="请选择搜索内容"
+      suffix-icon="el-icon-search"
+      class="mgb10"
+      @keyup.enter.native="search"
+    />
     <el-row
       type="flex"
       align="middle"
     >
       <el-col>
         <el-button
+          type="primary"
+          size="small"
+          @click="changetype('全部')"
+        >
+          全部
+        </el-button>
+        <el-button
           v-for="(type, index) in types"
           :key="index"
           type="primary"
           size="small"
+          @click="changetype(type.title)"
         >
           {{ type.title }}
         </el-button>
@@ -60,11 +62,13 @@
             align="middle"
           >
             <el-col :sm="12">
-              <img
-                :src="post.author.avatarUrl"
-                alt=""
-                class="wh30 round vertical-middle"
-              >
+              <nuxt-link :to="`/user/`+post.author.id">
+                <img
+                  :src="post.author.avatarUrl"
+                  alt=""
+                  class="wh30 round vertical-middle"
+                >
+              </nuxt-link>
               <span>
                 <i class="el-icon-view"> {{ post.viewsCount }}</i>
               </span>
@@ -117,14 +121,38 @@ export default {
     search() {
       setTimeout(() => {
         this.$axios
-          .$post('', {
-            search: this.searchform.search
+          .$get('v1/posts', {
+            params: {
+              query: this.searchform.search,
+              page: 1,
+              limit: 10,
+              category: '全部',
+              desc: true
+            }
           })
           .then(res => {
             console.log(res)
-            console.log(search)
+            this.posts = res.data
+          })
+          .catch(err => {
+            console.log(err)
           })
       }, 100)
+    },
+    changetype(title) {
+      this.$axios
+        .$get('v1/posts', {
+          params: {
+            query: this.searchform.search,
+            page: 1,
+            limit: 10,
+            category: title,
+            desc: true
+          }
+        })
+        .then(res => {
+          this.posts = res.data
+        })
     }
   }
 }

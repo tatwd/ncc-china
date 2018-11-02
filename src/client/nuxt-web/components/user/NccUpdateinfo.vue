@@ -151,7 +151,7 @@ export default {
           } = this.currentuser
           setTimeout(() => {
             this.$axios
-              .$post('v1/user', {
+              .put('v1/user', {
                 username,
                 avatarUrl,
                 nickname,
@@ -160,6 +160,7 @@ export default {
                 bio
               })
               .then(res => {
+                res = res.data
                 if (res.code === 0) {
                   this.$message({
                     showClose: true,
@@ -173,6 +174,9 @@ export default {
                     type: 'error'
                   })
                 }
+              })
+              .catch(err => {
+                console.log(err)
               })
           }, 100)
         } else {

@@ -54,7 +54,6 @@ export default {
         type: 'warning'
       })
         .then(() => {
-          console.log(1)
           this.$axios
             .delete(`v1/comments/${this.comments[index].id}`)
             .then(res => {

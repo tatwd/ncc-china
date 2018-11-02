@@ -1,7 +1,7 @@
 <template>
   <div id="usercenter">
     <ncc-myinfo :myinfo="myinfo"/>
-    <ncc-mycreate />
+    <ncc-mycreate :posts="posts" />
     <ncc-myjoin :comments="comments"/>
   </div>
 </template>
@@ -20,9 +20,11 @@ export default {
   },
   async asyncData({ app }) {
     let myinfo = await app.$axios.$get('v1/user')
+    let posts = await app.$axios.$get('v1/user/posts')
     let comments = await app.$axios.$get('v1/comments')
     return {
       myinfo: myinfo.data,
+      posts: posts.data,
       comments: comments.data
     }
   }
