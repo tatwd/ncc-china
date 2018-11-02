@@ -4,6 +4,10 @@
     "editor.formatOnSave": false
   },
   "[csharp]": {
-    "editor.formatOnSave": false
-  }
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false
+  },
+  "csharp.format.enable": false,
+  "csharpfixformat.style.braces.onSameLine": false,
+  "csharpfixformat.style.spaces.beforeParenthesis": false
 }
