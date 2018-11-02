@@ -1,28 +1,28 @@
 <template>
   <div id="usercenter">
-    <ncc-userinfo />
+    <ncc-myinfo :myinfo="myinfo"/>
     <ncc-mycreate />
-    <ncc-myjoin
-      :comments="comments"
-    />
+    <ncc-myjoin :comments="comments"/>
   </div>
 </template>
 
 <script>
-import NccUserinfo from '~/components/user/NccUserinfo.vue'
+import NccMyinfo from '~/components/user/NccMyinfo.vue'
 import NccMycreate from '~/components/user/NccMycreate.vue'
 import NccMyjoin from '~/components/user/NccMyjoin.vue'
 
 export default {
   middleware: 'unauth',
   components: {
-    NccUserinfo,
+    NccMyinfo,
     NccMycreate,
     NccMyjoin
   },
   async asyncData({ app }) {
+    let myinfo = await app.$axios.$get('v1/user')
     let comments = await app.$axios.$get('v1/comments')
     return {
+      myinfo: myinfo.data,
       comments: comments.data
     }
   }
