@@ -115,6 +115,14 @@ namespace Ncc.China.Services.Postsys.Repository
                 .ToListAsync();
         }
 
+        public long DeletePost(string id)
+        {
+            var filter = Builders<Post>.Filter.Eq("id", id);
+            var updated = Builders<Post>.Update.Set("is_deleted", true);
+            var result = _context.Posts.UpdateOneAsync(filter, updated).Result;
+            return result.ModifiedCount;
+        }
+
         public void CreatePost(Post post)
         {
             _context.Posts.InsertOne(post);

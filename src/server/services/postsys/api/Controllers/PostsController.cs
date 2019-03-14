@@ -83,5 +83,14 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
             if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
             return NotFound(res);
         }
+
+        [HttpDelete("api/posts/{id}")]
+        [Authorize]
+        public async Task<IActionResult> Delete([FromRoute]string id)
+        {
+            var res = await new PostService(_postRepository).DeletePost(id);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return NotFound(res);
+        }
     }
 }

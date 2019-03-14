@@ -11,6 +11,7 @@ namespace Ncc.China.Services.Postsys.Repository
         Task<IEnumerable<Post>> GetPosts(string username_or_userid);
         Task<IEnumerable<Post>> GetHotPosts();
         Task<Post> GetPost(string id);
+        long DeletePost(string id);
         Task<IEnumerable<Post>> GetPostsByPage(int page, int limit, bool isDesc, string category);
         Task<IEnumerable<Post>> GetPostsByPage(string query, int page, int limit, bool isDesc, string category);
         void CreatePost(Post post);

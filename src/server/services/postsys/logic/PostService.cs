@@ -128,6 +128,21 @@ namespace Ncc.China.Services.Postsys.Logic
             }
         }
 
+        public async Task<BaseResponseMessage> DeletePost(string id)
+        {
+            try
+            {
+                var post = await _repository.GetPost(id);
+                if (post == null) return new FailedResponseMessage("不存在该记录");
+                var count = _repository.DeletePost(id);
+                return new SucceededResponseMessage(count);
+            }
+            catch (Exception ex)
+            {
+                return new FailedResponseMessage(ex.Message);
+            }
+        }
+
         public BaseResponseMessage CreatePost(PostCreateDto dto)
         {
             try
