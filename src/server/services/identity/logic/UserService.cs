@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -151,7 +151,7 @@ namespace Ncc.China.Services.Identity.Logic
                 {
                     return new FailedResponseMessage("该邮箱已注册");
                 }
-                var salt = CryptoUtil.CreateSalt(10);
+                var salt = CryptoUtil.CreateSalt(10); // todo: 生成随机数计算
                 var encode = CryptoUtil.Encrypt(dto.Password, salt);
                 var user = new LoginUser
                 {
