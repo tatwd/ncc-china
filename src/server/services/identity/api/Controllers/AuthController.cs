@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,7 +39,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             var res = new UserService(_context).Login(dto, () =>
             {
                 var claims = new []{
-                    new Claim(JwtRegisteredClaimNames.Sub, dto.Login),
+                    new Claim(JwtRegisteredClaimNames.Sub, dto.Login), // TODO: save user id
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
                 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(

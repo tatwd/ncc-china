@@ -34,7 +34,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         public IActionResult GetCurrentUser()
         {
             var username = HttpContext.Items["username"] as string;
-            var user = new UserService(_context).GetUserByUsername(username);
+            var user = new UserService(_context).GetUserByUsername(username); // TODO: support query by login name and id
             return Ok(user);
         }
 

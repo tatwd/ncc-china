@@ -70,8 +70,9 @@ namespace Ncc.China.Services.Identity.Logic
         {
             using (_context)
             {
-                var user = _context.LoginUsers
-                    .FirstOrDefault(u => u.Username.Equals(username));
+                // var user = _context.LoginUsers
+                //     .FirstOrDefault(u => u.Username.Equals(username));
+                var user = GetUserByIdOrUsernameOrEmail(username);
                 if(user == null)
                 {
                     return new FailedResponseMessage("未找到该用户");
