@@ -9,8 +9,8 @@
           <span>.NET Core 社区</span>
           <img
             height="32"
-            src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f1e8-1f1f3.png"
-            alt="中国"
+            src="https://github.githubassets.com/images/icons/emoji/unicode/1f1e8-1f1f3.png?v8"
+            alt=""
             class="vertical-middle"
           >
         </h1>
