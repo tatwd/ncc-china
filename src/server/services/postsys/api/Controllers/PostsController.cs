@@ -77,9 +77,9 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
         }
 
         [HttpPost("api/posts")]
-        public IActionResult Post([FromBody]PostCreateDto dto)
+        public async Task<IActionResult> Post([FromBody]PostCreateDto dto)
         {
-            var res = new PostService(_postRepository).CreatePost(dto);
+            var res = await new PostService(_postRepository, _categoryRepository).CreatePost(dto);
             if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
             return NotFound(res);
         }

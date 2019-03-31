@@ -143,10 +143,12 @@ namespace Ncc.China.Services.Postsys.Logic
             }
         }
 
-        public BaseResponseMessage CreatePost(PostCreateDto dto)
+        public async Task<BaseResponseMessage> CreatePost(PostCreateDto dto)
         {
             try
             {
+                var category = await _categoryRepository.GetCategory(dto.CategoryId);
+                if (category == null) return new FailedResponseMessage("分类ID无效");
                 var post = new Post
                 {
                     Title = dto.Title,
