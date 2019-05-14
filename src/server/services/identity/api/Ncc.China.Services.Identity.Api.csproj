@@ -15,5 +15,11 @@
   <ItemGroup>
     <ProjectReference Include="..\logic\Ncc.China.Services.Identity.Logic.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <None Update="Dockerfile.release">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
 </Project>

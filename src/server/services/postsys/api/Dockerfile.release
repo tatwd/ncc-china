@@ -1,0 +1,9 @@
+# 此文件只用于发布使用
+# 必须要将其拷贝至 Release 版的文件夹中
+
+FROM microsoft/dotnet:aspnetcore-runtime
+WORKDIR /app
+EXPOSE 80
+
+COPY . .
+ENTRYPOINT [ "dotnet", "Ncc.China.Services.Postsys.Api.dll" ]

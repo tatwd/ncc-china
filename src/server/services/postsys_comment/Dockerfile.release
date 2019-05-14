@@ -1,0 +1,16 @@
+# 此文件只用于发布使用
+# 必须要将其拷贝至 Release 版的文件夹中
+
+FROM node:lts-alpine
+WORKDIR /app
+EXPOSE 80
+
+COPY ./controllers ./controllers
+COPY ./models ./models
+COPY ./utils ./utils
+COPY *.js ./
+COPY ./package.json .
+#COPY ./package.lock.json .
+COPY ./yarn.lock .
+RUN yarn install
+ENTRYPOINT [ "node", "server.js" ]
