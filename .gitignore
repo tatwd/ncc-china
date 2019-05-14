@@ -4,6 +4,8 @@ bin
 obj
 *.user
 *.exe
+build
+output
 
 # node project
 node_modules
