@@ -16,7 +16,6 @@ function build_identity_api() {
 	local csproj="$services_dir_prefix/identity/api/Ncc.China.Services.Identity.Api.csproj"
 	
 	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj"
-	docker build -t "$api_name" -f "$build_dir/$api_name/Dockerfile.release" "$build_dir/$api_name"
 	build_image $api_name
 	#docker run --name "test_$api_name" --rm -p 5001:80 -d --link "$identity_db" "$api_name"
 }
@@ -24,6 +23,7 @@ function build_identity_api() {
 function build_postsys_api() {
 	local api_name="api_postsys"
 	local csproj="$services_dir_prefix/postsys/api/Ncc.China.Services.Postsys.Api.csproj"
+	
 	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj"
 	build_image $api_name
 	#docker run --name "test_$api_name" --rm -p 5002:80 -d --link "$postsys_db" "$api_name"
@@ -45,8 +45,8 @@ function build_postsys_comment_api() {
 	build_image $api_name
 }
 
-# mkdir "$build_dir"
-build_identity_api 
-	&& build_postsys_api 
-	&& build_postsys_comment_api
-	&& docker image prune
+build_identity_api \
+	&& build_postsys_api \
+	&& build_postsys_comment_api \ 
+
+docker image prune
