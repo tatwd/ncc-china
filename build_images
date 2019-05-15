@@ -4,22 +4,25 @@ build_dir="$PWD/build"
 services_dir_prefix="src/server/services"
 
 function build_image() {
-	docker build -t "$1" -f "$build_dir/$1/Dockerfile.release" "$build_dir/$1"
+	docker build -t "$1" -f "$build_dir/$2/Dockerfile.release" "$build_dir/$2"
 }
 
 function build_identity_api_image() {
+	local image_name="ncc_api:identity"
 	local api_name="api_identity"
-	build_image $api_name
+	build_image $image_name $api_name
 }
 
 function build_postsys_api_image() {
+	local image_name="ncc_api:postsys"
 	local api_name="api_postsys"
-	build_image $api_name
+	build_image $image_name $api_name
 }
 
 function build_postsys_comment_api_image() {
+	local image_name="ncc_api:postsys_comment"
 	local api_name="api_postsys_comment"
-	build_image $api_name
+	build_image $image_name $api_name
 }
 
 build_identity_api_image \
