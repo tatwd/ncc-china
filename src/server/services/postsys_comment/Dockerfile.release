@@ -3,14 +3,8 @@
 
 FROM node:lts-alpine
 WORKDIR /app
-EXPOSE 80
 
-COPY ./controllers ./controllers
-COPY ./models ./models
-COPY ./utils ./utils
-COPY *.js ./
-COPY ./package.json .
-#COPY ./package.lock.json .
-COPY ./yarn.lock .
+COPY package.json .
+COPY . .
 RUN yarn install
 ENTRYPOINT [ "node", "server.js" ]
