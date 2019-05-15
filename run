@@ -3,23 +3,70 @@
 identity_db="ncc.identity"
 postsys_db="ncc.postsys"
 
+function run_db() {
+	echo -n "Start MongoDB on port 27017..."
+	local db1_id=$(docker container ls -a -f name=$postsys_db -q)
+	if [ ! -n "$db1_id" ]; then
+		docker run --name $postsys_db \
+			-p 27017:27017 \
+			--network $net_name \
+			-d mongo \
+			&& echo "Done!"
+	else
+		docker start $db1_id && echo "Done!"
+	fi
+
+	echo -n "Start MySQL on port 3306..."
+	local db2_id=$(docker container ls -a -f name=$identity_db -q)
+	if [ ! -n "$db2_id" ]; then
+		docker run --name $identity_db \
+			-p 3306:3306 \
+			-e MYSQL_ROOT_PASSWORD=test123 \
+			--network $net_name \
+			-d mysql \
+			&& echo "Done!"
+	else
+		docker start $db2_id && echo "Done!"
+	fi
+}
+
 function run_docker_container() {
-	echo "Start docker container 'test_$1'"
-	docker run --name test_$1 --rm -p $2 --link $3 -d $1
+	# $1 is the image tag
+	echo "Start docker container 'test_api_$1'"
+	docker run --name "test_api_$1" --rm -p $2 --network $net_name -d "ncc_api:$1"
 }
 
 function run_api_identity() {
-	run_docker_container "api_identity" "5001:80" "$identity_db"
+	run_docker_container "identity" "5001:80" $identity_db
 }
 
 function run_api_postsys() {
-	run_docker_container "api_postsys" "5002:80" "$identity_db"
+	run_docker_container "postsys" "5002:80" $identity_db
 }
 
 function run_api_postsys_comment() {
-	run_docker_container "api_postsys_comment" "5003:5003" "$identity_db"
+	run_docker_container "postsys_comment" "5003:80" $identity_db
 }
+
+function run_api_gateway() {
+	links=(test_api_identity test_api_postsys test_api_postsys_comment)
+	run_docker_container "gateway" "6660:80" $links
+}
+
+# docker network setup
+net_name="my-net"
+net_id=$(docker network ls -f name=$net_name -q)
+if [ ! -n "$net_id" ]; then
+	net_id=$(docker network create -d bridge $net_name) 
+fi
+echo "Used network id is $net_id"
+
+run_db
+
+echo "Sleep 10s..."
+sleep 10
 
 run_api_identity \
 	&& run_api_postsys \
-	&& run_api_postsys_comment
+	&& run_api_postsys_comment \
+	&& run_api_gateway
