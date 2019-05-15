@@ -69,8 +69,8 @@ namespace Ncc.China.Services.Postsys.Api
                 });
 
             services.Configure<MongoSettings>(options => {
-                options.ConnectionString = "mongodb://localhost:27017";
-                options.DatabaseName = "ncc_postsys";
+                options.ConnectionString = Configuration["MongoSettings:ConnectionString"];
+                options.DatabaseName = Configuration["MongoSettings:DatabaseName"];
             });
 
 
