@@ -1,0 +1,25 @@
+#!/bin/bash
+
+identity_db="ncc.identity"
+postsys_db="ncc.postsys"
+
+function run_docker_container() {
+	echo "Start docker container 'test_$1'"
+	docker run --name test_$1 --rm -p $2 --link $3 -d $1
+}
+
+function run_api_identity() {
+	run_docker_container "api_identity" "5001:80" "$identity_db"
+}
+
+function run_api_postsys() {
+	run_docker_container "api_postsys" "5002:80" "$identity_db"
+}
+
+function run_api_postsys_comment() {
+	run_docker_container "api_postsys_comment" "5003:5003" "$identity_db"
+}
+
+run_api_identity \
+	&& run_api_postsys \
+	&& run_api_postsys_comment
