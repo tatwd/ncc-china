@@ -45,6 +45,8 @@ module.exports = {
   ],
 
   plugins: [
+    // https://github.com/ElemeFE/element/issues/15261
+    // { src: '@/plugins/element-ui', ssr: false },
     '@/plugins/element-ui',
     {
       src: '@/plugins/mavon-editor',
