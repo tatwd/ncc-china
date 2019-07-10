@@ -1,0 +1,47 @@
+### Login System
+POST http://localhost:6660/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "login": "foo",
+    "password": "foo1234"
+}
+
+### Register System
+POST http://localhost:6660/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "username": "foo",
+    "email": "foo@test.com",
+    "password": "foo1234"
+}
+
+### Create category
+POST http://localhost:6660/api/v1/categories
+Content-Type: application/json
+
+{
+    "title": "testing",
+}
+
+### Get posts
+GET http://localhost:6660/api/v1/posts HTTP/1.1
+
+### Create posts
+POST http://localhost:6660/api/v1/posts
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+    "categoryId": "5d25ed895dd8751cb3965887",
+    "title": "Hello World",
+    "author": {
+        "id": "a06f0f09a8564948acd24e7e57982250",
+        "username": "foo",
+        "email": "foo@test.com",
+        "avatar_url": "http://avatar_url"
+    },
+    "HtmlText": "<p>hello world!</p>",
+    "tags": [ "test", "hello" ]
+}
