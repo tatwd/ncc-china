@@ -168,7 +168,7 @@ namespace Ncc.China.Services.Identity.Logic
                 // add some info to user_profile
                 _context.UserProfiles.Add(new UserProfile{
                     UserId = user.Id,
-                    AvatarUrl = "https://avatars3.githubusercontent.com/u/33537787?s=460&v=4",
+                    AvatarUrl = "/test-avatar.jpeg",
                 });
 
                 if (_context.SaveChanges() <= 0)

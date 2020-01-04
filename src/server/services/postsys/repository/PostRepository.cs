@@ -27,7 +27,9 @@ namespace Ncc.China.Services.Postsys.Repository
         public async Task<IEnumerable<Post>> GetPosts(string username_or_userid)
         {
             var documents = await _context.Posts
-                .Find(_ => _.Author.Username.Equals(username_or_userid) || _.Author.Id.Equals(username_or_userid))
+                .Find(_ => !_.IsDeleted && (_.Author.Username.Equals(username_or_userid)
+                    || _.Author.Id.Equals(username_or_userid))
+                )
                 .ToListAsync();
             return documents;
         }
@@ -115,11 +117,10 @@ namespace Ncc.China.Services.Postsys.Repository
                 .ToListAsync();
         }
 
-        public long DeletePost(string id)
+        public long DeletePost(string id, Post post)
         {
-            var filter = Builders<Post>.Filter.Eq("id", id);
-            var updated = Builders<Post>.Update.Set("is_deleted", true);
-            var result = _context.Posts.UpdateOneAsync(filter, updated).Result;
+            var _id = new ObjectId(id);
+            var result = _context.Posts.ReplaceOne(_ => _.Id == _id, post);
             return result.ModifiedCount;
         }
 

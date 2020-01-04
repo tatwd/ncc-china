@@ -134,7 +134,9 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var post = await _repository.GetPost(id);
                 if (post == null) return new FailedResponseMessage("不存在该记录");
-                var count = _repository.DeletePost(id);
+                post.IsDeleted = true;
+                post.UtcCreated = DateTime.UtcNow;
+                var count = _repository.DeletePost(id, post);
                 return new SucceededResponseMessage(count);
             }
             catch (Exception ex)
