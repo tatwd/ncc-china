@@ -9,7 +9,7 @@
           <span>.NET Core 社区</span>
           <img
             height="32"
-            src="https://github.githubassets.com/images/icons/emoji/unicode/1f1e8-1f1f3.png?v8"
+            src="/cn.png"
             alt=""
             class="vertical-middle"
           >
@@ -123,8 +123,8 @@ export default {
       ]
     },
     isLogin() {
-      let _isLogin = this.$store.state.auth.token
-      return _isLogin
+      let auth = this.$store.state.auth
+      return auth && auth.token
     }
   },
   methods: {

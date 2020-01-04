@@ -17,8 +17,9 @@ export default {
     NccUpdateinfo,
     NccUpdatepwd
   },
-  async asyncData({ app }) {
-    let currentuser = await app.$axios.$get('v1/user')
+  async asyncData({ $axios, store }) {
+    $axios.setToken(store.state.auth.token, 'Bearer')
+    let currentuser = await $axios.$get('v1/user')
     return {
       currentuser: currentuser.data
     }

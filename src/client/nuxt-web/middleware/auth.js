@@ -1,5 +1,6 @@
 export default function({ store, redirect }) {
-  if (store.state.auth.token) {
+  let auth = store.state.auth
+  if (auth && auth.token) {
     return redirect('/')
   }
 }

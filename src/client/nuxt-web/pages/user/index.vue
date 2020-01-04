@@ -18,7 +18,8 @@ export default {
     NccMycreate,
     NccMyjoin
   },
-  async asyncData({ app }) {
+  async asyncData({ app, store }) {
+    app.$axios.setToken(store.state.auth.token, 'Bearer')
     let myinfo = await app.$axios.$get('v1/user')
     let posts = await app.$axios.$get('v1/user/posts')
     let comments = await app.$axios.$get('v1/comments')

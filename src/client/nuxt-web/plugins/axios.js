@@ -1,6 +1,9 @@
 export default function({ $axios, redirect, store, isServer }) {
-  let token = store.state.auth.token
-  $axios.setToken(token, 'Bearer')
+  console.log(isServer)
+  let auth = store.state.auth
+  if (auth) {
+    $axios.setToken(auth.token, 'Bearer')
+  }
   // $axios.onRequest(req => {
   //   let token = store.state.auth.token
   //   $axios.setToken(token, 'Bearer')

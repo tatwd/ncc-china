@@ -1,7 +1,7 @@
 <template>
   <div class="layout-account">
     <nuxt />
-    <canvas id="particle-animation" />
+    <!-- <canvas id="particle-animation" /> -->
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import particleAnimation from '~/assets/js/particle-animation.js'
 
 export default {
   mounted() {
-    particleAnimation(document.querySelector('#particle-animation'))
+    // particleAnimation(document.querySelector('#particle-animation'))
   }
 }
 </script>

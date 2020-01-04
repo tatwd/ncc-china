@@ -55,7 +55,7 @@ export default {
       })
         .then(() => {
           this.$axios
-            .delete(`v1/user/posts/${this.posts[index].id}`)
+            .delete(`v1/posts/${this.posts[index].id}`)
             .then(res => {
               this.$message({
                 type: 'success',

@@ -27,8 +27,8 @@
             <el-aside width="340px">
               <ncc-createbtn />
               <ncc-hotpost />
-              <ncc-ad />
-              <ncc-communication />
+              <!-- <ncc-ad /> -->
+              <!-- <ncc-communication /> -->
               <ncc-friendship />
             </el-aside>
           </el-container>
