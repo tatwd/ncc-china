@@ -4,12 +4,16 @@ var mongoose = require('mongoose');
 var router = require('./router');
 var app = express();
 var port = process.env.PORT || 5003;
-var databaseName = 'postsys';
+var databaseName = 'ncc_postsys';
 var connectionString = `mongodb://localhost:27017/${databaseName}`;
 
 // connet mongodb
 mongoose.connect(
   connectionString,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
   function(err) {
     if (err) console.log(err.message);
   }
