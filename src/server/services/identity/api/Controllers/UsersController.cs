@@ -16,7 +16,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private IdentityDbContext  _context;
+        private readonly IdentityDbContext  _context;
 
         public UsersController(IdentityDbContext context)
         {

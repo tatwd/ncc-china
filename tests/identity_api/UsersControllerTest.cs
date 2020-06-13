@@ -1,8 +1,8 @@
 using System;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.InMemory;
 using Microsoft.AspNetCore.Mvc;
+using Ncc.China.Common;
 
 namespace Ncc.China.Services.Identity.Api.Test
 {
@@ -13,36 +13,36 @@ namespace Ncc.China.Services.Identity.Api.Test
 
     public class UsersControllerTest
     {
-        private IdentityDbContext _context;
-        private UsersController _controller;
-
-        public UsersControllerTest()
+        private static UsersController CreateUsersController()
         {
-            var _options = new DbContextOptionsBuilder<IdentityDbContext>()
+            var options = new DbContextOptionsBuilder<IdentityDbContext>()
                 .UseInMemoryDatabase(databaseName: "identity_api_test_db")
                 .Options;
-            _context = new IdentityDbContext(_options);
-            _controller = new UsersController(_context);
-
+            var context = new IdentityDbContext(options);
+            var salt = CryptoUtil.CreateSalt(10);
+            var encode = CryptoUtil.Encrypt("test123", salt);
             var user = new LoginUser
             {
                 Id = "329527ba9c344871a7d7f97ade476065",
                 Username = "test",
                 Email = "test@test.com",
-                Password = "9e903b73945d1664cba79dd611f957642ea780d8cec04a4b6ad773d01843d2ed",
-                Salt = "ewh45gwMpBPLYg==",
+                Password = encode,
+                Salt = salt,
                 UtcCreated = DateTime.UtcNow,
-                UtcUpdated = DateTime.UtcNow
+                UtcUpdated = DateTime.UtcNow,
             };
-            _context.LoginUsers.Add(user);
-            _context.SaveChanges();
+            context.LoginUsers.Add(user);
+            context.SaveChanges();
+
+            return new UsersController(context);
         }
 
         [Fact]
         public void test_get_user_by_id()
         {
-            var result = _controller.GetFromRoute(
+            var result = CreateUsersController().GetFromRoute(
                 id: "329527ba9c344871a7d7f97ade476065") as OkObjectResult;
+            Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
             Assert.Equal(MessageStatusCode.Succeeded, obj.Code);

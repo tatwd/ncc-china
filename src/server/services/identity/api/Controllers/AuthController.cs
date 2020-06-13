@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
 
-
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
     using Data;
@@ -23,8 +22,8 @@ namespace Ncc.China.Services.Identity.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private IdentityDbContext  _context;
-        private IConfiguration _configuration;
+        private readonly IdentityDbContext  _context;
+        private readonly IConfiguration _configuration;
 
         public AuthController(IdentityDbContext context,
             IConfiguration configuration)

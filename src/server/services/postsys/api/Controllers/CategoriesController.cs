@@ -11,7 +11,7 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public CategoriesController(ICategoryRepository categoryRepository)
         {

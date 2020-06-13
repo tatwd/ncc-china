@@ -17,8 +17,8 @@ namespace Ncc.China.Services.Postsys.Api.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private IPostRepository _postRepository;
-        private ICategoryRepository _categoryRepository;
+        private readonly IPostRepository _postRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public PostsController(IPostRepository postRepository, ICategoryRepository categoryRepository)
         {
