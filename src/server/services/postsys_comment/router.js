@@ -36,4 +36,8 @@ router
    // DELETE /api/:post_id/comments
    .delete(verifyToken, commentController.delete);
 
+router.route('/health').get(function (req, res) {
+  res.status(200).send('ok');
+})
+
 module.exports = router;
