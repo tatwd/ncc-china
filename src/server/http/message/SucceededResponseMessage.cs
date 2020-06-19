@@ -14,7 +14,7 @@ namespace Ncc.China.Http.Message
         public SucceededResponseMessage(string message, object data)
         {
             Code = MessageStatusCode.Succeeded;
-            Message = string.Format("succeeded:{0}", message);
+            Message = $"succeeded:{message}";
             Data = data;
         }
     }

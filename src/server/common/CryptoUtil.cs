@@ -2,7 +2,7 @@
 
 namespace Ncc.China.Common
 {
-    public class CryptoUtil
+    public static class CryptoUtil
     {
         public static string CreateSalt(int size)
         {
@@ -24,7 +24,7 @@ namespace Ncc.China.Common
             }
         }
 
-        public static string ByteArrayToString(byte[] bytes)
+        private static string ByteArrayToString(byte[] bytes)
         {
             var result = new System.Text.StringBuilder();
             foreach (var number in bytes)
@@ -34,7 +34,7 @@ namespace Ncc.China.Common
             return result.ToString();
         }
 
-        public static string Hexadecimalize(int number, bool hex = true, bool isUpper = true)
+        private static string Hexadecimalize(int number, bool hex = true, bool isUpper = true)
         {
             var result = new System.Text.StringBuilder();
             if (hex)
