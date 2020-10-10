@@ -2,6 +2,8 @@
 
 > .NET Core 中文社区。The .NET Core Community(NCC) of China.
 
+![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)
+
 ## 贡献
 
 你可以通过 Issue 和 Pull Request 的方式参与贡献。
