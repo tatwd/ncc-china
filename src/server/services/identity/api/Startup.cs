@@ -21,6 +21,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Ncc.China.Services.Identity.Logic;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -47,6 +48,8 @@ namespace Ncc.China.Services.Identity.Api
                         mysqlOptions.MigrationsAssembly("Ncc.China.Services.Identity.Api");
                     })
             );
+
+            services.AddScoped<UserService>();
 
             services.AddCors(options => {
                 // add default policy to allow all

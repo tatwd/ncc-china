@@ -16,51 +16,61 @@ namespace Ncc.China.Services.Identity.Api.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IdentityDbContext  _context;
+        private readonly UserService _userService;
 
-        public UsersController(IdentityDbContext context)
+        public UsersController(UserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
 
         private LoginUser GetUser()
         {
             var username = HttpContext.Items["username"] as string;
-            return new UserService(_context).GetUserByIdOrUsernameOrEmail(username);
+            return _userService.GetUserByIdOrUsernameOrEmail(username);
         }
 
         [Authorize]
         [HttpGet("api/user")]
         public IActionResult GetCurrentUser()
         {
-            var username = HttpContext.Items["username"] as string;
-            var user = new UserService(_context).GetUserByUsername(username); // TODO: support query by login name and id
-            return Ok(user);
+            using (_userService)
+            {
+                var username = HttpContext.Items["username"] as string;
+                var res = _userService.GetSimpleUserInfoByIdOrUsernameOrEmail(username);
+                return Ok(res);
+            }
         }
 
         [Authorize]
         [HttpPut("api/user")]
-        public IActionResult UpdateUserProfile([FromBody]UserProfileUpdateDto dto)
+        public IActionResult UpdateUserProfile([FromBody] UserProfileUpdateDto dto)
         {
-            var currentUser = GetUser();
-            var res = new UserService(_context).UpdateUserProfile(currentUser, dto);
-            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-            else return BadRequest(res);
+            using (_userService)
+            {
+                var currentUser = GetUser();
+                var res = _userService.UpdateUserProfile(currentUser, dto);
+                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+                else return BadRequest(res);
+            }
         }
 
         [Authorize]
         [HttpGet("api/users")]
-        public IActionResult GetFromQuery([FromQuery]string id)
+        public IActionResult GetFromQuery([FromQuery] string id)
         {
             return GetFromRoute(id);
         }
 
+        [Authorize]
         [HttpGet("api/users/{id}")]
-        public IActionResult GetFromRoute([FromRoute]string id)
+        public IActionResult GetFromRoute([FromRoute] string id)
         {
-            var res = new UserService(_context).GetUser(id);
-            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-            else return NotFound(res);
+            using (_userService)
+            {
+                var res = _userService.GetUser(id);
+                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+                else return NotFound(res);
+            }
         }
     }
 }
