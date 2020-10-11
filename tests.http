@@ -17,6 +17,11 @@ Content-Type: application/json
     "password": "foo1234"
 }
 
+### Get Current User Info (Auth)
+GET http://localhost:6660/api/v1/user
+Content-Type: application/json
+Authorization: Bearer <token>
+
 ### Create category
 POST http://localhost:6660/api/v1/categories
 Content-Type: application/json
@@ -28,7 +33,7 @@ Content-Type: application/json
 ### Get posts
 GET http://localhost:6660/api/v1/posts HTTP/1.1
 
-### Create posts
+### Create posts (Auth)
 POST http://localhost:6660/api/v1/posts
 Content-Type: application/json
 Authorization: Bearer <token>

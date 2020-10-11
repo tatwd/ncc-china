@@ -5,43 +5,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Ncc.China.Common;
+using Ncc.China.Services.Identity.Logic;
+using Ncc.China.Services.Identity.Api.Controllers;
+using Ncc.China.Http;
+using Ncc.China.Services.Identity.Logic.Dto;
+using Ncc.China.Http.Message;
 
 namespace Ncc.China.Services.Identity.Api.Test
 {
-    using Data;
-    using Controllers;
-    using Http;
-    using Http.Message;
-    using Logic.Dto;
-
     public class AuthControllerTest
     {
         private static AuthController CreateAuthController(bool initData = false)
         {
-            // setup IdentityDbContext
-            var options = new DbContextOptionsBuilder<IdentityDbContext>()
-                .UseInMemoryDatabase(databaseName: "identity_api_test_db")
-                .Options;
-            var context = new IdentityDbContext(options);
-            if (initData)
-            {
-                var salt = CryptoUtil.CreateSalt(10);
-                var encode = CryptoUtil.Encrypt("test123", salt);
-                var user = new LoginUser
-                {
-                    Username = "test",
-                    Email = "test@test.com",
-                    Password = encode,
-                    Salt = salt,
-                    UtcCreated = DateTime.UtcNow,
-                    UtcUpdated = DateTime.UtcNow,
-                };
-                context.LoginUsers.Add(user);
-                context.SaveChanges();
-            }
-
-            // setup IConfiguration
-            var config = new ConfigurationBuilder()
+            var mockContext = MockUtil.CreateIdentityDbContext();
+            var mockUserService = new UserService(mockContext);
+            var mockConfig = new ConfigurationBuilder()
                 .AddInMemoryCollection(new Dictionary<string, string>
                 {
                     ["Tokens:Issuer"] = "https://ncc.china",
@@ -49,7 +27,8 @@ namespace Ncc.China.Services.Identity.Api.Test
                     ["Tokens:SecurityKey"] = "this_is_a_test_security_key",
                 })
                 .Build();
-            return new AuthController(context, config);
+
+            return new AuthController(mockConfig, mockUserService);
         }
 
         [Fact]
