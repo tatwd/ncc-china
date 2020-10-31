@@ -3,14 +3,12 @@
     <el-container>
       <el-header
         height="auto"
-        class="theme pd0"
-      >
+        class="theme pd0">
         <el-row>
           <el-col
             :span="18"
-            :offset="3"
-          >
-            <ncc-header/>
+            :offset="3">
+            <ncc-header />
           </el-col>
         </el-row>
       </el-header>
@@ -18,11 +16,10 @@
       <el-row>
         <el-col
           :span="18"
-          :offset="3"
-        >
+          :offset="3">
           <el-container>
             <el-main class="pd0 mgr10">
-              <nuxt/>
+              <nuxt />
             </el-main>
             <el-aside width="340px">
               <ncc-createbtn />
@@ -37,13 +34,11 @@
 
       <el-footer
         height="auto"
-        class="theme"
-      >
+        class="theme">
         <el-row>
           <el-col
             :span="18"
-            :offset="3"
-          >
+            :offset="3">
             <ncc-footer />
           </el-col>
         </el-row>
