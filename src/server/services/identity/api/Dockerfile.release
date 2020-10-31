@@ -1,7 +1,7 @@
 # 此文件只用于发布使用
 # 必须要将其拷贝至 Release 版的文件夹中
 
-FROM microsoft/dotnet:aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.1-alpine
 WORKDIR /app
 EXPOSE 80
 
