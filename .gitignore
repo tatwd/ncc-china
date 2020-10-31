@@ -18,8 +18,4 @@ dist
 tmp
 public
 
-# package lock file
-package-lock.json
-yarn.lock
-
 .idea
