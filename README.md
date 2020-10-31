@@ -2,7 +2,7 @@
 
 > .NET Core 中文社区。The .NET Core Community(NCC) of China.
 
-![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)
+[![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)](https://github.com/tatwd/ncc-china/actions?query=workflow:%22Server+API+CI%22)
 
 ## Startup
 
