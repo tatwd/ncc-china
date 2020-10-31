@@ -3,12 +3,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var router = require('./router');
 var app = express();
-var databaseName = 'ncc_postsys';
-var connectionString = `mongodb://localhost:27017/${databaseName}`;
+var {nccPostsysDbConn} = require('./config')
 
 // connet mongodb
 mongoose.connect(
-  connectionString,
+  nccPostsysDbConn,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
