@@ -30,34 +30,41 @@ function run_db() {
 	fi
 }
 
-function run_docker_container() {
-	# $1 is the image tag
-	echo "Start docker container 'test_api_$1'"
-	docker run --name "test_api_$1" --rm -p $2 --network $net_name -d "ncc_api:$1"
-}
-
 function run_api_identity() {
-	run_docker_container "identity" "5001:80" $identity_db
+	echo "Start docker container 'test_api_identity'"
+	docker run --name "test_api_identity" --rm -p "5001:80" \
+		--network $net_name -d "ncc_api:identity"
+
 }
 
 function run_api_postsys() {
-	run_docker_container "postsys" "5002:80" $identity_db
+	echo "Start docker container 'test_api_postsys'"
+	docker run --name "test_api_postsys" --rm -p "5002:80" \
+		--network $net_name -d "ncc_api:postsys"
+
 }
 
 function run_api_postsys_comment() {
-	run_docker_container "postsys_comment" "5003:80" $identity_db
+	echo "Start docker container 'test_api_postsys_comment'"
+	docker run --name "test_api_postsys_comment" --rm -p "5003:80" \
+		-v "$PWD/build/api_postsys_comment/config.prod.js:/app/config.js" \
+		--network $net_name -d "ncc_api:postsys_comment"
 }
 
 function run_api_gateway() {
-	links=(test_api_identity test_api_postsys test_api_postsys_comment)
-	run_docker_container "gateway" "6660:80" $links
+	echo "Start docker container 'test_api_gateway'"
+	docker run --name "test_api_gateway" --rm -p "6660:80" \
+		--network $net_name \
+		-v "$PWD/build/api_gateway/ocelot.prod.json:/app/ocelot.json" \
+		-d "ncc_api:gateway"
+
 }
 
 # docker network setup
 net_name="my-net"
 net_id=$(docker network ls -f name=$net_name -q)
 if [ ! -n "$net_id" ]; then
-	net_id=$(docker network create -d bridge $net_name) 
+	net_id=$(docker network create -d bridge $net_name)
 fi
 echo "Used network id is $net_id"
 

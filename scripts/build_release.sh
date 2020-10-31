@@ -10,7 +10,7 @@ postsys_db="ncc.postsys"
 function build_identity_api() {
 	local api_name="api_identity"
 	local csproj="$services_dir_prefix/identity/api/Ncc.China.Services.Identity.Api.csproj"
-	
+
 	echo "=> Start to build $api_name ..."
 	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj" \
 		&& echo "=> Finished!"
@@ -19,7 +19,7 @@ function build_identity_api() {
 function build_postsys_api() {
 	local api_name="api_postsys"
 	local csproj="$services_dir_prefix/postsys/api/Ncc.China.Services.Postsys.Api.csproj"
-	
+
 	echo "=> Start to build $api_name ..."
 	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj" \
 		&& echo "=> Finished!"
@@ -28,7 +28,7 @@ function build_postsys_api() {
 function build_postsys_comment_api() {
 	local api_name="api_postsys_comment"
 	local proj_dir="$services_dir_prefix/postsys_comment"
-	
+
 	echo "=> Start build $api_name ..."
 	echo -n "=> Find 'build/$api_name' dir ..."
 	if [ ! -d "build/$api_name" ]; then
@@ -53,21 +53,6 @@ function build_gateway_api() {
 		&& echo "=> Finished!"
 }
 
-# if [ ! -n "$1" ]; then
-# 	build_identity_api \
-# 		&& build_postsys_api \
-# 		&& build_postsys_comment_api \
-# 		&& build_gateway_api
-# elif [ $1 == 1 ]; then
-# 	build_identity_api
-# elif [ $1 == 2 ]; then
-# 	build_postsys_api
-# elif [ $1 == 3 ]; then
-# 	build_postsys_comment_api
-# elif [ $1 == 0 ]; then
-# 	build_gateway_api
-# fi
-
 case $1 in
 	1) build_identity_api
 	;;
@@ -83,4 +68,3 @@ case $1 in
 		&& build_gateway_api
 	;;
 esac
-

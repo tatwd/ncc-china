@@ -46,4 +46,4 @@ case $1 in
 	;;
 esac
 
-docker image prune
+docker image prune -f

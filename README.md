@@ -4,6 +4,35 @@
 
 ![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)
 
+## Startup
+
+With docker:
+
+```bash
+make
+```
+
+If no docker, you must config a **MySQL** and **MongoDB** environments firstly.
+
+Run server api:
+
+```bash
+# run services
+./scripts/run_identity.sh
+./scripts/run_postsys.sh
+./scripts/run_postsys_comment.sh
+
+# run api gateway
+./scripts/run_api_gateway.sh
+```
+Run web client app:
+
+```bash
+cd src/client/nuxt-web
+yarn
+yarn dev
+```
+
 ## 贡献
 
 你可以通过 Issue 和 Pull Request 的方式参与贡献。
