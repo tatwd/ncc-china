@@ -29,7 +29,7 @@ export default {
       return [
         {
           title: 'dotNET China 项目',
-          to: 'hhttps://www.dotnetcore.xyz/'
+          to: 'https://www.dotnetcore.xyz/'
         },
         {
           title: 'Vue.js 中文社区',
