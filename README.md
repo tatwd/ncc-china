@@ -4,7 +4,7 @@
 
 [![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)](https://github.com/tatwd/ncc-china/actions?query=workflow:%22Server+API+CI%22)
 
-## Startup
+## Setup
 
 With make (will use docker):
 
