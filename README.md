@@ -6,13 +6,14 @@
 
 ## Startup
 
-With docker:
+With make (will use docker):
 
 ```bash
 make
 ```
+It will build server projects and make 3 docker images and start containers.
 
-If no docker, you must config a **MySQL** and **MongoDB** environments firstly.
+If no make tool or docker, you must config a **MySQL** and **MongoDB** environments firstly.
 
 Run server api:
 
