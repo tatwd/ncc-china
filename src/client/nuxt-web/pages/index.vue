@@ -78,7 +78,7 @@
             </el-col>
             <el-col :sm="12">
               <ncc-flex justify="end">
-                <span class="mglr10">{{ post.utcCreated | timeAgo }}前</span>
+                <span class="mglr10">{{ post.utcCreated | timeAgo }}</span>
               </ncc-flex>
             </el-col>
           </el-row>
