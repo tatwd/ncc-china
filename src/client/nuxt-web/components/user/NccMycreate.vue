@@ -17,7 +17,7 @@
             alidn="middle"
           >
             <el-col :sm="22">
-              <nuxt-link to="/user">
+              <nuxt-link :to="'/post/' + post.id">
                 {{ post.title }}
               </nuxt-link>
             </el-col>

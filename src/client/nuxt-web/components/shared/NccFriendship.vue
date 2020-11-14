@@ -28,12 +28,12 @@ export default {
     friends() {
       return [
         {
-          title: 'Vue.js 中文社区',
-          to: 'https://www.vue-js.com/'
+          title: 'dotNET China 项目',
+          to: 'hhttps://www.dotnetcore.xyz/'
         },
         {
-          title: 'Node.js 中文社区',
-          to: 'https://cnodejs.org/'
+          title: 'Vue.js 中文社区',
+          to: 'https://www.vue-js.com/'
         },
         {
           title: '掘金-帮助开发者成长的社区',

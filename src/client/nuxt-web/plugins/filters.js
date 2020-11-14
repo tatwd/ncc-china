@@ -15,6 +15,7 @@ function pluralize(time, label) {
 const filters = {
   timeAgo
 }
+
 export default filters
 
 Object.keys(filters).forEach(key => {
