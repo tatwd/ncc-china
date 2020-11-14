@@ -10,6 +10,9 @@ dist:
 test:
 	dotnet test
 
+test-web:
+	cd ./src/client/nuxt-web && yarn && yarn dev
+
 .PHONY: clean
 clean:
 	./scripts/stop.sh
