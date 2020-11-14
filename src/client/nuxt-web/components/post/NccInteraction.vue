@@ -41,7 +41,7 @@
             回复 {{ comment.replyTo.owner.username }}：
           </span>
         </span>
-        <span class="fr">{{ comment.utcCreated | timeAgo }}前</span>
+        <span class="fr">{{ comment.utcCreated | timeAgo }}</span>
         <p
           class="pointer mgt10"
           @click="showreplyInput(comment)"

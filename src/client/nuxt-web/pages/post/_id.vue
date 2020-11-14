@@ -9,7 +9,7 @@
         class="clearfix"
       >
         <h2 class="fs16 mgt0">{{ post.title }}</h2>
-        <span>发布于 {{ post.utcCreated | timeAgo }}前</span>
+        <span>发布于 {{ post.utcCreated | timeAgo }}</span>
         <span>作者 {{ post.author.username }}</span>
         <!-- <span>{{ browsenum }} 次浏览</span> -->
       </div>
