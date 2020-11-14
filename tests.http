@@ -33,6 +33,12 @@ Content-Type: application/json
 ### Get posts
 GET http://localhost:6660/api/v1/posts HTTP/1.1
 
+### Get post by id
+GET http://localhost:6660/api/v1/posts/5faf7b4cc4a5df000110b885 HTTP/1.1
+
+### Get post comments by id
+GET http://localhost:6660/api/v1/posts/5faf7b4cc4a5df000110b885/comments HTTP/1.1
+
 ### Create posts (Auth)
 POST http://localhost:6660/api/v1/posts
 Content-Type: application/json
