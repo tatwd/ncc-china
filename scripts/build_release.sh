@@ -12,7 +12,7 @@ function build_identity_api() {
 	local csproj="$services_dir_prefix/identity/api/Ncc.China.Services.Identity.Api.csproj"
 
 	echo "=> Start to build $api_name ..."
-	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj" \
+	dotnet publish -c Release -p:PublishReadyToRun=true -o "$build_dir/$api_name" "$csproj" \
 		&& echo "=> Finished!"
 }
 
@@ -21,7 +21,7 @@ function build_postsys_api() {
 	local csproj="$services_dir_prefix/postsys/api/Ncc.China.Services.Postsys.Api.csproj"
 
 	echo "=> Start to build $api_name ..."
-	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj" \
+	dotnet publish -c Release -p:PublishReadyToRun=true -o "$build_dir/$api_name" "$csproj" \
 		&& echo "=> Finished!"
 }
 
@@ -49,7 +49,7 @@ function build_gateway_api() {
 	local csproj="$server_dir/api_gateway/$version/Ncc.China.ApiGateway.csproj"
 
 	echo "=> Start to build $api_name:$version ..."
-	dotnet publish -c Release -o "$build_dir/$api_name" "$csproj" \
+	dotnet publish -c Release -p:PublishReadyToRun=true -o "$build_dir/$api_name" "$csproj" \
 		&& echo "=> Finished!"
 }
 

@@ -10,6 +10,8 @@ function run_db() {
 		docker run --name $postsys_db \
 			-p 27017:27017 \
 			--network $net_name \
+			-e MONGO_INITDB_ROOT_USERNAME=root \
+			-e MONGO_INITDB_ROOT_PASSWORD=test123 \
 			-d mongo \
 			&& echo "Done!"
 	else
@@ -23,7 +25,7 @@ function run_db() {
 			-p 3306:3306 \
 			-e MYSQL_ROOT_PASSWORD=test123 \
 			--network $net_name \
-			-d mysql:5.6 \
+			-d mysql:5.7 \
 			&& echo "Done!"
 	else
 		docker start $db2_id && echo "Done!"
@@ -34,14 +36,12 @@ function run_api_identity() {
 	echo "Start docker container 'test_api_identity'"
 	docker run --name "test_api_identity" --rm -p "5001:80" \
 		--network $net_name -d "ncc_api:identity"
-
 }
 
 function run_api_postsys() {
 	echo "Start docker container 'test_api_postsys'"
 	docker run --name "test_api_postsys" --rm -p "5002:80" \
 		--network $net_name -d "ncc_api:postsys"
-
 }
 
 function run_api_postsys_comment() {
@@ -57,7 +57,6 @@ function run_api_gateway() {
 		--network $net_name \
 		-v "$PWD/build/api_gateway/ocelot.prod.json:/app/ocelot.json" \
 		-d "ncc_api:gateway"
-
 }
 
 # docker network setup
