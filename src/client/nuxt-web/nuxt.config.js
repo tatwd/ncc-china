@@ -1,7 +1,7 @@
 const pkg = require('./package')
 
 module.exports = {
-  // mode: 'universal',
+  telemetry: false,
 
   head: {
     title: pkg.name,
