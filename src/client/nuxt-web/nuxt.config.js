@@ -33,13 +33,14 @@ module.exports = {
   },
 
   loading: {
-    color: '#fff'
+    color: '#682079'
   },
 
   css: [
     'element-ui/lib/theme-chalk/index.css',
     // 'element-ui/lib/theme-chalk/display.css',
     'mavon-editor/dist/css/index.css',
+    '~/assets/css/normalize.css',
     '~/assets/css/style.css',
     '~/assets/css/ele.css'
   ],

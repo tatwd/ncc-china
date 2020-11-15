@@ -1,7 +1,7 @@
 <template>
   <div
     id="ncc-footer"
-    class="pd20 white"
+    class="mgtb15"
   >
     <el-row>
       <span>.NET 专业中文社区</span> | <span><a href="https://github.com/tatwd/ncc-china">源码地址</a></span>
@@ -12,10 +12,10 @@
 </template>
 
 <style scoped>
-a {
+/* a {
   color: #fff;
 }
 a:hover {
   color: #000;
-}
+} */
 </style>

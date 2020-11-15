@@ -34,7 +34,7 @@
 
       <el-footer
         height="auto"
-        class="theme">
+        class="pd0">
         <el-row>
           <el-col
             :span="18"

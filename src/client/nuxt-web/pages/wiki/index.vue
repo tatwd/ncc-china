@@ -1,6 +1,13 @@
 <template>
   <div id="wiki">
     <el-card shadow="hover">
+      <div
+        slot="header"
+        class="clearfix"
+      >
+        <span><nuxt-link to="/">主页</nuxt-link> / Wiki</span>
+      </div>
+
       <p>本栏目致力于组织整理 .NET Core 中文社区的精华文章，便于大家快速查阅。</p>
       <p>欢迎热心开发者参与维护社区 Wiki 资料，你可以做：</p>
       <ol>

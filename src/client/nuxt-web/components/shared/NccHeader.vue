@@ -4,7 +4,7 @@
       type="flex"
       align="middle"
     >
-      <el-col :sm="4">
+      <el-col :sm="5">
         <h1 class="logo">
           <nuxt-link
             to="/"
@@ -19,7 +19,7 @@
           </nuxt-link>
         </h1>
       </el-col>
-      <el-col :sm="14">
+      <el-col :sm="13">
         <nuxt-link
           v-for="(nav, index) in navs"
           :key="index"
