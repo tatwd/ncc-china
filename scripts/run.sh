@@ -3,9 +3,13 @@
 identity_db="ncc.identity"
 postsys_db="ncc.postsys"
 
-function run_db() {
+function get_docker_container_id {
+ docker container ls -a -f name="$1" -q
+}
+
+function run_db {
 	echo -n "Start MongoDB on port 27017..."
-	local db1_id=$(docker container ls -a -f name=$postsys_db -q)
+	local db1_id=$(get_docker_container_id $postsys_db)
 	if [ ! -n "$db1_id" ]; then
 		docker run --name $postsys_db \
 			-p 27017:27017 \
@@ -15,11 +19,11 @@ function run_db() {
 			-d mongo \
 			&& echo "Done!"
 	else
-		docker start $db1_id && echo "Done!"
+		docker restart $db1_id && echo "Done!"
 	fi
 
 	echo -n "Start MySQL on port 3306..."
-	local db2_id=$(docker container ls -a -f name=$identity_db -q)
+	local db2_id=$(get_docker_container_id $identity_db)
 	if [ ! -n "$db2_id" ]; then
 		docker run --name $identity_db \
 			-p 3306:3306 \
@@ -28,35 +32,55 @@ function run_db() {
 			-d mysql:5.7 \
 			&& echo "Done!"
 	else
-		docker start $db2_id && echo "Done!"
+		docker restart $db2_id && echo "Done!"
 	fi
 }
 
-function run_api_identity() {
+function run_api_identity {
 	echo "Start docker container 'test_api_identity'"
-	docker run --name "test_api_identity" --rm -p "5001:80" \
+  local id=$(get_docker_container_id test_api_identity)
+  if [ ! -n "$id" ]; then
+	  docker run --name "test_api_identity" --rm -p "5001:80" \
 		--network $net_name -d "ncc_api:identity"
+  else
+    docker restart test_api_identity && echo "Done!"
+  fi
 }
 
-function run_api_postsys() {
+function run_api_postsys {
 	echo "Start docker container 'test_api_postsys'"
-	docker run --name "test_api_postsys" --rm -p "5002:80" \
-		--network $net_name -d "ncc_api:postsys"
+  local id=$(get_docker_container_id "test_api_postsys")
+  if [ ! -n "$id" ]; then
+  	docker run --name "test_api_postsys" --rm -p "5002:80" \
+	  	--network $net_name -d "ncc_api:postsys"
+  else
+    docker restart test_api_postsys && echo "Done!"
+  fi
 }
 
-function run_api_postsys_comment() {
+function run_api_postsys_comment {
 	echo "Start docker container 'test_api_postsys_comment'"
-	docker run --name "test_api_postsys_comment" --rm -p "5003:80" \
-		-v "$PWD/build/api_postsys_comment/config.prod.js:/app/config.js" \
-		--network $net_name -d "ncc_api:postsys_comment"
+  local id=$(get_docker_container_id "test_api_postsys_comment")
+  if [ ! -n "$id" ]; then
+    docker run --name "test_api_postsys_comment" --rm -p "5003:80" \
+      -v "$PWD/build/api_postsys_comment/config.prod.js:/app/config.js" \
+      --network $net_name -d "ncc_api:postsys_comment"
+  else
+    docker restart test_api_postsys_comment && echo "Done!"
+  fi
 }
 
-function run_api_gateway() {
+function run_api_gateway {
 	echo "Start docker container 'test_api_gateway'"
-	docker run --name "test_api_gateway" --rm -p "6660:80" \
-		--network $net_name \
-		-v "$PWD/build/api_gateway/ocelot.prod.json:/app/ocelot.json" \
-		-d "ncc_api:gateway"
+  local id=$(get_docker_container_id "test_api_gateway")
+  if [ ! -n "$id" ]; then
+    docker run --name "test_api_gateway" --rm -p "6660:80" \
+      --network $net_name \
+      -v "$PWD/build/api_gateway/ocelot.prod.json:/app/ocelot.json" \
+      -d "ncc_api:gateway"
+  else
+    docker restart test_api_gateway && echo "Done!"
+  fi
 }
 
 # docker network setup
