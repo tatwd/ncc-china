@@ -6,9 +6,11 @@
       :rules="rules"
       class="login-box"
     >
-      <nuxt-link to="/">
-        <h1 class="mgt0">.NET Core</h1>
-        <h2 class="mgt0">专业中文社区</h2>
+      <nuxt-link
+        to="/"
+        class="mgtb15 d-block text--parmary">
+        <h1 class="mgt0 mgb0">.NET</h1>
+        <h2 class="mgt0 mgb0">专业中文社区</h2>
       </nuxt-link>
       <el-form-item prop="username">
         <el-input

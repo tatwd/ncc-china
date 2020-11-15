@@ -4,18 +4,22 @@
       type="flex"
       align="middle"
     >
-      <el-col :sm="5">
+      <el-col :sm="4">
         <h1 class="logo">
-          <span>.NET Core 社区</span>
-          <img
-            height="32"
-            src="/cn.png"
-            alt=""
-            class="vertical-middle"
-          >
+          <nuxt-link
+            to="/"
+            class="text--white text:hover--white">
+            <span>.NET 社区</span>
+            <img
+              height="32"
+              src="/cn.png"
+              alt=""
+              class="vertical-middle"
+            >
+          </nuxt-link>
         </h1>
       </el-col>
-      <el-col :sm="13">
+      <el-col :sm="14">
         <nuxt-link
           v-for="(nav, index) in navs"
           :key="index"

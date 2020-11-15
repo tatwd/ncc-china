@@ -1,6 +1,6 @@
-# NCC China
+# ncc-china
 
-> .NET Core 中文社区。The .NET Core Community(NCC) of China.
+> .NET 中文社区网。The website for .NET Community of China(NCC).
 
 [![Server API CI](https://github.com/tatwd/ncc-china/workflows/Server%20API%20CI/badge.svg)](https://github.com/tatwd/ncc-china/actions?query=workflow:%22Server+API+CI%22)
 
@@ -11,7 +11,15 @@ With make (will use docker):
 ```bash
 make
 ```
-It will build server projects and make 3 docker images and start containers.
+It will build projects (server, client) and make 3 docker images and start containers.
+
+Then you start a website by:
+
+```bash
+make web
+# or dev mode
+make web-dev
+```
 
 If no make tool or docker, you must config a **MySQL** and **MongoDB** environments firstly.
 

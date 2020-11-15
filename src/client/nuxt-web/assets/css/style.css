@@ -2,20 +2,24 @@
   --main-color: #682079;
   --init-size: 5px;
 }
+
 body {
   background-color: #e9e9e9;
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
+
 a {
   text-decoration: none;
   outline: 0;
-  color: #909399;
-  transition: all .1s linear;
+  /* color: #909399;
+  transition: all 0.1s linear; */
 }
+
 a:hover {
   color: var(--main-color);
 }
+
 /* float */
 .fr {
   float: right;
@@ -129,4 +133,20 @@ a:hover {
 }
 .dib {
   display: inline-block;
+}
+
+.d-block {
+  display: block;
+}
+
+.text--parmary {
+  color: var(--main-color);
+}
+
+.text--white {
+  color: #fff;
+}
+
+.text\:hover--white:hover {
+  color: #fff;
 }
