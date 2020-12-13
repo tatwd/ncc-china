@@ -25,7 +25,7 @@
         <el-button
           v-for="(type, index) in types"
           :key="index"
-          type="primary"
+          type="info"
           size="small"
           @click="changetype(type.title)"
         >
@@ -33,6 +33,10 @@
         </el-button>
       </el-col>
     </el-row>
+    <el-card
+      v-show="!posts.length"
+      shadow="hover"
+    >查询为空！</el-card>
     <div
       v-for="post in posts"
       :key="post.id"
