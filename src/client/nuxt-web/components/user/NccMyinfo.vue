@@ -37,7 +37,7 @@
       </div>
       <div class="createtime mgb10">
         <span>注册时间：</span>
-        <label>{{ myinfo.utcCreated }}</label>
+        <label>{{ new Date(myinfo.utcCreated).toDateString() }}</label>
       </div>
     </el-card>
   </div>
