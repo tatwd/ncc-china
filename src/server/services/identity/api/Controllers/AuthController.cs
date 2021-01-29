@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using Ncc.China.Services.Identity.Api.Extensions;
 
 namespace Ncc.China.Services.Identity.Api.Controllers
 {
@@ -60,7 +62,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         {
             using (_userService)
             {
-                var currentUser = GetUser();
+                var currentUser = this.GetAuthUser();
                 var res = type.Equals("update")
                     ? _userService.UpdatePassword(currentUser, dto)
                     : new FailedResponseMessage($"不支持 `type={type}` 的请求");
@@ -92,10 +94,5 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             return new { token, type = "Bearer", expireAt = jwt.ValidTo };
         }
 
-        private LoginUser GetUser()
-        {
-            var username = HttpContext.Items["username"] as string;
-            return _userService.GetUserByIdOrUsernameOrEmail(username);
-        }
     }
 }

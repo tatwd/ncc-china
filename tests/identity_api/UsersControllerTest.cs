@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Ncc.China.Services.Identity.Logic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ncc.China.Services.Identity.Api.Test
 {
@@ -29,6 +30,9 @@ namespace Ncc.China.Services.Identity.Api.Test
             if (isLogged)
             {
                 mockController.HttpContext.Items["username"] = "test";
+                mockController.HttpContext.RequestServices = new ServiceCollection()
+                    .AddScoped(c => mockUserService)
+                    .BuildServiceProvider();
             }
 
             return mockController;
