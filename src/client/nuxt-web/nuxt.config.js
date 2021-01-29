@@ -4,7 +4,7 @@ module.exports = {
   telemetry: false,
 
   head: {
-    title: pkg.name,
+    title: '.NET 中文社区',
     meta: [
       {
         charset: 'utf-8'
