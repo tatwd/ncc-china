@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Ncc.China.Services.Identity.Api.Extensions
         /// </summary>
         /// <param name="controllerBase"></param>
         /// <returns></returns>
-        public static LoginUser GetAuthUser(this ControllerBase controllerBase)
+        public static Task<LoginUser> GetAuthUser(this ControllerBase controllerBase)
         {
             var userService = controllerBase.HttpContext.RequestServices.GetService<UserService>();
             var username = controllerBase.HttpContext.Items["username"] as string;

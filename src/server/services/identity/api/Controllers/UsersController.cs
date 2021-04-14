@@ -26,27 +26,21 @@ namespace Ncc.China.Services.Identity.Api.Controllers
 
         [Authorize]
         [HttpGet("api/user")]
-        public IActionResult GetCurrentUser()
+        public async Task<IActionResult> GetCurrentUser()
         {
-            using (_userService)
-            {
-                var username = HttpContext.Items["username"] as string;
-                var res = _userService.GetSimpleUserInfoByIdOrUsernameOrEmail(username);
-                return Ok(res);
-            }
+            var username = HttpContext.Items["username"] as string;
+            var data = await _userService.GetSimpleUserInfoByIdOrUsernameOrEmail(username);
+            return Ok(data.IsEmpty() ? R.Ko.Create("未找到该用户") : R.Ok.Create(data));
         }
 
         [Authorize]
         [HttpPut("api/user")]
-        public IActionResult UpdateUserProfile([FromBody] UserProfileUpdateDto dto)
+        public async Task<IActionResult> UpdateUserProfile([FromBody] UserProfileUpdateDto dto)
         {
-            using (_userService)
-            {
-                var currentUser = this.GetAuthUser();
-                var res = _userService.UpdateUserProfile(currentUser, dto);
-                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-                return BadRequest(res);
-            }
+            var currentUser = await this.GetAuthUser();
+            var res = _userService.UpdateUserProfile(currentUser, dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return BadRequest(res);
         }
 
         [Authorize]

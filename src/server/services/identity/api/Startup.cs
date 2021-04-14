@@ -49,7 +49,7 @@ namespace Ncc.China.Services.Identity.Api
                     })
             );
 
-            services.AddScoped<UserService>();
+            services.AddTransient<UserService>();
 
             services.AddCors(options => {
                 // add default policy to allow all

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using Ncc.China.Services.Identity.Logic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ncc.China.Services.Identity.Api.Test
@@ -50,9 +51,10 @@ namespace Ncc.China.Services.Identity.Api.Test
         }
 
         [Fact]
-        public void GetCurrentUser_Ok()
+        public async Task GetCurrentUser_Ok()
         {
-            var result = CreateUsersController(true).GetCurrentUser() as OkObjectResult;
+            var asyncResult = await CreateUsersController(true).GetCurrentUser();
+            var result = asyncResult as OkObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -60,9 +62,10 @@ namespace Ncc.China.Services.Identity.Api.Test
         }
 
         [Fact]
-        public void GetCurrentUser_Fail()
+        public async Task GetCurrentUser_Fail()
         {
-            var result = CreateUsersController().GetCurrentUser() as OkObjectResult;
+            var asyncResult = await CreateUsersController().GetCurrentUser();
+            var result = asyncResult as OkObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -70,7 +73,7 @@ namespace Ncc.China.Services.Identity.Api.Test
         }
 
         [Fact]
-        public void UpdateUserProfile_Ok()
+        public async Task UpdateUserProfile_Ok()
         {
             var dto = new UserProfileUpdateDto
             {
@@ -81,7 +84,8 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Bio = "foo user",
                 Gender = Gender.Male
             };
-            var result = CreateUsersController(true).UpdateUserProfile(dto) as OkObjectResult;
+            var asyncResult = await CreateUsersController(true).UpdateUserProfile(dto);
+            var result = asyncResult as OkObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -89,7 +93,7 @@ namespace Ncc.China.Services.Identity.Api.Test
         }
 
         [Fact]
-        public void UpdateUserProfile_Fail_WithSameUsername()
+        public async Task UpdateUserProfile_Fail_WithSameUsername()
         {
             var dto = new UserProfileUpdateDto
             {
@@ -100,7 +104,8 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Bio = "bar user",
                 Gender = Gender.Male
             };
-            var result = CreateUsersController(true).UpdateUserProfile(dto) as BadRequestObjectResult;
+            var asyncResult = await CreateUsersController(true).UpdateUserProfile(dto);
+            var result = asyncResult as BadRequestObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -108,7 +113,7 @@ namespace Ncc.China.Services.Identity.Api.Test
         }
 
         [Fact]
-        public void UpdateUserProfile_Fail_WithSameEmail()
+        public async Task UpdateUserProfile_Fail_WithSameEmail()
         {
             var dto = new UserProfileUpdateDto
             {
@@ -119,7 +124,8 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Bio = "bar user",
                 Gender = Gender.Male
             };
-            var result = CreateUsersController(true).UpdateUserProfile(dto) as BadRequestObjectResult;
+            var asyncResult = await CreateUsersController(true).UpdateUserProfile(dto);
+            var result = asyncResult as BadRequestObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);

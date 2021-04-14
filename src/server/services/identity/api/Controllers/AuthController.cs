@@ -58,17 +58,17 @@ namespace Ncc.China.Services.Identity.Api.Controllers
 
         [Authorize]
         [HttpPut("password")]
-        public IActionResult Post([FromQuery] string type, [FromBody] PasswordUpdateDto dto)
+        public async Task<IActionResult> Post([FromQuery] string type, [FromBody] PasswordUpdateDto dto)
         {
-            using (_userService)
+            if (type.Equals("update"))
             {
-                var currentUser = this.GetAuthUser();
-                var res = type.Equals("update")
-                    ? _userService.UpdatePassword(currentUser, dto)
-                    : new FailedResponseMessage($"不支持 `type={type}` 的请求");
-                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-                else return BadRequest(res);
+                return BadRequest(R.Ko.Create($"不支持 `type={type}` 的请求"));
             }
+
+            var currentUser = await this.GetAuthUser();
+            var res = _userService.UpdatePassword(currentUser, dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return BadRequest(res);
         }
 
         private object GenerateJwt(string subValue)

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Ncc.China.Common;
 using Ncc.China.Http.Message;
 using Ncc.China.Services.Identity.Data;
 using Ncc.China.Services.Identity.Logic.Dto;
 using Microsoft.Extensions.Logging;
+using Ncc.China.Http;
 
 namespace Ncc.China.Services.Identity.Logic
 {
@@ -47,27 +50,26 @@ namespace Ncc.China.Services.Identity.Logic
             });
         }
 
-        public LoginUser GetUserByIdOrUsernameOrEmail(string id_username_email)
+        public Task<LoginUser> GetUserByIdOrUsernameOrEmail(string idOrUsernameOrEmail)
         {
-            var user = _context.LoginUsers
-                .FirstOrDefault(u =>
-                    u.Id.Equals(id_username_email) ||
-                    u.Username.Equals(id_username_email) ||
-                    u.Email.Equals(id_username_email)
+            return _context.LoginUsers
+                .FirstOrDefaultAsync(u =>
+                    u.Id.Equals(idOrUsernameOrEmail) ||
+                    u.Username.Equals(idOrUsernameOrEmail) ||
+                    u.Email.Equals(idOrUsernameOrEmail)
                 );
-            return user;
         }
 
-        public BaseResponseMessage GetSimpleUserInfoByIdOrUsernameOrEmail(string username)
+        public async Task<SimpleUserInfoDto> GetSimpleUserInfoByIdOrUsernameOrEmail(string username)
         {
-            var user = GetUserByIdOrUsernameOrEmail(username);
+            var user = await GetUserByIdOrUsernameOrEmail(username);
             if (user == null)
             {
-                return new FailedResponseMessage("未找到该用户");
+                return SimpleUserInfoDto.Empty;
             }
-            var userProfile = _context.UserProfiles
-                .FirstOrDefault(u => u.UserId.Equals(user.Id));
-            return new SucceededResponseMessage(new
+            var userProfile = await _context.UserProfiles
+                .FirstOrDefaultAsync(u => u.UserId.Equals(user.Id));
+            return new SimpleUserInfoDto
             {
                 Id = user.Id,
                 Username = user.Username,
@@ -77,7 +79,7 @@ namespace Ncc.China.Services.Identity.Logic
                 Gender = userProfile?.Gender,
                 Bio = userProfile?.Bio,
                 Nickname = userProfile?.Nickname
-            });
+            };
         }
 
         public BaseResponseMessage Login(LoginDto dto, Func<string, object> generateTokenFunc = null)
@@ -229,7 +231,7 @@ namespace Ncc.China.Services.Identity.Logic
                 var encode = CryptoUtil.Encrypt(dto.Old, user.Salt);
                 if (!encode.Equals(user.Password))
                 {
-                    return new FailedResponseMessage("原密码错误");
+                    return R.Ko.Create("原密码错误");
                 }
 
                 var salt = CryptoUtil.CreateSalt(10);
@@ -239,13 +241,13 @@ namespace Ncc.China.Services.Identity.Logic
 
                 if (_context.SaveChanges() > 0)
                 {
-                    return new SucceededResponseMessage(null, "ok");
+                    return R.Ok.Create(true, "ok");
                 }
-                return new FailedResponseMessage("数据库操作异常");
+                return R.Ko.Create("数据库操作异常");
             }
             catch (Exception ex)
             {
-                return new FailedResponseMessage(ex.Message);
+                return R.Ko.Create(ex.Message);
             }
         }
 
