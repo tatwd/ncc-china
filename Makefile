@@ -1,22 +1,22 @@
 all: images
 	./scripts/run.sh
 
+web: apis
+	cd ./src/client/nuxt-web && yarn && yarn build && yarn start
+
+web-dev: apis
+	cd ./src/client/nuxt-web && yarn && yarn dev
+
+apis: images
+	./scripts/run.sh
 
 images: dist
 	./scripts/build_images.sh
 
-dist:
+dist: build-apis
+
+build-apis:
 	./scripts/build_release.sh
-	cd ./src/client/nuxt-web && yarn && yarn build
-
-web: apis
-	cd ./src/client/nuxt-web && yarn start
-
-web-dev: apis
-	cd ./src/client/nuxt-web && yarn dev
-
-apis:
-	./scripts/run.sh
 
 test:
 	dotnet test
