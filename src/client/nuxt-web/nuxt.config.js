@@ -2,6 +2,7 @@ const pkg = require('./package')
 
 module.exports = {
   telemetry: false,
+  buildModules: ['nuxt-vite'],
 
   head: {
     title: '.NET 中文社区',

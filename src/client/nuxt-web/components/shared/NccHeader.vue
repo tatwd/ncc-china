@@ -12,7 +12,7 @@
             <span>.NET 社区</span>
             <img
               height="32"
-              src="/cn.png"
+              src="~/static/cn.png"
               alt=""
               class="vertical-middle"
             >
@@ -103,7 +103,7 @@
 
 <script>
 import NccFlex from './NccFlex.vue'
-const Cookie = process.client ? require('js-cookie') : undefined
+// const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   components: {
@@ -134,7 +134,9 @@ export default {
   methods: {
     logout() {
       //console.log(1)
-      Cookie.remove('auth')
+      import('js-cookie').then(Cookie => {
+        Cookie.remove('auth')
+      })
       // this.$router.push('/user/signin')
       window.location.href = '/user/signin'
     }

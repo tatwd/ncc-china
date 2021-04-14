@@ -41,7 +41,7 @@
 </template>
 
 <script>
-const Cookie = process.client ? require('js-cookie') : undefined
+// const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   layout: 'account',
@@ -107,7 +107,9 @@ export default {
                   var expires =
                     (new Date(tokenManager.expireAt) - new Date()) /
                     (1000 * 60 * 60 * 24)
-                  Cookie.set('auth', auth, { expires })
+                  import('js-cookie').then(Cookie => {
+                    Cookie.set('auth', auth, { expires })
+                  })
                   this.$store.commit('setAuth', auth)
                   this.$router.push('/')
                 } else {
