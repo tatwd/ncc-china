@@ -37,30 +37,28 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpPost("login")]
         public IActionResult Post([FromBody] LoginDto dto)
         {
-            using (_userService)
-            {
-                var res = _userService.Login(dto, GenerateJwt);
-                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-                return BadRequest(res);
-            }
+            var currentUser = _userService.Login(dto);
+            var tokenManager = Util.GenerateJwt(currentUser.Id,
+                _configuration["Tokens:Issuer"],
+                _configuration["Tokens:Audience"],
+                DateTime.UtcNow.AddMinutes(30),  // expired after 30 minutes.
+                _configuration["Tokens:SecurityKey"]);
+            return Ok(R.Ok.Create(new {currentUser, tokenManager}));
         }
 
         [HttpPost("register")]
         public IActionResult Post([FromBody]RegisterDto dto)
         {
-            using (_userService)
-            {
-                var res = _userService.Register(dto);
-                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-                else return BadRequest(res);
-            }
+            var res = _userService.Register(dto);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return BadRequest(res);
         }
 
         [Authorize]
         [HttpPut("password")]
         public async Task<IActionResult> Post([FromQuery] string type, [FromBody] PasswordUpdateDto dto)
         {
-            if (type.Equals("update"))
+            if (type.Equals("update", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(R.Ko.Create($"不支持 `type={type}` 的请求"));
             }
@@ -71,28 +69,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
             return BadRequest(res);
         }
 
-        private object GenerateJwt(string subValue)
-        {
-            var claims = new []
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, subValue),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration["Tokens:SecurityKey"]));
 
-            var jwt = new JwtSecurityToken(
-                issuer: _configuration["Tokens:Issuer"],
-                audience: _configuration["Tokens:Audience"],
-                expires: DateTime.UtcNow.AddMinutes(30), // expired after 30 minutes.
-                claims:claims,
-                signingCredentials: new SigningCredentials(signingKey,
-                    SecurityAlgorithms.HmacSha256)
-            );
-            var token = new JwtSecurityTokenHandler()
-                .WriteToken(jwt);
-            return new { token, type = "Bearer", expireAt = jwt.ValidTo };
-        }
 
     }
 }

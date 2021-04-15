@@ -54,12 +54,9 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpGet("api/users/{id}")]
         public IActionResult GetFromRoute([FromRoute] string id)
         {
-            using (_userService)
-            {
-                var res = _userService.GetUser(id);
-                if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
-                return NotFound(res);
-            }
+            var res = _userService.GetUser(id);
+            if (res.Code == MessageStatusCode.Succeeded) return Ok(res);
+            return NotFound(res);
         }
     }
 }

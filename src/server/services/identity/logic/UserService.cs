@@ -8,6 +8,7 @@ using Ncc.China.Http.Message;
 using Ncc.China.Services.Identity.Data;
 using Ncc.China.Services.Identity.Logic.Dto;
 using Microsoft.Extensions.Logging;
+using Ncc.China.Common.Exceptions;
 using Ncc.China.Http;
 
 namespace Ncc.China.Services.Identity.Logic
@@ -82,46 +83,32 @@ namespace Ncc.China.Services.Identity.Logic
             };
         }
 
-        public BaseResponseMessage Login(LoginDto dto, Func<string, object> generateTokenFunc = null)
+        public SimpleUserInfoDto Login(LoginDto dto)
         {
-            try
+            var user = _context.LoginUsers
+                .FirstOrDefault(u => u.Username.Equals(dto.Login) || u.Email.Equals(dto.Login));
+
+            if (user == null)
+                throw new AppException(1, "该用户还未注册");
+
+            var encode = CryptoUtil.Encrypt(dto.Password, user.Salt);
+
+            if (!encode.Equals(user.Password))
+                throw new AppException(2, "密码错误");
+            var userProfile = _context.UserProfiles
+                .FirstOrDefault(u => u.UserId.Equals(user.Id));
+            var currentUser = new SimpleUserInfoDto
             {
-                var user = _context.LoginUsers
-                    .FirstOrDefault(u => u.Username.Equals(dto.Login) ||
-                        u.Email.Equals(dto.Login));
-                if (user == null)
-                {
-                    return new FailedResponseMessage("该用户还未注册");
-                }
-                var encode = CryptoUtil.Encrypt(dto.Password, user.Salt);
-                if (!encode.Equals(user.Password))
-                {
-                    return new FailedResponseMessage("密码错误");
-                }
-                var userProfile = _context.UserProfiles
-                    .FirstOrDefault(u => u.UserId.Equals(user.Id));
-                var currentUser = new
-                {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    Nickname = userProfile?.Nickname,
-                    Gender = userProfile?.Gender,
-                    AvatarUrl = userProfile?.AvatarUrl,
-                    UtcCreated = user.UtcCreated
-                };
-                if (generateTokenFunc == null) return new SucceededResponseMessage(currentUser);
-                var tokenManager = generateTokenFunc(currentUser.Id);
-                return new SucceededResponseMessage(new
-                {
-                    currentUser,
-                    tokenManager,
-                });
-            }
-            catch (Exception ex)
-            {
-                return new FailedResponseMessage(ex.Message);
-            }
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Nickname = userProfile?.Nickname,
+                Gender = userProfile?.Gender,
+                AvatarUrl = userProfile?.AvatarUrl,
+                UtcCreated = user.UtcCreated,
+                Bio = userProfile?.Bio
+            };
+            return currentUser;
         }
 
         public BaseResponseMessage Register(RegisterDto dto)

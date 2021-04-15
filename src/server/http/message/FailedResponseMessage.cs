@@ -11,13 +11,13 @@ namespace Ncc.China.Http.Message
         public FailedResponseMessage(string message)
         {
             Code = MessageStatusCode.Failed;
-            Message = $"failed:{message}";
+            Message = message;
         }
 
         public FailedResponseMessage(MessageStatusCode code, string message)
         {
             Code = code;
-            Message = $"failed:{message}";
+            Message = message;
         }
     }
 }

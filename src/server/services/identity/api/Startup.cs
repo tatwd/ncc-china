@@ -21,6 +21,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using Ncc.China.Common.Filters;
 using Ncc.China.Services.Identity.Logic;
 
 namespace Ncc.China.Services.Identity.Api
@@ -36,7 +37,10 @@ namespace Ncc.China.Services.Identity.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add<AppExceptionFilter>();
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             /* Server=localhost;Database=test;User=root;Password=test123; */
             var db = Configuration.GetConnectionString("IdentityDb");
