@@ -18,6 +18,7 @@ namespace Ncc.China.Common.Filters
                 context.ExceptionHandled = true;
                 var jsonStr =
                     $"{{\"code\":{exception.Code.ToString()},message:\"{exception.Message}\"}}";
+                context.HttpContext.Response.ContentType = "application/json; charset=utf-8";
                 context.HttpContext.Response.WriteAsync(jsonStr).GetAwaiter().GetResult();
             }
         }
