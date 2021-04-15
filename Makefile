@@ -7,6 +7,9 @@ web: apis
 web-dev: apis
 	cd ./src/client/nuxt-web && yarn && yarn dev
 
+web-pre:
+	cd ./src/client/nuxt-web && yarn && yarn dev
+
 apis: images
 	./scripts/run.sh
 
@@ -17,6 +20,15 @@ dist: build-apis
 
 build-apis:
 	./scripts/build_release.sh
+
+api-identity: build-identity-image
+	./scripts/run.sh 1
+
+build-identity-image: build-identity
+	./scripts/build_images.sh 1
+
+build-identity:
+	./scripts/build_release.sh 1
 
 test:
 	dotnet test

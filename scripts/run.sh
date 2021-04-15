@@ -96,7 +96,19 @@ run_db
 echo "Sleep 10s..."
 sleep 10
 
-run_api_identity \
-	&& run_api_postsys \
-	&& run_api_postsys_comment \
-	&& run_api_gateway
+
+case $1 in
+	1) run_api_identity
+	;;
+	2) run_api_postsys
+	;;
+	3) run_api_postsys_comment
+	;;
+	0) run_api_gateway
+	;;
+	*) run_api_identity \
+	  && run_api_postsys \
+	  && run_api_postsys_comment \
+	  && run_api_gateway
+	;;
+esac
