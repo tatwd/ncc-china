@@ -109,7 +109,7 @@ namespace Ncc.China.Services.Identity.Api.Test
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
-            Assert.Equal("failed:用户名已被占用", obj.Message);
+            Assert.Equal("用户名已被占用", obj.Message);
         }
 
         [Fact]
@@ -129,7 +129,7 @@ namespace Ncc.China.Services.Identity.Api.Test
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
-            Assert.Equal("failed:邮箱已被占用", obj.Message);
+            Assert.Equal("邮箱已被占用", obj.Message);
         }
     }
 }
