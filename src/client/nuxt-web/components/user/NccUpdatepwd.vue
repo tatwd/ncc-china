@@ -55,7 +55,7 @@
 </template>
 
 <script>
-const Cookie = process.client ? require('js-cookie') : undefined
+// const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   data() {
@@ -131,7 +131,9 @@ export default {
                     type: 'success'
                   })
                   this.$refs[updatepwdform].resetFields()
-                  Cookie.remove('auth')
+                  import('js-cookie').then(Cookie => {
+                    Cookie.remove('auth')
+                  })
                   window.location.href = '/user/signin'
                 } else {
                   this.$message({
