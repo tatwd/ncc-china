@@ -58,7 +58,7 @@ namespace Ncc.China.Services.Identity.Api.Controllers
         [HttpPut("password")]
         public async Task<IActionResult> Post([FromQuery] string type, [FromBody] PasswordUpdateDto dto)
         {
-            if (type.Equals("update", StringComparison.OrdinalIgnoreCase))
+            if (!type.Equals("update", StringComparison.OrdinalIgnoreCase))
             {
                 return BadRequest(R.Ko.Create($"不支持 `type={type}` 的请求"));
             }
