@@ -7,6 +7,7 @@ using Ncc.China.Services.Postsys.Repository;
 using Ncc.China.Http.Message;
 using Ncc.China.Services.Postsys.Logic.Dto;
 using MongoDB.Bson;
+using Ncc.China.Http;
 
 namespace Ncc.China.Services.Postsys.Logic
 {
@@ -49,7 +50,7 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var posts = await _repository.GetPosts();
                 var data = await this.Map(posts);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -63,7 +64,7 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var posts = await _repository.GetPosts(id_or_username);
                 var data = await this.Map(posts);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -77,7 +78,7 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var posts = await _repository.GetPostsByPage(dto.Page, dto.Limit, dto.Desc, dto.Category);
                 var data = await this.Map(posts);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -91,7 +92,7 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var posts = await _repository.GetPostsByPage(query, dto.Page, dto.Limit, dto.Desc, dto.Category);
                 var data = await this.Map(posts);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -105,7 +106,7 @@ namespace Ncc.China.Services.Postsys.Logic
             {
                 var posts = await _repository.GetHotPosts();
                 var data = await this.Map(posts);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -120,7 +121,7 @@ namespace Ncc.China.Services.Postsys.Logic
                 var post = await _repository.GetPost(id);
                 if (post == null) return new FailedResponseMessage("不存在该记录");
                 var data = await this.Map(post);
-                return new SucceededResponseMessage(data);
+                return R.Ok.Create(data);
             }
             catch (Exception ex)
             {
@@ -137,7 +138,7 @@ namespace Ncc.China.Services.Postsys.Logic
                 post.IsDeleted = true;
                 post.UtcCreated = DateTime.UtcNow;
                 var count = _repository.DeletePost(id, post);
-                return new SucceededResponseMessage(count);
+                return R.Ok.Create(count);
             }
             catch (Exception ex)
             {
@@ -161,11 +162,11 @@ namespace Ncc.China.Services.Postsys.Logic
                     Tags = dto.Tags
                 };
                 _repository.CreatePost(post);
-                return new SucceededResponseMessage(post.Id);
+                return R.Ok.Create(post.Id);
             }
             catch (Exception ex)
             {
-                return new FailedResponseMessage(ex.Message);
+                return R.Ko.Create(ex.Message);
             }
         }
     }

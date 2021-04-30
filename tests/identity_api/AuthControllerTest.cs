@@ -10,12 +10,16 @@ using Ncc.China.Services.Identity.Api.Controllers;
 using Ncc.China.Http;
 using Ncc.China.Services.Identity.Logic.Dto;
 using Ncc.China.Http.Message;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using Ncc.China.Services.Identity.Data;
 
 namespace Ncc.China.Services.Identity.Api.Test
 {
     public class AuthControllerTest
     {
-        private static AuthController CreateAuthController(bool initData = false)
+        private static AuthController CreateAuthController()
         {
             var mockContext = MockUtil.CreateIdentityDbContext();
             var mockUserService = new UserService(mockContext);
@@ -28,7 +32,19 @@ namespace Ncc.China.Services.Identity.Api.Test
                 })
                 .Build();
 
-            return new AuthController(mockConfig, mockUserService);
+            var serviceProvider = new ServiceCollection()
+                .AddTransient<UserService>((sp) => {
+                    return new UserService(mockContext);
+                })
+                .BuildServiceProvider();
+
+            var authController = new AuthController(mockConfig, mockUserService);
+            authController.ControllerContext.HttpContext = new DefaultHttpContext
+            {
+                RequestServices = serviceProvider
+            };
+
+            return authController;
         }
 
         [Fact]
@@ -56,7 +72,7 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Password = "test123",
                 Email = null
             };
-            var result = CreateAuthController(true).Post(dto) as BadRequestObjectResult;
+            var result = CreateAuthController().Post(dto) as BadRequestObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -71,7 +87,7 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Login = "test",
                 Password = "test123"
             };
-            var result = CreateAuthController(true).Post(dto) as ObjectResult;
+            var result = CreateAuthController().Post(dto) as ObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
@@ -86,11 +102,30 @@ namespace Ncc.China.Services.Identity.Api.Test
                 Login = "test@test.com",
                 Password = "test123"
             };
-            var result = CreateAuthController(true).Post(dto) as OkObjectResult;
+            var result = CreateAuthController().Post(dto) as OkObjectResult;
             Assert.NotNull(result);
             var obj = result.Value as BaseResponseMessage;
             Assert.NotNull(obj);
             Assert.Equal(MessageStatusCode.Succeeded, obj.Code);
         }
+
+        [Fact]
+        public async Task test_updatePassword_succeeded()
+        {
+            var authController = CreateAuthController();
+            authController.HttpContext.Items["username"] = "test";
+            var newPwd = new PasswordUpdateDto
+            {
+                Old = "test123",
+                New = "test321",
+            };
+            var res = await authController.Post("update", newPwd);
+            var result = res as OkObjectResult;
+            Assert.NotNull(result);
+            var obj = result.Value as BaseResponseMessage;
+            Assert.NotNull(obj);
+            Assert.Equal(MessageStatusCode.Succeeded, obj.Code);
+        }
+
     }
 }

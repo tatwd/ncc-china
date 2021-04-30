@@ -38,7 +38,7 @@ namespace Ncc.China.Services.Identity.Logic
             }
             var userProfile = _context.UserProfiles
                 .FirstOrDefault(u => u.UserId.Equals(user.Id));
-            return new SucceededResponseMessage(new
+            return R.Ok.Create(new
             {
                 Id = user.Id,
                 Username = user.Username,
@@ -150,7 +150,7 @@ namespace Ncc.China.Services.Identity.Logic
             {
                 return new FailedResponseMessage("数据库操作异常");
             }
-            return new SucceededResponseMessage(user.Id);
+            return R.Ok.Create(user.Id);
         }
 
         public BaseResponseMessage UpdateUserProfile(LoginUser currentUser, UserProfileUpdateDto dto)
@@ -192,13 +192,13 @@ namespace Ncc.China.Services.Identity.Logic
                 _context.UpdateRange(currentUser, profile);
                 if (_context.SaveChanges() > 0)
                 {
-                    return new SucceededResponseMessage(null, "ok");
+                    return R.Ok.Create(true, "ok");
                 }
-                return new FailedResponseMessage("数据库操作异常");
+                return R.Ko.Create("数据库操作异常");
             }
             catch (Exception ex)
             {
-                return new FailedResponseMessage(ex.Message);
+                return R.Ko.Create(ex.Message);
             }
         }
         public BaseResponseMessage UpdatePassword(LoginUser user, PasswordUpdateDto dto)

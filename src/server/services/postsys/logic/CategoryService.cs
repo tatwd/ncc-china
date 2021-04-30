@@ -6,6 +6,7 @@ using Ncc.China.Services.Postsys.Data;
 using Ncc.China.Services.Postsys.Repository;
 using Ncc.China.Http.Message;
 using Ncc.China.Services.Postsys.Logic.Dto;
+using Ncc.China.Http;
 
 namespace Ncc.China.Services.Postsys.Logic
 {
@@ -27,7 +28,7 @@ namespace Ncc.China.Services.Postsys.Logic
                     Title = dto.Title
                 };
                 _repository.CreateCategory(category);
-                return new SucceededResponseMessage(category.Id.ToString());
+                return R.Ok.Create(category.Id.ToString());
             }
             catch (Exception ex)
             {
@@ -40,7 +41,7 @@ namespace Ncc.China.Services.Postsys.Logic
             try
             {
                 var categories = await _repository.GetCategories();
-                return new SucceededResponseMessage(categories);
+                return R.Ok.Create(categories);
             }
             catch (Exception ex)
             {
