@@ -22,7 +22,7 @@
               <nuxt />
             </el-main>
             <el-aside width="340px">
-              <ncc-createbtn />
+              <ncc-create-button />
               <ncc-hotpost />
               <!-- <ncc-ad /> -->
               <!-- <ncc-communication /> -->
@@ -50,7 +50,7 @@
 
 <script>
 import NccHeader from '~/components/shared/NccHeader.vue'
-import NccCreatebtn from '~/components/post/NccCreatebtn.vue'
+import NccCreateButton from '~/components/post/NccCreateButton.vue'
 import NccHotpost from '~/components/post/NccHotpost.vue'
 import NccAd from '~/components/shared/NccAd.vue'
 import NccCommunication from '~/components/shared/NccCommunication.vue'
@@ -61,7 +61,7 @@ import NccBacktop from '~/components/shared/NccBacktop.vue'
 export default {
   components: {
     NccHeader,
-    NccCreatebtn,
+    NccCreateButton,
     NccHotpost,
     NccAd,
     NccCommunication,
