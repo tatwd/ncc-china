@@ -155,11 +155,16 @@ export default {
     },
     submitForm(topicform) {
       setTimeout(() => {
-        this.$axios.$post('v1/posts', this.model).then(res => {
-          if (res.code == 0) {
-            this.$router.push('/')
-          }
-        })
+        this.$axios
+          .$post('v1/posts', this.model)
+          .then(res => {
+            if (res.code == 0) {
+              this.$router.push('/')
+            }
+          })
+          .catch(err => {
+            console.log(err)
+          })
       })
     },
     handleClose(tag) {
