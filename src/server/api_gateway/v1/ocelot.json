@@ -157,5 +157,8 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:6660"
+  },
+  "HttpHandlerOptions": {
+    "UseTracing": true
   }
 }

@@ -21,7 +21,7 @@ make web
 make web-dev
 ```
 
-If no make tool or docker, you must config a **MySQL** and **MongoDB** environments firstly.
+If no make tool or docker, you must config a **Jaeger**, **MySQL** and **MongoDB** environments firstly.
 
 Run server api:
 

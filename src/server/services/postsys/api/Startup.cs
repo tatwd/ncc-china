@@ -17,6 +17,8 @@ using Microsoft.IdentityModel.Tokens;
 using Ncc.China.Services.Postsys.Data;
 using Ncc.China.Services.Postsys.Repository;
 using Newtonsoft.Json;
+using OpenTracing;
+using OpenTracing.Util;
 
 namespace Ncc.China.Services.Postsys.Api
 {
@@ -33,6 +35,19 @@ namespace Ncc.China.Services.Postsys.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton<ITracer>(sp =>
+            {
+                var loggerFactory = sp.GetService<ILoggerFactory>();
+                var config = Jaeger.Configuration.FromIConfiguration(loggerFactory, Configuration);
+                // sampler port 5778/http
+                // reporter port 6831/udp
+                var tracer = config.GetTracer();
+                GlobalTracer.Register(tracer);
+                return tracer;
+            });
+            services.AddOpenTracing();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {

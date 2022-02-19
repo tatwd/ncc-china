@@ -36,12 +36,35 @@ function run_db {
 	fi
 }
 
+function run_jaeger {
+  local jaeger_name="test_jaeger"
+	echo "Start docker container '$jaeger_name'"
+  local id=$(get_docker_container_id $jaeger_name)
+  if [ ! -n "$id" ]; then
+    docker run -d --rm --name $jaeger_name \
+      --network $net_name \
+      -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
+      -p 5775:5775/udp \
+      -p 6831:6831/udp \
+      -p 6832:6832/udp \
+      -p 5778:5778 \
+      -p 16686:16686 \
+      -p 14250:14250 \
+      -p 14268:14268 \
+      -p 14269:14269 \
+      -p 9411:9411 \
+      jaegertracing/all-in-one:1.31
+  else
+    docker restart $jaeger_name && echo "Done!"
+  fi
+}
+
 function run_api_identity {
 	echo "Start docker container 'test_api_identity'"
   local id=$(get_docker_container_id test_api_identity)
   if [ ! -n "$id" ]; then
 	  docker run --name "test_api_identity" --rm -p "5001:80" \
-		--network $net_name -d "ncc_api:identity"
+		  --network $net_name -d "ncc_api:identity"
   else
     docker restart test_api_identity && echo "Done!"
   fi
@@ -76,6 +99,7 @@ function run_api_gateway {
   if [ ! -n "$id" ]; then
     docker run --name "test_api_gateway" --rm -p "6660:80" \
       --network $net_name \
+      -v "$PWD/build/api_gateway/appsettings.json:/app/appsettings.json" \
       -v "$PWD/build/api_gateway/ocelot.prod.json:/app/ocelot.json" \
       -d "ncc_api:gateway"
   else
@@ -98,17 +122,18 @@ sleep 10
 
 
 case $1 in
-	1) run_api_identity
+	1) run_jaeger && run_api_identity
 	;;
-	2) run_api_postsys
+	2) run_jaeger && run_api_postsys
 	;;
 	3) run_api_postsys_comment
 	;;
-	0) run_api_gateway
+	0) run_jaeger && run_api_gateway
 	;;
-	*) run_api_identity \
+	*) run_jaeger \
+    && run_api_identity \
 	  && run_api_postsys \
 	  && run_api_postsys_comment \
-	  && run_api_gateway
+    && run_api_gateway
 	;;
 esac

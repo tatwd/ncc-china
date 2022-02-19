@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+// using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Ncc.China.ApiGateway
@@ -20,5 +21,10 @@ namespace Ncc.China.ApiGateway
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+            // Host.CreateDefaultBuilder(args)
+            //     .ConfigureWebHostDefaults(webBuilder =>
+            //     {
+            //         webBuilder.UseStartup<Startup>();
+            //     });
     }
 }
