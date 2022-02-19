@@ -10,16 +10,18 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Jaeger" Version="0.3.7" />
+    <PackageReference Include="OpenTracing.Contrib.NetCore" Version="0.7.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\logic\Ncc.China.Services.Identity.Logic.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Update="Dockerfile.release">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  
+
 </Project>

@@ -1,5 +1,5 @@
 # stop container will remove automatically
-docker run -d --rm --name jaeger \
+docker run -d --rm --name test_jaeger \
   -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 \
   -p 5775:5775/udp \
   -p 6831:6831/udp \

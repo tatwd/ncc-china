@@ -13,9 +13,14 @@ using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System.IO;
-using Jaeger;
+// using Jaeger;
 using OpenTracing;
 using OpenTracing.Util;
+// using Jaeger.Samplers;
+// using Jaeger.Senders;
+// using Jaeger.Senders.Thrift;
+// using OpenTelemetry.Trace;
+// using Microsoft.Extensions.Hosting;
 
 namespace Ncc.China.ApiGateway
 {
@@ -32,6 +37,7 @@ namespace Ncc.China.ApiGateway
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // services.AddControllers();
 
             services.AddCors(options => {
                 // add default policy to allow all
@@ -53,15 +59,21 @@ namespace Ncc.China.ApiGateway
             services.AddSingleton<ITracer>(sp =>
             {
                 var loggerFactory = sp.GetService<ILoggerFactory>();
-                var config = new Configuration("NccChinaApiGateway", loggerFactory);
+                var config = Jaeger.Configuration.FromIConfiguration(loggerFactory, Configuration);
                 // sampler port 5778/http
                 // reporter port 6831/udp
                 var tracer = config.GetTracer();
                 GlobalTracer.Register(tracer);
                 return tracer;
             });
-
             services.AddOpenTracing();
+
+            // services.AddOpenTelemetryTracing((builder) => builder
+            //     .AddAspNetCoreInstrumentation()
+            //     .AddJaegerExporter()
+            // );
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -80,6 +92,12 @@ namespace Ncc.China.ApiGateway
 
             // app.UseHttpsRedirection();
             app.UseMvc();
+            // app.UseRouting();
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllers();
+            // });
+
             app.UseOcelot().Wait();
         }
     }

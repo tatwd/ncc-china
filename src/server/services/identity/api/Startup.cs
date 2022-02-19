@@ -23,6 +23,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Ncc.China.Common.Filters;
 using Ncc.China.Services.Identity.Logic;
+using OpenTracing;
+using OpenTracing.Util;
 
 namespace Ncc.China.Services.Identity.Api
 {
@@ -41,6 +43,18 @@ namespace Ncc.China.Services.Identity.Api
             {
                 options.Filters.Add<AppExceptionFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddSingleton<ITracer>(sp =>
+            {
+                var loggerFactory = sp.GetService<ILoggerFactory>();
+                var config = Jaeger.Configuration.FromIConfiguration(loggerFactory, Configuration);
+                // sampler port 5778/http
+                // reporter port 6831/udp
+                var tracer = config.GetTracer();
+                GlobalTracer.Register(tracer);
+                return tracer;
+            });
+            services.AddOpenTracing();
 
             /* Server=localhost;Database=test;User=root;Password=test123; */
             var db = Configuration.GetConnectionString("IdentityDb");
