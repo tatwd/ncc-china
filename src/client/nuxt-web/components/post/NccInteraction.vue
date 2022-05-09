@@ -118,7 +118,7 @@ export default {
     },
 
     createComment(data, cb) {
-      if (!this.$store.state.auth.user) {
+      if (!this.$store.state.auth?.user) {
         this.$router.push('/user/signin')
       } else {
         data.owner = {
