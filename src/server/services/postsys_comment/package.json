@@ -19,7 +19,7 @@
     "@chankamlam/express-jaeger": "^1.1.29",
     "body-parser": "^1.18.3",
     "express": "^4.17.3",
-    "jsonwebtoken": "^8.3.0",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.3.6"
   },
   "devDependencies": {
